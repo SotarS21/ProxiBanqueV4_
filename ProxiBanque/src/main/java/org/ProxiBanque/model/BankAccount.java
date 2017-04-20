@@ -7,18 +7,27 @@ import javax.persistence.Id;
 public abstract class BankAccount {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long accountNumber;
 	private double sold;
+
+	public long getAccountNumber() {
+		return accountNumber;
+	}
+
+	public void setAccountNumber(long accountNumber) {
+		this.accountNumber = accountNumber;
+	}
 
 	public BankAccount() {
 		super();
 	}
+
 	public BankAccount(double sold) {
 		super();
 		this.sold = sold;
 	}
-	
+
 	public double getSold() {
 		return sold;
 	}
@@ -26,8 +35,5 @@ public abstract class BankAccount {
 	public void setSold(double sold) {
 		this.sold = sold;
 	}
-	
-	
-	
-	
+
 }
