@@ -1,16 +1,19 @@
 package org.ProxiBanque.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="")
+@Table(name="CLIENT")
 public class Client extends Person{
 
 	private CurrentAccount currentAccount;
 	private SavingAccount safeAccount;
 	private e_ClientType type;
 	private boolean isRitch;
+	@ManyToOne(fetch=FetchType.LAZY )
 	private Advisor advisor;
 	
 	
