@@ -1,12 +1,14 @@
 package org.ProxiBanque.model;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="DIRECTOR")
+@DiscriminatorValue("D")
 public class Director extends Person{
 	
 	@Embedded

@@ -1,6 +1,7 @@
 package org.ProxiBanque.model;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
@@ -8,6 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="CLIENT")
+@DiscriminatorValue("C")
 public class Client extends Person{
 
 	@Column(name="CURRENTACCOUNT")

@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="ADVISOR")
+@DiscriminatorValue("A")
 public class Advisor extends Person{
 
 	@Embedded
