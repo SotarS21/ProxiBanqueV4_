@@ -1,7 +1,16 @@
 package org.ProxiBanque.model;
 
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="DIRECTOR")
 public class Director extends Person{
 	
+	@Embedded
+	@Column(name="USER")
 	private User user;
 
 	public Director(String firstName, String lastName, Address address, User user) {

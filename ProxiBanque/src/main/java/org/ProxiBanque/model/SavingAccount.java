@@ -1,7 +1,12 @@
 package org.ProxiBanque.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+
+@Entity
 public class SavingAccount extends BankAccount{
 	
+	@Column(name="TAUXREMUNERATION")
 	private double tauxDeRemuneration;
 
 	public SavingAccount(double tauxDeRemuneration, double sold, e_AccountType type) {

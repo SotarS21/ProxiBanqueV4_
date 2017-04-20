@@ -1,13 +1,13 @@
 package org.ProxiBanque.model;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.Embeddable;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
+@Embeddable
 @Table(name="USER")
 public class User {
 	
@@ -16,7 +16,10 @@ public class User {
 	@Column(name="IDUSER")
 	private Long idUser = 1L;
 	
+	@Column(name="LOGIN")
 	private String login;
+	
+	@Column(name="PASSWORD")
 	private String password;
 	
 	

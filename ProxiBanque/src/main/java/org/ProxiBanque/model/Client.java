@@ -1,5 +1,6 @@
 package org.ProxiBanque.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
@@ -9,11 +10,20 @@ import javax.persistence.Table;
 @Table(name="CLIENT")
 public class Client extends Person{
 
+	@Column(name="CURRENTACCOUNT")
 	private CurrentAccount currentAccount;
+	
+	@Column(name="SAFEACCOUNT")
 	private SavingAccount safeAccount;
+	
+	@Column(name="TYPE")
 	private e_ClientType type;
+	
+	@Column(name="ISRICH")
 	private boolean isRitch;
-	@ManyToOne(fetch=FetchType.LAZY )
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@Column(name="ADVISOR")
 	private Advisor advisor;
 	
 	
