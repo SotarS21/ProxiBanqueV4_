@@ -36,7 +36,7 @@ public class Agence {
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade={CascadeType.PERSIST, CascadeType.REFRESH}, mappedBy="AGENCE")
 	@Column(name="CLIENTS")
-	private Collection<Client> clients;
+	private Collection<Client> clients; 
 	
 	public DateFormat getDateCreation() {
 		return dateCreation;
