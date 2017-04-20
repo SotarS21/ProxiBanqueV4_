@@ -28,6 +28,10 @@ public class Director extends Person{
 		return user;
 	}
 
+	public Director() {
+		super();
+	}
+
 	
 	
 	

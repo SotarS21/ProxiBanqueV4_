@@ -13,11 +13,12 @@ import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
 @DiscriminatorColumn(name="TYPEPERSON")
 @Table(name="PERSON")
-public abstract class Person {
+public class Person {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -26,6 +27,13 @@ public abstract class Person {
 	
 	@Column(name="FIRSTNAME")
 	private String firstName;
+	
+	@Column(name="EMAIL")
+	private String email;
+	
+	@Column(name="CELLPHONE")
+	private String cellphone;
+	
 	
 	@Column(name="LASTNAME")
 	private String lastName;
@@ -37,6 +45,16 @@ public abstract class Person {
 	@ManyToOne(fetch=FetchType.LAZY)
 	private Agence agence;
 	
+	
+	public Person(String firstName, String email, String cellphone, String lastName, Address address, Agence agence) {
+		super();
+		this.firstName = firstName;
+		this.email = email;
+		this.cellphone = cellphone;
+		this.lastName = lastName;
+		this.address = address;
+		this.agence = agence;
+	}
 	public Person(String firstName, String lastName, Address address) {
 		super();
 		this.firstName = firstName;
@@ -79,5 +97,16 @@ public abstract class Person {
 		this.agence = agence;
 	}
 	
-	
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getCellphone() {
+		return cellphone;
+	}
+	public void setCellphone(String cellphone) {
+		this.cellphone = cellphone;
+	}
 }

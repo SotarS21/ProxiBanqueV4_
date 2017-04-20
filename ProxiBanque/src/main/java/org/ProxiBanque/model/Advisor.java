@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name="ADVISOR")
 @DiscriminatorValue("A")
@@ -38,6 +39,9 @@ public class Advisor extends Person{
 	}
 	public void setUser(User user) {
 		this.user = user;
+	}
+	public Advisor() {
+		super();
 	}
 	
 	

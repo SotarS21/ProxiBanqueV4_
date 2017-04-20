@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/template/template.xhtml">
+
+	
+	<ui:define name="content">
+<!-- 		<f:metadata> -->
+<!-- 			<f:event type="preRenderView" -->
+<!-- 				listener="#{clientController.loadClients()}" /> -->
+<!-- 		</f:metadata> -->
+
+		<div id="container">
+			<div id="content">
+				<h:form id="form">
+					<p:growl id="msgs" showDetail="true" />
+					<p:dataTable value="#{clientController.listClient}" editable="true"
+						var="tempClient" style="margin-bottom:20px" scrollable="true"
+						scrollHeight="800" scrollWidth="1600" >
+						<f:facet name="header">Liste des clients</f:facet>
+						<p:ajax event="rowEdit"
+							listener="#{clientController.updateClient(tempClient)}"
+							update=":form:msgs" />
+						<p:ajax event="rowEditCancel"
+							listener="#{clientController.cancel()}" update=":form:msgs" />
+
+						<p:column headerText="Liste Compte" style="width:40px">
+							<p:rowToggler />
+						</p:column>
+						<p:column headerText="Prénom" sortBy="#{tempClient.firstName}">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{tempClient.firstName}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText value="#{tempClient.firstName}" style="width:100%" />
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+						<p:column  headerText="Nom" sortBy="#{tempClient.lastName}">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{tempClient.lastName}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText value="#{tempClient.lastName}" style="width:100%" />
+								</f:facet>
+							</p:cellEditor>
+
+						</p:column>
+						<p:column headerText="Email">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{tempClient.email}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText value="#{tempClient.email}" style="width:100%" />
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+						<p:column headerText="Téléphone">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{tempClient.cellphone}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText value="#{tempClient.cellphone}" style="width:100%" />
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+<!-- 						<p:column headerText="Conseiller"> -->
+<!-- 							<p:cellEditor> -->
+<!-- 								<f:facet name="output"> -->
+<!-- 									<h:outputText value="#{tempClient.adviserCurrent.lastName}" /> -->
+<!-- 								</f:facet> -->
+<!-- 								<f:facet name="input"> -->
+<!-- 									<p:inputText value="#{tempClient.adviserCurrent.lastName}" -->
+<!-- 										style="width:100%" /> -->
+<!-- 								</f:facet> -->
+<!-- 							</p:cellEditor> -->
+<!-- 						</p:column> -->
+						<p:column headerText="Adresse">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{tempClient.address.number}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText value="#{tempClient.address.number}" style="width:100%" />
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+						<p:column headerText="Code postal">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{tempClient.address.zipCode}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText value="#{tempClient.address.zipCode}" style="width:100%" />
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+						<p:column headerText="Ville">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{tempClient.address.town}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText value="#{tempClient.address.town}" style="width:100%" />
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+						<p:column headerText="Ajout compte courrant" style="width:90px">
+							<p:commandButton  title="add current"
+								actionListener="#{clientController.addCurrentAccount(tempClient)}"
+								ajax="false" />
+						</p:column>
+						<p:column headerText="Ajout compte epargne" style="width:90px">
+							<p:commandButton  title="add saving"
+								actionListener="#{clientController.addSavingAccount(tempClient)}"
+								ajax="false" />
+						</p:column>
+						<p:column headerText="Supprimer" style="width:90px">
+							<p:commandButton icon="ui-icon-trash" title="Delete this client"
+								actionListener="#{clientController.deleteClient(tempClient.id)}"
+								ajax="false" />
+						</p:column>
+						<p:column headerText="Modifier" style="width:80px">
+							<p:rowEditor />
+						</p:column>
+						<p:rowExpansion>
+							<p:dataTable value="#{tempClient.accounts}" var="account"
+								resizableColumns="true">
+								<f:facet name="header">
+									<h:outputText value="Détail compte"></h:outputText>
+								</f:facet>
+								<p:column colspan="2">
+									<f:facet name="header">
+										<h:outputText value="Type"></h:outputText>
+									</f:facet>
+									<h:outputText value="#{account.type}" />
+								</p:column>
+								<p:column colspan="2">
+									<f:facet name="header">
+										<h:outputText value="Numéro"></h:outputText>
+									</f:facet>
+									<h:outputText value="#{account.numAccount}" />
+								</p:column>
+								<p:column colspan="2">
+									<f:facet name="header">
+										<h:outputText value="Solde"></h:outputText>
+									</f:facet>
+									<h:outputText value="#{account.sold}" />
+								</p:column>
+								<p:column colspan="2">
+									<f:facet name="header">
+										<h:outputText value="Date ouverture"></h:outputText>
+									</f:facet>
+									<h:outputText value="#{account.openDate}" />
+								</p:column>
+							</p:dataTable>
+						</p:rowExpansion>
+
+
+					</p:dataTable>
+				</h:form>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

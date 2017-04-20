@@ -5,17 +5,19 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name="CLIENT")
 @DiscriminatorValue("C")
 public class Client extends Person{
 
-	@Column(name="CURRENTACCOUNT")
+	@OneToOne
 	private CurrentAccount currentAccount;
 	
-	@Column(name="SAFEACCOUNT")
+	@OneToOne
 	private SavingAccount safeAccount;
 	
 	@Column(name="TYPE")
@@ -31,6 +33,11 @@ public class Client extends Person{
 	enum e_ClientType{
 		CASUAL_CLIENT,
 		ENTERPRISE_CLIENT
+	}
+
+
+	public Client() {
+		super();
 	}
 
 
