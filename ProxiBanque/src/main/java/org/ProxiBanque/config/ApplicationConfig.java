@@ -48,7 +48,7 @@ public class ApplicationConfig {
 		entityManagerFactory.setJpaVendorAdapter(jpaVendorAdapter());
 		entityManagerFactory.setPackagesToScan("org.ProxiBanque");
 		Properties jpaProperties = new Properties();
-		jpaProperties.setProperty("hibernate.hbm2ddl.auto", "update");
+		jpaProperties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
 		entityManagerFactory.setJpaProperties(jpaProperties);
 		return entityManagerFactory;
 	}
