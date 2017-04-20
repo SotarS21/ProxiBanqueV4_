@@ -11,6 +11,7 @@ public interface IServiceClient {
 	public List<Client> findByConseiller_Id(Long idConseiller);
 	public List<Client> findByLastNameAndFirstNameAllIgnoreCase(String lastName, String firstName);
 	public void save(Client client);
+	public void update(Client client);
 	public void delete(Long id);
 	
 }

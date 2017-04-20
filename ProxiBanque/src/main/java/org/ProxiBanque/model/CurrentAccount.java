@@ -16,6 +16,10 @@ public class CurrentAccount extends BankAccount{
 	public void setDecouvert(double decouvert) {
 		this.decouvert = decouvert;
 	}
+
+	public CurrentAccount() {
+		super();
+	}
 	
 	
 	
