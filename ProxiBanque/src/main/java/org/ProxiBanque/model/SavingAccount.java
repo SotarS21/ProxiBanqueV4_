@@ -1,15 +1,15 @@
 package org.ProxiBanque.model;
 
-public class SafeAccount extends BankAccount{
+public class SavingAccount extends BankAccount{
 	
 	private double tauxDeRemuneration;
 
-	public SafeAccount(double tauxDeRemuneration, double sold) {
+	public SavingAccount(double tauxDeRemuneration, double sold) {
 		super(sold);
 		this.tauxDeRemuneration = tauxDeRemuneration;
 	}
 
-	public SafeAccount() {
+	public SavingAccount() {
 		super();
 	}
 
@@ -20,10 +20,4 @@ public class SafeAccount extends BankAccount{
 	public void setTauxDeRemuneration(double tauxDeRemuneration) {
 		this.tauxDeRemuneration = tauxDeRemuneration;
 	}
-	
-	
-	
-	
-	
-
 }
