@@ -1,10 +1,10 @@
 package org.ProxiBanque.model;
 
-public class CompteCourant extends CompteBancaire{
+public class CurrentAccount extends BankAccount{
 
 	private double decouvert;
 
-	public CompteCourant(double decouvert, double sold) {
+	public CurrentAccount(double decouvert, double sold) {
 		super(sold);
 		this.decouvert = decouvert;
 	}

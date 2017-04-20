@@ -1,16 +1,16 @@
 package org.ProxiBanque.model;
 
-public abstract class CompteBancaire {
+public abstract class BankAccount {
 
 	private double sold;
 
-	public CompteBancaire() {
+	public BankAccount() {
 		super();
 	}
 	
 	
 
-	public CompteBancaire(double sold) {
+	public BankAccount(double sold) {
 		super();
 		this.sold = sold;
 	}
