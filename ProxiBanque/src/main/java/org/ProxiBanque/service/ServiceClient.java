@@ -6,9 +6,11 @@ import org.ProxiBanque.dao.ICRUDClient;
 import org.ProxiBanque.model.Client;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import ch.qos.logback.classic.Logger;
 
+@Service
 public class ServiceClient implements IServiceClient {
 
 	@Autowired

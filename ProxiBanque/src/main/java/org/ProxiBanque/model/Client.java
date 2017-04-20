@@ -1,5 +1,10 @@
 package org.ProxiBanque.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="")
 public class Client extends Person{
 
 	private CurrentAccount currentAccount;
