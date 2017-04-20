@@ -4,8 +4,8 @@ public class CurrentAccount extends BankAccount{
 
 	private double decouvert;
 
-	public CurrentAccount(double decouvert, double sold) {
-		super(sold);
+	public CurrentAccount(double decouvert, double sold, e_AccountType type) {
+		super(sold,  type);
 		this.decouvert = decouvert;
 	}
 

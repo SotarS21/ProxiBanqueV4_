@@ -4,8 +4,8 @@ public class SavingAccount extends BankAccount{
 	
 	private double tauxDeRemuneration;
 
-	public SavingAccount(double tauxDeRemuneration, double sold) {
-		super(sold);
+	public SavingAccount(double tauxDeRemuneration, double sold, e_AccountType type) {
+		super(sold, type);
 		this.tauxDeRemuneration = tauxDeRemuneration;
 	}
 
