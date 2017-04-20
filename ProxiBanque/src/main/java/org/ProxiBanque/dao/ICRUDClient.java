@@ -8,4 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ICRUDClient extends JpaRepository<Client, Long> {
 
 	public List<Client> findByConseiller_Id(Long idConseiller);
+	public List<Client> findByLastNameAndFirstNameAllIgnoreCase(String lastName, String firstName);
+	
 }
