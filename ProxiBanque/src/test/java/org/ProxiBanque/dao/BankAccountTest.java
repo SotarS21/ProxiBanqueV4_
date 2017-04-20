@@ -1,9 +1,8 @@
-package org.ProxiBanque.model;
+package org.ProxiBanque.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 import org.ProxiBanque.config.ApplicationConfig;
-import org.ProxiBanque.service.IServiceAccount;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class BankAccountTest {
 
 	@Autowired
-	IServiceAccount service;
+	ICRUDAccount service;
 	
 	@Test
 	public void serviceNotNull() {
