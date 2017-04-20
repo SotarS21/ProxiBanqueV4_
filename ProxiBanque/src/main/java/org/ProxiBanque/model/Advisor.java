@@ -20,8 +20,7 @@ public class Advisor extends Person{
 	@Column(name="USER")
 	private User user;
 	
-	@OneToMany(fetch=FetchType.EAGER, cascade={CascadeType.PERSIST, CascadeType.REFRESH}, mappedBy="ADVISOR")
-	@Column(name="CLIENTS")
+	@OneToMany(fetch=FetchType.EAGER, cascade={CascadeType.PERSIST, CascadeType.REFRESH}, mappedBy="advisor")
 	private Collection<Client> clients;
 	
 	public Advisor(String firstName, String lastName, Address address, User user) {

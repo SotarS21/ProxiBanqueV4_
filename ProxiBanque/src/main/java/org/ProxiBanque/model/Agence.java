@@ -26,15 +26,14 @@ public class Agence {
 	@Column(name="DATECREATION")
 	private DateFormat dateCreation;
 	
-	@OneToMany(fetch=FetchType.LAZY, cascade={CascadeType.PERSIST, CascadeType.REFRESH}, mappedBy="AGENCE")
+	@OneToMany(fetch=FetchType.LAZY, cascade={CascadeType.PERSIST, CascadeType.REFRESH})
 	@Column(name="ADVISORS")
 	private Collection<Advisor> advisors;
 	
-	@OneToOne(fetch=FetchType.LAZY, cascade={CascadeType.PERSIST, CascadeType.REFRESH}, mappedBy="AGENCE")
-	@Column(name="DIRECTOR")
+	@OneToOne(fetch=FetchType.LAZY, cascade={CascadeType.PERSIST, CascadeType.REFRESH})
 	private Director director;
 	
-	@OneToMany(fetch=FetchType.LAZY, cascade={CascadeType.PERSIST, CascadeType.REFRESH}, mappedBy="AGENCE")
+	@OneToMany(fetch=FetchType.LAZY, cascade={CascadeType.PERSIST, CascadeType.REFRESH})
 	@Column(name="CLIENTS")
 	private Collection<Client> clients; 
 	

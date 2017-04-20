@@ -25,7 +25,6 @@ public class Client extends Person{
 	private boolean isRitch;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@Column(name="ADVISOR")
 	private Advisor advisor;
 	
 	
