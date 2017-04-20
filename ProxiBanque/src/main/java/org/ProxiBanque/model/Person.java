@@ -1,24 +1,20 @@
 package org.ProxiBanque.model;
 
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 
 @Entity
-@Inheritance
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public abstract class Person {
 
-	
-	enum e_PersonType{
-		CLIENT,
-		ADVISOR,
-		DIRECTOR;
-	}
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -37,8 +33,8 @@ public abstract class Person {
 	@Column(name="ADRESSE")
 	private Address address;
 	
-//	@DiscriminatorColumn(discriminatorType=e_PersonType.class)
-	private e_PersonType type;
+	@ManyToOne(fetch=FetchType.LAZY)
+	private Agence agence;
 	
 	public Person(String firstName, String lastName, Address address) {
 		super();
@@ -74,6 +70,12 @@ public abstract class Person {
 	}
 	public long getId() {
 		return id;
+	}
+	public Agence getAgence() {
+		return agence;
+	}
+	public void setAgence(Agence agence) {
+		this.agence = agence;
 	}
 	
 	

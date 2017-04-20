@@ -1,15 +1,28 @@
 package org.ProxiBanque.model;
 
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
+@Entity
+@Inheritance(strategy=InheritanceType.JOINED)
+@DiscriminatorColumn(name="TYPE")
 public abstract class BankAccount {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="ACCOUNTNUMBER")
 	private long accountNumber;
+	
+	@Column(name="SOLD")
 	private double sold;
+	
+	@Column(name="TYPE")
 	private e_AccountType type;
 	
 	

@@ -1,9 +1,18 @@
 package org.ProxiBanque.model;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class Address {
 
+	@Column(name="NUMBER")
 	private String number;
+	
+	@Column(name="ZIPCODE")
 	private String zipCode;
+	
+	@Column(name="TOWN")
 	private String town;
 	
 	public Address(String number, String zipCode, String town) {
