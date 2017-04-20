@@ -63,11 +63,11 @@ public class ClientController implements Serializable {
 	
 
 
-	static{
-		listClient.add(new Client("toto", "toto", null));
-		listClient.add(new Client("toto1", "toto1", null));
-		listClient.add(new Client("toto1", "toto1", null));
-	}
+//	static{
+//		listClient.add(new Client("toto", "toto", null));
+//		listClient.add(new Client("toto1", "toto1", null));
+//		listClient.add(new Client("toto1", "toto1", null));
+//	}
 
 	
 	
