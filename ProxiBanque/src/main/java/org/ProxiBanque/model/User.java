@@ -15,16 +15,11 @@ public class User {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="IDUSER")
 	private Long idUser = 1L;
-	@Column(name="MESSAGE")
-	private String message = "test message";
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
+	
+	private String login;
+	private String password;
+	
+	
 
 	public Long getIdUser() {
 		return idUser;
@@ -33,6 +28,33 @@ public class User {
 	public void setIdUser(Long idUser) {
 		this.idUser = idUser;
 	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public User(String login, String password) {
+		super();
+		this.login = login;
+		this.password = password;
+	}
+
+	public User() {
+		super();
+	}
+	
 	
 	
 }
