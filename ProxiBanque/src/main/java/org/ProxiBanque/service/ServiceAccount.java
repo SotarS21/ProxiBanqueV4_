@@ -81,9 +81,14 @@ public class ServiceAccount implements IServiceAccount {
 		if (debiteur.getAccountNumber() == crediteur.getAccountNumber()) {
 			return "pas le droit pour un même compte";
 		}else{
-			
+			double soldDeb = debiteur.getSold();
+			double soldCred = crediteur.getSold();
+			debiteur.setSold(soldDeb - montant);
+			crediteur.setSold(soldCred + montant);
+			this.editAccount(crediteur);
+			this.editAccount(debiteur);
 		}
-		return null;
+		return "Le virement a été effectué";
 	}
 
 	
