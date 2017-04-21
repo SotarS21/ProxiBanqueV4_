@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/template/template.xhtml" xmlns:p="http://primefaces.org/ui">
+
+
+
+	<ui:define name="content">
+		<f:metadata>
+			<f:event type="preRenderView"
+				listener="#{advisorController.loadAdvisors}" />
+		</f:metadata>
+
+		<div id="container">
+			<div id="content">
+				<h:form id="form">
+					<p:growl id="msgs" showDetail="true" />
+					<p:dataTable value="#{advisorController.listAdvisor}"
+						editable="true" var="tempAdvisor" style="margin-bottom:20px"
+						scrollable="true" scrollHeight="800" scrollWidth="1600">
+						<f:facet name="header">Liste des conseiller</f:facet>
+						<p:ajax event="rowEdit"
+							listener="#{advisorController.updateAdvisor(tempAdvisor)}"
+							update=":form:msgs" />
+						<p:ajax event="rowEditCancel"
+							listener="#{advisorController.cancel}" update=":form:msgs" />
+
+						<p:column style="width:40px">
+							<p:rowToggler />
+						</p:column>
+						<p:column headerText="Prénom" sortBy="#{tempAdvisor.firstName}">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{tempAdvisor.firstName}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText value="#{tempAdvisor.firstName}"
+										style="width:100%" />
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+						<p:column headerText="Nom" sortBy="#{tempAdvisor.lastName}">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{tempAdvisor.lastName}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText value="#{tempAdvisor.lastName}"
+										style="width:100%" />
+								</f:facet>
+							</p:cellEditor>
+
+						</p:column>
+						<p:column headerText="Email">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{tempAdvisor.email}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText value="#{tempAdvisor.email}" style="width:100%" />
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+						<p:column headerText="Téléphone">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{tempAdvisor.cellphone}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText value="#{tempAdvisor.cellphone}"
+										style="width:100%" />
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+						<p:column headerText="Ajouter Client" style="width:85px">
+							<p:commandButton title="Ajout"
+								action="#{advisorController.addClient(tempAdvisor)}" />
+						</p:column>
+						<p:column headerText="Modifier" style="width:80px">
+							<p:rowEditor />
+						</p:column>
+						<p:rowExpansion>
+							<p:dataTable value="#{tempAdvisor.clients}"
+								var="tempClient" resizableColumns="true">
+								<f:facet name="header">
+									<h:outputText value="Client du conseiller"></h:outputText>
+								</f:facet>
+								<p:column colspan="2">
+									<f:facet name="header">
+										<h:outputText value="Prenom client"></h:outputText>
+									</f:facet>
+									<h:outputText value="#{tempClient.firstName}" />
+								</p:column>
+								<p:column colspan="2">
+									<f:facet name="header">
+										<h:outputText value="Nom client"></h:outputText>
+									</f:facet>
+									<h:outputText value="#{tempClient.lastName}" />
+								</p:column>
+								<p:column colspan="2">
+									<f:facet name="header">
+										<h:outputText value="Téléphone client"></h:outputText>
+									</f:facet>
+									<h:outputText value="#{tempClient.cellphone}" />
+								</p:column>
+
+
+							</p:dataTable>
+						</p:rowExpansion>
+
+
+					</p:dataTable>
+				</h:form>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
