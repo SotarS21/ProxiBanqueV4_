@@ -3,6 +3,13 @@ package org.ProxiBanque.model;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+/**
+ *	Bean Address regroupe les informations d'adresse : le numéro, le code postale et la ville 
+ * 
+ * @author Jonas, Kevin, Andy, Mathieu 
+ *
+ */
+
 @Embeddable
 public class Address {
 
@@ -26,18 +33,34 @@ public class Address {
 		super();
 	}
 
+	/**
+	 * Retourne le numéro de rue de l'adresse
+	 * @return le numéro de l'adresse sous forme de string
+	 */
 	public String getNumber() {
 		return number;
 	}
 
+	/**
+	 * C
+	 * @param number : nouvel value
+	 */
 	public void setNumber(String number) {
 		this.number = number;
 	}
 
+	/**
+	 * Retourne le code postale de rue de l'adresse
+	 * @return le code postale sous forme de string
+	 */
 	public String getZipCode() {
 		return zipCode;
 	}
 
+	/**
+	 * Retourne le numéro de rue de l'adresse
+	 * @param zipCode
+	 */
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}

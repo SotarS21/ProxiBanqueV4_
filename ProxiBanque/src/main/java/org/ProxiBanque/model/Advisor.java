@@ -10,6 +10,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+/**
+ *	Bean Advisor regroupe les informations du conseiler  : Le user , La liste des clients  
+ * 
+ * @author Jonas, Kevin, Andy, Mathieu 
+ *
+ */
 
 @Entity
 @Table(name="ADVISOR")
