@@ -47,9 +47,9 @@ public class ServiceUser implements IServiceUser {
 	}
 
 	@Override
-	public List<User> findAllByLoginAndPasswordAllIgnoreCase(String login, String password) {
+	public User findFirstByLoginAndPasswordAllIgnoreCase(String login, String password) {
 		// TODO Auto-generated method stub
-		return daoUser.findAllByLoginAndPasswordAllIgnoreCase(login, password);
+		return daoUser.findFirstByLoginAndPasswordAllIgnoreCase(login, password);
 	}
 
 	@Override

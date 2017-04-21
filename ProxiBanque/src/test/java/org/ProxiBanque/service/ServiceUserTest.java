@@ -57,14 +57,15 @@ public class ServiceUserTest {
 	}
 	
 	@Test
-	public void testFindAllByLoginAndPasswordAllIgnoreCase() {
+	public void testFindFirstByLoginAndPasswordAllIgnoreCase() {
 		
 		User user = new User("log", "mdp");
 		serviceUser.save(user);
 		User user2 = new User("log2", "mdp2");
 		serviceUser.save(user2);
 		
-		List<User> list = serviceUser.findAllByLoginAndPasswordAllIgnoreCase("LOG2", "MDP2");
-		assertTrue(list.size() != 0);
+		User user3 = serviceUser.findFirstByLoginAndPasswordAllIgnoreCase("LOG2", "MDP2");
+		assertTrue(user3 != null);
 	}
+	
 }

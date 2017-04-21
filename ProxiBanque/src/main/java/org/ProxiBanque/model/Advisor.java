@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @DiscriminatorValue("A")
 public class Advisor extends Person{
 
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	private User user;
 	
 	@OneToMany(fetch=FetchType.EAGER, cascade={CascadeType.PERSIST, CascadeType.REFRESH}, mappedBy="advisor")
