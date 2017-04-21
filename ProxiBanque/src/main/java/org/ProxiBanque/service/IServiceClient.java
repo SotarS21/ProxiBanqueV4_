@@ -13,5 +13,6 @@ public interface IServiceClient {
 	public void save(Client client);
 	public void update(Client client);
 	public void delete(Long id);
+	public void init();
 	
 }
