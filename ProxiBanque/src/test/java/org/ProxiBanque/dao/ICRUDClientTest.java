@@ -1,8 +1,7 @@
 package org.ProxiBanque.dao;
 
-import static org.junit.Assert.*;
-
-import java.util.List;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.ProxiBanque.config.ApplicationConfig;
 import org.ProxiBanque.model.Address;
@@ -27,16 +26,16 @@ public class ICRUDClientTest {
 		assertNotNull(serviceClient);
 	}
 
-//	@Test
-//	public void testFindOne() {
-//
-//		Client client = new Client("Jo", "Bar", new Address());
-//		serviceClient.save(client);
-//
-//		Client client2 = serviceClient.findOne(1L);
-//		assertEquals(client2.getFirstName(), "Jo");
-//		assertEquals(client2.getLastName(), "Bar");
-//	}
+	@Test
+	public void testFindOne() {
+
+		Client client = new Client("Jo", "Bar", new Address());
+		serviceClient.save(client);
+
+		Client client2 = serviceClient.findOne(1L);
+		assertEquals(client2.getFirstName(), "Jo");
+		assertEquals(client2.getLastName(), "Bar");
+	}
 //	
 //	@Test
 //	public void testFindAll() {
