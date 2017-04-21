@@ -9,7 +9,7 @@ public interface IServiceClient {
 	public Client findOne(Long id);
 	public List<Client> findAll();
 	public List<Client> findByConseiller_Id(Long idConseiller);
-	public List<Client> findByLastNameAndFirstNameAllIgnoreCase(String lastName, String firstName);
+	public List<Client> findAllByLastNameAndFirstNameAllIgnoreCase(String lastName, String firstName);
 	public void save(Client client);
 	public void update(Client client);
 	public void delete(Long id);
