@@ -1,5 +1,6 @@
 package org.ProxiBanque.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.ProxiBanque.dao.ICRUDAccount;
@@ -83,12 +84,33 @@ public class ServiceAccount implements IServiceAccount {
 		}else{
 			double soldDeb = debiteur.getSold();
 			double soldCred = crediteur.getSold();
-			debiteur.setSold(soldDeb - montant);
-			crediteur.setSold(soldCred + montant);
-			this.editAccount(crediteur);
-			this.editAccount(debiteur);
+			
+			double newSoldDeb = soldDeb - montant;
+			double newSoldCred = soldCred + montant;
+			
+			if (newSoldDeb < (0-debiteur.getDecouvert())) {
+				return "Solde insufisant";
+			}else {
+				debiteur.setSold(newSoldDeb);
+				crediteur.setSold(newSoldCred);
+				this.editAccount(crediteur);
+				this.editAccount(debiteur);
+			}
 		}
 		return "Le virement a été effectué";
+	}
+	
+
+	@Override
+	public List<Client> findAllClientOverdrawn() {
+		List<BankAccount> list = this.listAccounts();
+		List<Client> listret = new ArrayList<>();
+		for (BankAccount bankAccount : list) {
+			if (bankAccount.getSold() < 0) {
+				listret.add(bankAccount.getClient());
+			}
+		}
+		return listret;
 	}
 
 	

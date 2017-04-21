@@ -31,11 +31,24 @@ public abstract class BankAccount {
 	@OneToOne(cascade=CascadeType.REFRESH)
 	private Client client;
 	
+	@Column(name = "DECOUVERT")
+	private double decouvert;
+	
+	
 	public enum e_AccountType{
 		CURRUENT_ACCOUNT,
 		SAVING_ACCOUNT
 	}
 	
+	
+	public double getDecouvert() {
+		return decouvert;
+	}
+
+	public void setDecouvert(double decouvert) {
+		this.decouvert = decouvert;
+	}
+
 	public long getAccountNumber() {
 		return accountNumber;
 	}

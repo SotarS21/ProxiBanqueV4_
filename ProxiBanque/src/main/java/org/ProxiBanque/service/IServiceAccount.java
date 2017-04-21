@@ -14,4 +14,5 @@ public interface IServiceAccount {
 	public void editAccount (BankAccount account);
 	public List<BankAccount> getAccountsByClientId(Long idClient);
 	public String doVirement(BankAccount debiteur, BankAccount crediteur, double montant);
+	public List<Client> findAllClientOverdrawn();
 }

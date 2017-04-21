@@ -1,6 +1,5 @@
 package org.ProxiBanque.dao;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -37,7 +36,7 @@ public class BankAccountTest {
 	public void createCurrentAccount() {
 		Client cl = new Client("Jo", "Bar", new Address());
 		serviceClient.save(cl);
-		SavingAccount ba = new SavingAccount(100, 0);
+		CurrentAccount ba = new CurrentAccount(100, 0);
 		serviceAccount.addAccount(ba, cl);
 		assertNotNull(serviceAccount.listAccounts());
 	}
@@ -58,26 +57,50 @@ public class BankAccountTest {
 	public void dontDoVirementSameAccount() {
 		Client cl = new Client("Jo", "Bar", new Address());
 		serviceClient.save(cl);
-		SavingAccount sa = new SavingAccount(0, 1000);
+		CurrentAccount sa = new CurrentAccount(0, 1000);
 		serviceAccount.addAccount(sa, cl);
 		assertTrue(serviceAccount.doVirement(sa, sa, 500).equals("pas le droit pour un même compte"));
-
 	}
-	 @Test
-	 public void getCurrentAccount(){
-	 BankAccount ba = serviceAccount.getAccount(10L);
-	 assertNotNull(ba);
-	 }
 	
-//	 @Test
-//	 public void updateCurrentAccount(){
-//	 BankAccount ba = new CurrentAccount(100, 0);
-//	 serviceAccount.addAccount(ba);
-//	 ba.setSold(200);
-//	 serviceAccount.editAccount(ba);
-//	 assertTrue(200 == serviceAccount.listAccounts().get(1).getSold());
-//	 }
-//	
+	@Test
+	public void dontDoVirementSoldeInsuffisant(){
+		Client cl = new Client("Jo", "Bar", new Address());
+		serviceClient.save(cl);
+		SavingAccount sa = new SavingAccount(100, 0, 500);
+		serviceAccount.addAccount(sa, cl);
+		CurrentAccount ca = new CurrentAccount(0, 0);
+		serviceAccount.addAccount(ca, cl);
+		assertTrue(serviceAccount.doVirement(sa, ca, 800).equals("Solde insufisant"));
+	}
+
+	@Test
+	public void checkClientOverdrawn() {
+		Client cl = new Client("Jo", "Bar", new Address());
+		serviceClient.save(cl);
+		CurrentAccount ca = new CurrentAccount(100, -500);
+		serviceAccount.addAccount(ca, cl);
+		assertNotNull(serviceAccount.findAllClientOverdrawn());
+	}
+
+	@Test
+	public void getCurrentAccount() {
+		Client cl = new Client("Jo", "Bar", new Address());
+		serviceClient.save(cl);
+		CurrentAccount ca = new CurrentAccount(100, -500);
+		serviceAccount.addAccount(ca, cl);
+		BankAccount ba = serviceAccount.getAccount(ca.getAccountNumber());
+		assertNotNull(ba);
+	}
+
+	// @Test
+	// public void updateCurrentAccount(){
+	// BankAccount ba = new CurrentAccount(100, 0);
+	// serviceAccount.addAccount(ba);
+	// ba.setSold(200);
+	// serviceAccount.editAccount(ba);
+	// assertTrue(200 == serviceAccount.listAccounts().get(1).getSold());
+	// }
+	//
 	// @Test
 	// public void deleteCurrentAccount(){
 	// BankAccount ba = new CurrentAccount(100, 0);
