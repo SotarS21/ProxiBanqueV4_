@@ -2,6 +2,8 @@ package org.ProxiBanque.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.ProxiBanque.dao.ICRUDDirector;
 import org.ProxiBanque.model.Director;
 import org.slf4j.LoggerFactory;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 import ch.qos.logback.classic.Logger;
 
 @Service
+@Transactional
 public class ServiceDirector implements IServiceDirector{
 
 	private final static Logger logger = (Logger) LoggerFactory.getLogger(ServiceClient.class);

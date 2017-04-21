@@ -70,15 +70,11 @@ public class ApplicationConfig {
 	}
 	
 //	@Bean
-//	public PersistenceAnnotationBeanPostProcessor persistenceAnnotationBeanPostProcessor() {
-//		
-//		return new PersistenceAnnotationBeanPostProcessor();
-//	}
-	
-//	private DatabasePopulator databasePopulator() {
+//	public DatabasePopulator databasePopulator() {
 //		
 //		ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
 //		databasePopulator.setContinueOnError(true);
-//		databasePopulator.addScript(Resource);
+//		databasePopulator.addScript(new FileSystemResource(new File("database_populator.txt")));
+//		return databasePopulator;
 //	}
 }
