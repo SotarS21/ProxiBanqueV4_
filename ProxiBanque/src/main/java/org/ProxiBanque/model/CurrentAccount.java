@@ -5,17 +5,22 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
-
 @Entity
-public class CurrentAccount extends BankAccount{
+public class CurrentAccount extends BankAccount {
 
-	@Column(name="DECOUVERT")
+	@Column(name = "DECOUVERT")
 	private double decouvert;
-	
-	@OneToOne(mappedBy="currentAccount",cascade=CascadeType.REFRESH)
+
+	@OneToOne(mappedBy = "currentAccount", cascade = CascadeType.REFRESH)
 	private Client client;
 
-	
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
 
 	public CurrentAccount(double sold, double decouvert, Client client) {
 		super(sold, e_AccountType.CURRUENT_ACCOUNT);
@@ -39,7 +44,5 @@ public class CurrentAccount extends BankAccount{
 	public CurrentAccount() {
 		super();
 	}
-	
-	
-	
+
 }

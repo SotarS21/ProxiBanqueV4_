@@ -17,14 +17,22 @@ public class SavingAccount extends BankAccount{
 
 	
 	
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
 	public SavingAccount(double sold, double tauxDeRemuneration, Client client) {
-		super(sold, e_AccountType.CURRUENT_ACCOUNT);
+		super(sold, e_AccountType.SAVING_ACCOUNT);
 		this.tauxDeRemuneration = tauxDeRemuneration;
 		this.client = client;
 	}
 
 	public SavingAccount(double tauxDeRemuneration, double sold) {
-		super(sold, e_AccountType.CURRUENT_ACCOUNT);
+		super(sold, e_AccountType.SAVING_ACCOUNT);
 		this.tauxDeRemuneration = tauxDeRemuneration;
 	}
 
