@@ -19,28 +19,38 @@ import org.springframework.stereotype.Service;
 public class ServiceAccount implements IServiceAccount {
 
 	private static final Logger logger = LoggerFactory.getLogger(ServiceAccount.class);
-	
+
 	@Autowired
 	ICRUDAccount daoAccount;
-	
+
 	@Autowired
 	ICRUDClient daoClient;
-	
+
 	@Override
 	public void addAccount(BankAccount account, Client client) {
 		logger.debug("test add account 1");
 		account.setClient(client);
 		daoAccount.save(account);
 		if (account.getType().equals(e_AccountType.CURRUENT_ACCOUNT)) {
-			CurrentAccount account1 = (CurrentAccount) account;
-			client.setCurrentAccount(account1);
-			daoClient.save(client);
-		}else if (account.getType().equals(e_AccountType.SAVING_ACCOUNT)) {
-			SavingAccount account2 = (SavingAccount) account;
-			client.setSafeAccount(account2);
-			daoClient.save(client);
+			if (client.getCurrentAccount() == null) {
+				CurrentAccount account1 = (CurrentAccount) account;
+				client.setCurrentAccount(account1);
+				daoClient.save(client);
+			} else {
+				daoAccount.delete(account);
+			}
+
+		} else if (account.getType().equals(e_AccountType.SAVING_ACCOUNT)) {
+			if (client.getSafeAccount() == null) {
+				SavingAccount account2 = (SavingAccount) account;
+				client.setSafeAccount(account2);
+				daoClient.save(client);
+			} else {
+				daoAccount.delete(account);
+			}
+
 		}
-			
+
 		logger.debug("test add account 2");
 	}
 
@@ -53,7 +63,18 @@ public class ServiceAccount implements IServiceAccount {
 	@Override
 	public void deleteAccount(Long idAccount) {
 		logger.debug("test delete account 1");
-		daoAccount.delete(idAccount);
+		BankAccount ba = this.getAccount(idAccount);
+		if (ba.getType().equals(e_AccountType.CURRUENT_ACCOUNT)) {
+			Client cl = ba.getClient();
+			cl.setCurrentAccount(null);
+			daoClient.save(cl);
+			daoAccount.delete(idAccount);
+		} else if (ba.getType().equals(e_AccountType.SAVING_ACCOUNT)) {
+			Client cl = ba.getClient();
+			cl.setSafeAccount(null);
+			daoClient.save(cl);
+			daoAccount.delete(idAccount);
+		}
 		logger.debug("test delete account 2");
 	}
 
@@ -64,7 +85,7 @@ public class ServiceAccount implements IServiceAccount {
 			daoAccount.save(account);
 			logger.debug("test edit account 2");
 		}
-		
+
 	}
 
 	@Override
@@ -81,16 +102,16 @@ public class ServiceAccount implements IServiceAccount {
 	public String doVirement(BankAccount debiteur, BankAccount crediteur, double montant) {
 		if (debiteur.getAccountNumber() == crediteur.getAccountNumber()) {
 			return "pas le droit pour un même compte";
-		}else{
+		} else {
 			double soldDeb = debiteur.getSold();
 			double soldCred = crediteur.getSold();
-			
+
 			double newSoldDeb = soldDeb - montant;
 			double newSoldCred = soldCred + montant;
-			
-			if (newSoldDeb < (0-debiteur.getDecouvert())) {
+
+			if (newSoldDeb < (0 - debiteur.getDecouvert())) {
 				return "Solde insufisant";
-			}else {
+			} else {
 				debiteur.setSold(newSoldDeb);
 				crediteur.setSold(newSoldCred);
 				this.editAccount(crediteur);
@@ -99,7 +120,6 @@ public class ServiceAccount implements IServiceAccount {
 		}
 		return "Le virement a été effectué";
 	}
-	
 
 	@Override
 	public List<Client> findAllClientOverdrawn() {
@@ -113,5 +133,36 @@ public class ServiceAccount implements IServiceAccount {
 		return listret;
 	}
 
-	
+	@Override
+	public List<BankAccount> doAudit() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setClientRich() {
+		List<Client> listClient = daoClient.findAll();
+		for (Client client : listClient) {
+			Long id = client.getId();
+			List<BankAccount> listAccount = this.getAccountsByClientId(id);
+			double total = 0;
+			for (BankAccount bankAccount : listAccount) {
+				if (bankAccount.getType().equals(e_AccountType.CURRUENT_ACCOUNT)) {
+					CurrentAccount ca = (CurrentAccount) bankAccount;
+					total = total + ca.getSold();
+				} else if (bankAccount.getType().equals(e_AccountType.SAVING_ACCOUNT)) {
+					SavingAccount sa = (SavingAccount) bankAccount;
+					total = total + sa.getSold();
+				}
+				total = total + bankAccount.getSold();
+			}
+			System.out.println(total + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			if (total >= 50000) {
+				client.setRitch(true);
+				daoClient.save(client);
+			}
+			
+		}
+	}
+
 }

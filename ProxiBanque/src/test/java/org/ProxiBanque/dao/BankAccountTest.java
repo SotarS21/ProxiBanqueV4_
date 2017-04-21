@@ -1,5 +1,6 @@
 package org.ProxiBanque.dao;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -31,87 +32,143 @@ public class BankAccountTest {
 	public void serviceNotNull() {
 		assertNotNull(serviceAccount);
 	}
+//
+//	@Test
+//	public void createCurrentAccount() {
+//		Client cl = new Client("Jo", "Bar", new Address());
+//		serviceClient.save(cl);
+//		CurrentAccount ba = new CurrentAccount(100, 0);
+//		serviceAccount.addAccount(ba, cl);
+//		assertNotNull(serviceAccount.listAccounts());
+//	}
+//
+//	@Test
+//	public void dontCreateTwoSameAccountTypeHereCurrent() {
+//		Client cl = new Client("Jo", "Bar", new Address());
+//		serviceClient.save(cl);
+//		CurrentAccount ba = new CurrentAccount(100, 0);
+//		serviceAccount.addAccount(ba, cl);
+//		CurrentAccount ba1 = new CurrentAccount(0, 100);
+//		serviceAccount.addAccount(ba1, cl);
+//		Long id = cl.getId();
+//		assertTrue(serviceAccount.getAccountsByClientId(id).size() == 1);
+//	}
+//
+//	@Test
+//	public void dontCreateTwoSameAccountTypeHereSaving() {
+//		Client cl = new Client("Jo", "Bar", new Address());
+//		serviceClient.save(cl);
+//		SavingAccount ba = new SavingAccount(100, 0, 0);
+//		serviceAccount.addAccount(ba, cl);
+//		SavingAccount ba1 = new SavingAccount(100, 0, 0);
+//		serviceAccount.addAccount(ba1, cl);
+//		Long id = cl.getId();
+//		assertTrue(serviceAccount.getAccountsByClientId(id).size() == 1);
+//	}
+//
+//	@Test
+//	public void doVirement() {
+//		Client cl = new Client("Jo", "Bar", new Address());
+//		serviceClient.save(cl);
+//		SavingAccount sa = new SavingAccount(0, 1000);
+//		serviceAccount.addAccount(sa, cl);
+//		CurrentAccount ca = new CurrentAccount(0, 0);
+//		serviceAccount.addAccount(ca, cl);
+//		serviceAccount.doVirement(sa, ca, 500);
+//		assertTrue(ca.getSold() == 500);
+//	}
+//
+//	@Test
+//	public void dontDoVirementSameAccount() {
+//		Client cl = new Client("Jo", "Bar", new Address());
+//		serviceClient.save(cl);
+//		CurrentAccount sa = new CurrentAccount(0, 1000);
+//		serviceAccount.addAccount(sa, cl);
+//		assertTrue(serviceAccount.doVirement(sa, sa, 500).equals("pas le droit pour un même compte"));
+//	}
+//
+//	@Test
+//	public void dontDoVirementSoldeInsuffisant() {
+//		Client cl = new Client("Jo", "Bar", new Address());
+//		serviceClient.save(cl);
+//		SavingAccount sa = new SavingAccount(100, 0, 500);
+//		serviceAccount.addAccount(sa, cl);
+//		CurrentAccount ca = new CurrentAccount(0, 0);
+//		serviceAccount.addAccount(ca, cl);
+//		assertTrue(serviceAccount.doVirement(sa, ca, 800).equals("Solde insufisant"));
+//	}
+//
+//	@Test
+//	public void checkClientOverdrawn() {
+//		Client cl = new Client("Jo", "Bar", new Address());
+//		serviceClient.save(cl);
+//		CurrentAccount ca = new CurrentAccount(100, -500);
+//		serviceAccount.addAccount(ca, cl);
+//		assertNotNull(serviceAccount.findAllClientOverdrawn());
+//	}
+//
+//	@Test
+//	public void getCurrentAccount() {
+//		Client cl = new Client("Jo", "Bar", new Address());
+//		serviceClient.save(cl);
+//		CurrentAccount ca = new CurrentAccount(100, -500);
+//		serviceAccount.addAccount(ca, cl);
+//		BankAccount ba = serviceAccount.getAccount(ca.getAccountNumber());
+//		assertNotNull(ba);
+//	}
+//
+//	@Test
+//	public void updateCurrentAccount() {
+//		Client cl = new Client("Jo", "Bar", new Address());
+//		serviceClient.save(cl);
+//		CurrentAccount ba = new CurrentAccount(100, 0);
+//		serviceAccount.addAccount(ba, cl);
+//		ba.setSold(200);
+//		serviceAccount.editAccount(ba);
+//		assertTrue(200 == ba.getSold());
+//	}
+//
+//	@Test
+//	public void deleteCurrentAccount() {
+//		Client cl = new Client("Jo", "Bar", new Address());
+//		serviceClient.save(cl);
+//		CurrentAccount ba = new CurrentAccount(100, 0);
+//		serviceAccount.addAccount(ba, cl);
+//		int i = serviceAccount.listAccounts().size();
+//		long id = ba.getAccountNumber();
+//		serviceAccount.deleteAccount(id);
+//		int j = serviceAccount.listAccounts().size();
+//		j++;
+//		System.out.println(i + "!!!!!!!!!!!!!!!" + j);
+//		assertTrue(i == j);
+//	}
+//
+//	@Test
+//	public void deleteSavingAccount() {
+//		Client cl = new Client("Jo", "Bar", new Address());
+//		serviceClient.save(cl);
+//		SavingAccount ba = new SavingAccount(100, 0, 0);
+//		serviceAccount.addAccount(ba, cl);
+//		int i = serviceAccount.listAccounts().size();
+//		long id = ba.getAccountNumber();
+//		serviceAccount.deleteAccount(id);
+//		int j = serviceAccount.listAccounts().size();
+//		j++;
+//		assertTrue(i == j);
+//	}
 
 	@Test
-	public void createCurrentAccount() {
+	public void isClientSetRich() {
 		Client cl = new Client("Jo", "Bar", new Address());
 		serviceClient.save(cl);
-		CurrentAccount ba = new CurrentAccount(100, 0);
-		serviceAccount.addAccount(ba, cl);
-		assertNotNull(serviceAccount.listAccounts());
-	}
-
-	@Test
-	public void doVirement() {
-		Client cl = new Client("Jo", "Bar", new Address());
-		serviceClient.save(cl);
-		SavingAccount sa = new SavingAccount(0, 1000);
+		SavingAccount sa = new SavingAccount(30000, 0, 0);
 		serviceAccount.addAccount(sa, cl);
-		CurrentAccount ca = new CurrentAccount(0, 0);
+		CurrentAccount ca = new CurrentAccount(0, 30000);
 		serviceAccount.addAccount(ca, cl);
-		serviceAccount.doVirement(sa, ca, 500);
-		assertTrue(ca.getSold() == 500);
+		serviceAccount.setClientRich();
+		System.out.println(cl.isRitch()+"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		assertTrue(cl.isRitch());
 	}
-
-	@Test
-	public void dontDoVirementSameAccount() {
-		Client cl = new Client("Jo", "Bar", new Address());
-		serviceClient.save(cl);
-		CurrentAccount sa = new CurrentAccount(0, 1000);
-		serviceAccount.addAccount(sa, cl);
-		assertTrue(serviceAccount.doVirement(sa, sa, 500).equals("pas le droit pour un même compte"));
-	}
-	
-	@Test
-	public void dontDoVirementSoldeInsuffisant(){
-		Client cl = new Client("Jo", "Bar", new Address());
-		serviceClient.save(cl);
-		SavingAccount sa = new SavingAccount(100, 0, 500);
-		serviceAccount.addAccount(sa, cl);
-		CurrentAccount ca = new CurrentAccount(0, 0);
-		serviceAccount.addAccount(ca, cl);
-		assertTrue(serviceAccount.doVirement(sa, ca, 800).equals("Solde insufisant"));
-	}
-
-	@Test
-	public void checkClientOverdrawn() {
-		Client cl = new Client("Jo", "Bar", new Address());
-		serviceClient.save(cl);
-		CurrentAccount ca = new CurrentAccount(100, -500);
-		serviceAccount.addAccount(ca, cl);
-		assertNotNull(serviceAccount.findAllClientOverdrawn());
-	}
-
-	@Test
-	public void getCurrentAccount() {
-		Client cl = new Client("Jo", "Bar", new Address());
-		serviceClient.save(cl);
-		CurrentAccount ca = new CurrentAccount(100, -500);
-		serviceAccount.addAccount(ca, cl);
-		BankAccount ba = serviceAccount.getAccount(ca.getAccountNumber());
-		assertNotNull(ba);
-	}
-
-	// @Test
-	// public void updateCurrentAccount(){
-	// BankAccount ba = new CurrentAccount(100, 0);
-	// serviceAccount.addAccount(ba);
-	// ba.setSold(200);
-	// serviceAccount.editAccount(ba);
-	// assertTrue(200 == serviceAccount.listAccounts().get(1).getSold());
-	// }
-	//
-	// @Test
-	// public void deleteCurrentAccount(){
-	// BankAccount ba = new CurrentAccount(100, 0);
-	// serviceAccount.addAccount(ba);
-	// int i = serviceAccount.listAccounts().size();
-	// serviceAccount.deleteAccount(16L);
-	// int j = serviceAccount.listAccounts().size();
-	// j++;
-	// assertTrue(i == j);
-	// }
-	//
 	// @Test
 	// public void createSavingAccountWithClient(){
 	// Client cl = new Client("Jo", "Bar", new Address());
