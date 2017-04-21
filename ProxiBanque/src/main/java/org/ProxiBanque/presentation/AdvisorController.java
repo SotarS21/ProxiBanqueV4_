@@ -45,11 +45,7 @@ public class AdvisorController implements Serializable {
 
 	@Autowired
 	IServiceClient serviceClient;
-//	static{
-//		listAdvisor.add(new Advisor("toto",	 "toto", null));
-//		listAdvisor.add(new Advisor("toto1", "toto1", null));
-//		listAdvisor.add(new Advisor("toto2", "toto2", null));
-//	}
+
 	
 	
 	public List<Advisor> getListAdvisor() {

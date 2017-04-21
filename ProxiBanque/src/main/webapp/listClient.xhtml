@@ -9,7 +9,7 @@
 	<ui:define name="content">
 		<f:metadata>
 			<f:event type="preRenderView"
-				listener="#{clientController.loadClients()}" />
+				listener="#{clientController.loadClients}" />
 		</f:metadata>
 
 		<div id="container">
@@ -24,7 +24,7 @@
 							listener="#{clientController.updateClient(tempClient)}"
 							update=":form:msgs" />
 						<p:ajax event="rowEditCancel"
-							listener="#{clientController.cancel()}" update=":form:msgs" />
+							listener="#{clientController.cancel}" update=":form:msgs" />
 
 						<p:column headerText="Liste Compte" style="width:40px">
 							<p:rowToggler />
@@ -131,7 +131,7 @@
 						</p:column>
 						
 						<p:rowExpansion>
-							<p:dataTable value="#{tempClient.accounts}" var="account"
+							<p:dataTable value="#{clientController.accountLoad(tempClient)}" var="account"
 								resizableColumns="true">
 								<f:facet name="header">
 									<h:outputText value="Détail compte"></h:outputText>
