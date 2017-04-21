@@ -1,17 +1,56 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
-<html lang="en"
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets">
-<h:head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>title</title>
-</h:head>
-<h:body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	template="/template/templatelogout.xhtml">
 
-<h1>Home Page</h1>
-<h:link outcome="/view/example.xhtml">page de test</h:link>
+	<ui:define name="title">
+		<div class="container" style="margin-top: 250px">
+			<div class="starter-template" style="text-align: center">
+				<h1>ProxiBanque Application</h1>
+				<h2>Veuillez vous enregistrer</h2>
+			</div>
+		</div>
+	</ui:define>
 
-</h:body>
-</html>
+	<ui:define name="login">
+
+
+			<div class="form-group">
+				<h:inputText styleClass="form-control" a:placeholder="login"
+					value="#{userController.currentUser.login}"></h:inputText>
+
+			</div>
+			<div class="form-group">
+				<h:inputSecret styleClass="form-control" a:placeholder="password"
+					id="pass" value="#{userController.currentUser.password}"></h:inputSecret>
+			</div>
+
+			<div class="form-group">
+				<h:commandLink action="#{userController.login()}"
+					styleClass="btn btn-success">
+					<i class="icon-search"></i>Valider</h:commandLink>
+			</div>
+
+
+	</ui:define>
+	
+<!-- 	<p:dialog header="Remove" widgetVar="confirmDeleteDlg" -->
+<!-- 					resizable="false" width="400" height="60" showEffect="clip" -->
+<!-- 					hideEffect="clip" modal="true"> -->
+
+<!-- 					<p:outputPanel layout="block" style="text-align:center"> -->
+<!-- 						<p:commandButton value="Yes" -->
+<!-- 							update=":form1:messages,:form1:objects" -->
+<!-- 							actionListener="#{itemMB.delete}" -->
+<!-- 							oncomplete="PF('confirmDeleteDlg').hide()" /> -->
+<!-- 						<p:commandButton value="No" onclick="PF('confirmDeleteDlg').hide()" -->
+<!-- 							type="button" /> -->
+<!-- 					</p:outputPanel> -->
+
+<!-- 				</p:dialog> -->
+
+
+</ui:composition>

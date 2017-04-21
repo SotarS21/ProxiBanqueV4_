@@ -1,5 +1,6 @@
 package org.ProxiBanque.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
@@ -10,7 +11,7 @@ import javax.persistence.Table;
 @DiscriminatorValue("D")
 public class Director extends Person{
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	private User user;
 
 	public Director(String firstName, String lastName, Address address, User user) {

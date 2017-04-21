@@ -23,7 +23,12 @@
 
 				</ul>
 				<h:form class="navbar-form navbar-right">
-					<ui:insert name="login" />
+				
+					<ui:insert name="login" >
+					
+						<h:outputText>Bienvenue #{userController.currentUser.login} !</h:outputText>
+					
+					</ui:insert>
 				</h:form>
 			</div>
 		</div>

@@ -11,7 +11,7 @@ public interface IServiceUser {
 	public User findOne(Long id);
 	public List<User> findAll();
 	public void delete(Long id);
-	public List<User> findAllByLoginAndPasswordAllIgnoreCase(String login, String password);
+	public User findFirstByLoginAndPasswordAllIgnoreCase(String login, String password);
 	public List<User> findAllByLoginAllIgnoreCase(String login);
 	public List<User> findAllByPasswordAllIgnoreCase(String Password);
 }
