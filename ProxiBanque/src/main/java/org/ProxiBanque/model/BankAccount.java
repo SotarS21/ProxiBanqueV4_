@@ -1,5 +1,6 @@
 package org.ProxiBanque.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
@@ -27,10 +28,10 @@ public abstract class BankAccount {
 	@Column(name="TYPE")
 	private e_AccountType type;
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.REFRESH)
 	private Client client;
 	
-	enum e_AccountType{
+	public enum e_AccountType{
 		CURRUENT_ACCOUNT,
 		SAVING_ACCOUNT
 	}

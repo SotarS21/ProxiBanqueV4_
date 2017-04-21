@@ -54,24 +54,26 @@ public class BankAccountTest {
 		assertTrue(200 == serviceAccount.listAccounts().get(1).getSold());
 	}
 	
-//	@Test
-//	public void deleteCurrentAccount(){
-//		BankAccount ba = new CurrentAccount(100, 0);
-//		serviceAccount.addAccount(ba);
-//		int i = serviceAccount.listAccounts().size();
-//		serviceAccount.deleteAccount(16L);
-//		int j = serviceAccount.listAccounts().size();
-//		j++;
-//		assertTrue(i == j);
-//	}
+	@Test
+	public void deleteCurrentAccount(){
+		BankAccount ba = new CurrentAccount(100, 0);
+		serviceAccount.addAccount(ba);
+		int i = serviceAccount.listAccounts().size();
+		serviceAccount.deleteAccount(16L);
+		int j = serviceAccount.listAccounts().size();
+		j++;
+		assertTrue(i == j);
+	}
 	
 	@Test
-	public void createSavingAccount(){
+	public void createSavingAccountWithClient(){
 		Client cl = new Client("Jo", "Bar", new Address());
 		serviceClient.save(cl);
-		Client client = serviceClient.findOne(64L);
-		BankAccount ba = new SavingAccount(0.5, 15000, client);
-		serviceAccount.addAccount(ba);
+		SavingAccount sa = new SavingAccount(0, 1000, cl);
+		serviceAccount.addAccount(sa);
+		cl.setSafeAccount(sa);
+		serviceClient.save(cl);
+		assertNotNull(cl.getSafeAccount());
 	}
 	
 	@Test
@@ -79,10 +81,13 @@ public class BankAccountTest {
 		Client client = new Client("Jo", "Bar", new Address());
 		serviceClient.save(client);
 		
-		BankAccount ba = new CurrentAccount(0, 0, client);
+		CurrentAccount ba = new CurrentAccount(0, 0, client);
 		serviceAccount.addAccount(ba);
-		BankAccount ba1 = new SavingAccount(0, 0, client);
+		SavingAccount ba1 = new SavingAccount(0, 0, client);
 		serviceAccount.addAccount(ba1);
+		client.setSafeAccount(ba1);
+		client.setCurrentAccount(ba);
+		serviceClient.save(client);
 		Long id = client.getId();
 		
 		assertTrue(serviceAccount.getAccountsByClientId(id).size()==2);

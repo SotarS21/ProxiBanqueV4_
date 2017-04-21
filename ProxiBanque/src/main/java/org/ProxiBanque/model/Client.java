@@ -1,5 +1,6 @@
 package org.ProxiBanque.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -14,10 +15,10 @@ import javax.persistence.Table;
 @DiscriminatorValue("C")
 public class Client extends Person{
 
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	private CurrentAccount currentAccount;
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	private SavingAccount safeAccount;
 	
 	@Column(name="TYPE")

@@ -1,5 +1,6 @@
 package org.ProxiBanque.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
@@ -11,7 +12,7 @@ public class CurrentAccount extends BankAccount{
 	@Column(name="DECOUVERT")
 	private double decouvert;
 	
-	@OneToOne(mappedBy="currentAccount")
+	@OneToOne(mappedBy="currentAccount",cascade=CascadeType.REFRESH)
 	private Client client;
 
 	
