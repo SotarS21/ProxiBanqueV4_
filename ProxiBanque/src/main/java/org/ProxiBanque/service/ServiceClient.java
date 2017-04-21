@@ -74,6 +74,12 @@ public class ServiceClient implements IServiceClient {
 			daoClient.save(client);
 		}
 	}
+
+	@Override
+	public void init() {
+		logger.debug("entered init");
+		
+	}
 	
 	
 
