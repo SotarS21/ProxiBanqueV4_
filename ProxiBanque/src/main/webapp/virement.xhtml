@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/template/template.xhtml" xmlns:p="http://primefaces.org/ui">
+
+
+	<ui:define name="login">
+		<h:commandLink action="#{userController.logout()}"
+			value="Deconnection #{userController.login}"></h:commandLink>
+
+	</ui:define>
+
+	<ui:define name="content">
+
+		<div id="container">
+			<div id="content">
+				<h:form id="form">
+					<p:panelGrid>
+						<f:facet name="header">
+							<p:row>
+								<p:column colspan="6">Compte Debiteur</p:column>
+							</p:row>
+							<p:row>
+								<p:column>Prénom </p:column>
+								<p:column>Nom </p:column>
+								<p:column>Type de compte</p:column>
+								<p:column>Numéro de compte</p:column>
+								<p:column>Solde</p:column>
+								<p:column>Date d'ouverture </p:column>
+							</p:row>
+						</f:facet>
+						<p:row>
+							<p:column>
+								<h:outputText value="#{client.firstName}" />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{client.lastName}" />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{bankAccount.type}" />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{bankAccount.numAccount}" />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{bankAccount.sold}" />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{bankAccount.openDate}" />
+							</p:column>
+						</p:row>
+					</p:panelGrid>
+
+					<p:growl id="msgs" showDetail="true" />
+					<p:dataTable value="#{clientController.listClient}" editable="true"
+						var="tempClient" style="margin-bottom:20px" scrollable="true"
+						scrollHeight="800" scrollWidth="1600">
+						<f:facet name="header">Liste des clients</f:facet>
+						<p:ajax event="rowEdit"
+							listener="#{clientController.updateClient(tempClient)}"
+							update=":form:msgs" />
+						<p:ajax event="rowEditCancel"
+							listener="#{clientController.cancel()}" update=":form:msgs" />
+
+						<p:column style="width:40px">
+							<p:rowToggler />
+						</p:column>
+						<p:column headerText="Prénom" sortBy="#{tempClient.firstName}">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{tempClient.firstName}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText value="#{tempClient.firstName}" style="width:100%" />
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+						<p:column headerText="Nom" sortBy="#{tempClient.lastName}">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{tempClient.lastName}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText value="#{tempClient.lastName}" style="width:100%" />
+								</f:facet>
+							</p:cellEditor>
+
+						</p:column>
+						<p:column headerText="Email">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{tempClient.email}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText value="#{tempClient.email}" style="width:100%" />
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+						<p:column headerText="Téléphone">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{tempClient.cellphone}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText value="#{tempClient.cellphone}" style="width:100%" />
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+						<p:rowExpansion>
+							<p:panelGrid columns="5">
+									
+									<p:spacer/>
+									<p:spacer/>
+									<p:outputLabel value="Account Details" />
+									<p:spacer/>
+									<p:spacer/>
+									
+									<h:outputText value="Account type"/>
+									<h:outputText value="Account number"/>
+									<h:outputText value="Account sold"/>
+									<h:outputText value="Date ouverture"/>
+									<h:outputText value="Montant"/>
+																		
+									<f:ajax />
+									<h:outputText value="#{tempClient..type}" />
+									<h:outputText value="#{account.numAccount}" />
+									<h:outputText value="#{account.sold}" />
+									
+									<h:outputText value="#{account.openDate}" />
+									
+								
+									<p:inputText value="#{virement.valeur}" />
+								
+									<p:commandButton
+										onclick="if (!confirm('Voulez vous vraiment faire le virement?')) return false"
+										title="Débiteur"
+										action="#{virementController.virement(tempClient, account,virement)}">
+
+									</p:commandButton>
+
+							</p:panelGrid>
+						</p:rowExpansion>
+					</p:dataTable>
+				</h:form>
+
+			</div>
+		</div>
+	</ui:define>
+
+</ui:composition>

@@ -16,9 +16,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-
-
-
 /**
  * Classe de contrôler permettant d'effectuer des actions sur le client dans nos pages xhtml
  * 

@@ -3,7 +3,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough" 
+	xmlns:p="http://primefaces.org/ui"
 	template="/template/templatelogout.xhtml">
 
 	<ui:define name="title">
@@ -13,6 +14,23 @@
 				<h2>Veuillez vous enregistrer</h2>
 			</div>
 		</div>
+		
+		<p:commandButton value="show Dialog" onclick="PF('confirmDeleteDlg').show()"/>
+	<p:dialog header="Remove" widgetVar="confirmDeleteDlg"
+					resizable="false" width="400" height="60" showEffect="clip"
+					hideEffect="clip" modal="true">
+
+<!-- 					<p:outputPanel layout="block" style="text-align:center"> -->
+<!-- 						<p:commandButton value="Yes" -->
+<!-- 							update=":form1:messages,:form1:objects" -->
+<!-- 							actionListener="#{itemMB.delete}" -->
+<!-- 							oncomplete="PF('confirmDeleteDlg').hide()" /> -->
+<!-- 						<p:commandButton value="No" onclick="PF('confirmDeleteDlg').hide()" -->
+<!-- 							type="button" /> -->
+<!-- 					</p:outputPanel> -->
+
+				</p:dialog>
+		
 	</ui:define>
 
 	<ui:define name="login">
@@ -37,20 +55,5 @@
 
 	</ui:define>
 	
-<!-- 	<p:dialog header="Remove" widgetVar="confirmDeleteDlg" -->
-<!-- 					resizable="false" width="400" height="60" showEffect="clip" -->
-<!-- 					hideEffect="clip" modal="true"> -->
-
-<!-- 					<p:outputPanel layout="block" style="text-align:center"> -->
-<!-- 						<p:commandButton value="Yes" -->
-<!-- 							update=":form1:messages,:form1:objects" -->
-<!-- 							actionListener="#{itemMB.delete}" -->
-<!-- 							oncomplete="PF('confirmDeleteDlg').hide()" /> -->
-<!-- 						<p:commandButton value="No" onclick="PF('confirmDeleteDlg').hide()" -->
-<!-- 							type="button" /> -->
-<!-- 					</p:outputPanel> -->
-
-<!-- 				</p:dialog> -->
-
 
 </ui:composition>

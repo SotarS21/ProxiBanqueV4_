@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.SessionScoped;
-import javax.servlet.http.HttpServletResponse;
-import javax.xml.ws.spi.http.HttpContext;
 
 import org.ProxiBanque.model.Address;
 import org.ProxiBanque.model.Advisor;
@@ -70,6 +68,12 @@ public class UserController implements Serializable{
 			}
 		}
 		return "";
+	}
+	
+	public String logout() {
+		
+		currentUser = new User();
+		return "index";
 	}
 	
 	public User getCurrentUser() {
