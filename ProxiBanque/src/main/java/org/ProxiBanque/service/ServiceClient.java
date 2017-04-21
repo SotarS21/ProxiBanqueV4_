@@ -31,7 +31,9 @@ public class ServiceClient implements IServiceClient {
 	public List<Client> findAll() {
 		// TODO Auto-generated method stub
 		logger.debug("call findAll on serviceClient");
-		return daoClient.findAll();
+		List<Client> test =  daoClient.findAll();
+		logger.debug("test" + test.size());
+		return test;
 	}
 
 	@Override

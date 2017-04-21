@@ -70,17 +70,17 @@
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
-<!-- 						<p:column headerText="Conseiller"> -->
-<!-- 							<p:cellEditor> -->
-<!-- 								<f:facet name="output"> -->
-<!-- 									<h:outputText value="#{tempClient.adviserCurrent.lastName}" /> -->
-<!-- 								</f:facet> -->
-<!-- 								<f:facet name="input"> -->
-<!-- 									<p:inputText value="#{tempClient.adviserCurrent.lastName}" -->
-<!-- 										style="width:100%" /> -->
-<!-- 								</f:facet> -->
-<!-- 							</p:cellEditor> -->
-<!-- 						</p:column> -->
+						<p:column headerText="Conseiller">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{tempClient.advisor.lastName}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText value="#{tempClient.advisor.lastName}"
+										style="width:100%" />
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
 						<p:column headerText="Adresse">
 							<p:cellEditor>
 								<f:facet name="output">
@@ -121,14 +121,15 @@
 								actionListener="#{clientController.addSavingAccount(tempClient)}"
 								ajax="false" />
 						</p:column>
-						<p:column headerText="Supprimer" style="width:90px">
+						<p:column headerText="Supprimer" style="width:60px">
 							<p:commandButton icon="ui-icon-trash" title="Delete this client"
 								actionListener="#{clientController.deleteClient(tempClient.id)}"
 								ajax="false" />
 						</p:column>
-						<p:column headerText="Modifier" style="width:80px">
+						<p:column headerText="Modifier" style="width:60px" >
 							<p:rowEditor />
 						</p:column>
+						
 						<p:rowExpansion>
 							<p:dataTable value="#{tempClient.accounts}" var="account"
 								resizableColumns="true">

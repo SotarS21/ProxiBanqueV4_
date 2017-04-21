@@ -63,11 +63,11 @@ public class ClientController implements Serializable {
 	
 
 
-//	static{
-//		listClient.add(new Client("toto", "toto", null));
-//		listClient.add(new Client("toto1", "toto1", null));
-//		listClient.add(new Client("toto1", "toto1", null));
-//	}
+	static{
+		listClient.add(new Client("toto", "toto", null));
+		listClient.add(new Client("toto1", "toto1", null));
+		listClient.add(new Client("toto1", "toto1", null));
+	}
 
 	
 	
@@ -75,10 +75,13 @@ public class ClientController implements Serializable {
 	
 	public void loadClients() {
 		listClient.clear();
+		LOGGER.debug("Load all client in BDD");
 		try {
-
-			listClient = serviceClient.findAll(); //serviceClient.findByConseiller_Id(idConseiller)
-
+			listClient = serviceClient.findAll();//findByConseiller_Id(3L);
+			System.out.println(listClient.size());
+		for (Client client : listClient) {
+				System.out.println(client.getFirstName());
+			}
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
