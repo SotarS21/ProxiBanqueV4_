@@ -41,16 +41,26 @@ public class Advisor extends Person{
 	public Collection<Client> getClients() {
 		return clients;
 	}
+	
 	public void setUser(User user) {
 		this.user = user;
 	}
 	public Advisor() {
 		super();
 	}
+	
 	@Override
 	public String toString() {
 		return "Advisor [user=" + user + ", clients=" + clients + "]";
 	}
 	
+	/**
+	 * Ajout un client dans la liste des clients du conseiller
+	 * @param cl : client
+	 */
+	public void addClient(Client cl)
+	{
+		this.clients.add(cl);
+	}
 	
 }
