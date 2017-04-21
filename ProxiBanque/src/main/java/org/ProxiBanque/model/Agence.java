@@ -60,6 +60,11 @@ public class Agence {
 	public long getId() {
 		return id;
 	}
+	@Override
+	public String toString() {
+		return "Agence [id=" + id + ", dateCreation=" + dateCreation + ", advisors=" + advisors + ", director="
+				+ director + ", clients=" + clients + "]";
+	}
 	
 	
 }

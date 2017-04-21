@@ -109,4 +109,10 @@ public class Person {
 	public void setCellphone(String cellphone) {
 		this.cellphone = cellphone;
 	}
+	@Override
+	public String toString() {
+		return "Person [id=" + id + ", firstName=" + firstName + ", email=" + email + ", cellphone=" + cellphone
+				+ ", lastName=" + lastName + ", address=" + address + ", agence=" + agence + "]";
+	}
+	
 }

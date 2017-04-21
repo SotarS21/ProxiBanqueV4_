@@ -32,6 +32,11 @@ public class Director extends Person{
 		super();
 	}
 
+	@Override
+	public String toString() {
+		return "Director [user=" + user + "]";
+	}
+
 	
 	
 	
