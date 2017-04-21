@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToOne;
 
 
 @Entity
@@ -26,6 +27,8 @@ public abstract class BankAccount {
 	@Column(name="TYPE")
 	private e_AccountType type;
 	
+	@OneToOne
+	private Client client;
 	
 	enum e_AccountType{
 		CURRUENT_ACCOUNT,

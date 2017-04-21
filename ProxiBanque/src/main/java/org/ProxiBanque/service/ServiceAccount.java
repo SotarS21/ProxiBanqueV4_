@@ -20,7 +20,7 @@ public class ServiceAccount implements IServiceAccount {
 	@Override
 	public void addAccount(BankAccount account) {
 		logger.debug("test add account 1");
-		daoAccount.saveAndFlush(account);
+		daoAccount.save(account);
 		logger.debug("test add account 2");
 	}
 
@@ -31,7 +31,7 @@ public class ServiceAccount implements IServiceAccount {
 	}
 
 	@Override
-	public void deleteAccount(long idAccount) {
+	public void deleteAccount(Long idAccount) {
 		logger.debug("test delete account 1");
 		daoAccount.delete(idAccount);
 		logger.debug("test delete account 2");
@@ -45,6 +45,16 @@ public class ServiceAccount implements IServiceAccount {
 			logger.debug("test edit account 2");
 		}
 		
+	}
+
+	@Override
+	public BankAccount getAccount(Long id) {
+		return daoAccount.findOne(id);
+	}
+
+	@Override
+	public List<BankAccount> getAccountsByClientId(Long idClient) {
+		return daoAccount.findAllByClient_Id(idClient);
 	}
 
 }
