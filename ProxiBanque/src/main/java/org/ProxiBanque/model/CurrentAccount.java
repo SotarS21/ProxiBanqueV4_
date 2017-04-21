@@ -14,8 +14,16 @@ public class CurrentAccount extends BankAccount{
 	@OneToOne(mappedBy="currentAccount")
 	private Client client;
 
-	public CurrentAccount(double decouvert, double sold, e_AccountType type) {
-		super(sold,  type);
+	
+
+	public CurrentAccount(double sold, double decouvert, Client client) {
+		super(sold, e_AccountType.CURRUENT_ACCOUNT);
+		this.decouvert = decouvert;
+		this.client = client;
+	}
+
+	public CurrentAccount(double decouvert, double sold) {
+		super(sold, e_AccountType.CURRUENT_ACCOUNT);
 		this.decouvert = decouvert;
 	}
 

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.SessionScoped;
 
 import org.ProxiBanque.model.BankAccount;
@@ -59,6 +60,13 @@ public class ClientController implements Serializable {
 	}
 	public static void setListClient(List<Client> listClient) {
 		ClientController.listClient = listClient;
+	}
+	
+	@PostConstruct
+	private void init() {
+		
+		serviceClient.init();
+//		serviceAccount.init();
 	}
 	
 

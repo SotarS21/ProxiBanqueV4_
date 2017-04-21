@@ -3,12 +3,11 @@ package org.ProxiBanque.model;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -17,8 +16,7 @@ import javax.persistence.Table;
 @DiscriminatorValue("A")
 public class Advisor extends Person{
 
-	@Embedded
-	@Column(name="USER")
+	@OneToOne
 	private User user;
 	
 	@OneToMany(fetch=FetchType.EAGER, cascade={CascadeType.PERSIST, CascadeType.REFRESH}, mappedBy="advisor")
