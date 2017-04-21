@@ -105,6 +105,13 @@ public class Client extends Person{
 	}
 
 
+	@Override
+	public String toString() {
+		return "Client [currentAccount=" + currentAccount + ", safeAccount=" + safeAccount + ", type=" + type
+				+ ", isRitch=" + isRitch + ", advisor=" + advisor + "]";
+	}
+
+
 	
 	
 }

@@ -49,6 +49,11 @@ public class Address {
 	public void setTown(String town) {
 		this.town = town;
 	}
+
+	@Override
+	public String toString() {
+		return "Address [number=" + number + ", zipCode=" + zipCode + ", town=" + town + "]";
+	}
 	
 	
 	

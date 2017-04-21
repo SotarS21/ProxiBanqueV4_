@@ -43,6 +43,10 @@ public class Advisor extends Person{
 	public Advisor() {
 		super();
 	}
+	@Override
+	public String toString() {
+		return "Advisor [user=" + user + ", clients=" + clients + "]";
+	}
 	
 	
 }
