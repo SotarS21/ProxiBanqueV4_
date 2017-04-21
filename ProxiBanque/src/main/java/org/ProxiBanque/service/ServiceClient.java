@@ -44,10 +44,10 @@ public class ServiceClient implements IServiceClient {
 	}
 
 	@Override
-	public List<Client> findByLastNameAndFirstNameAllIgnoreCase(String lastName, String firstName) {
+	public List<Client> findAllByLastNameAndFirstNameAllIgnoreCase(String lastName, String firstName) {
 		// TODO Auto-generated method stub
 		logger.debug("call findByLastNameAndFirstNameAllIgnoreCase on serviceClient");
-		return daoClient.findByLastNameAndFirstNameAllIgnoreCase(lastName, firstName);
+		return daoClient.findAllByLastNameAndFirstNameAllIgnoreCase(lastName, firstName);
 	}
 
 	@Override

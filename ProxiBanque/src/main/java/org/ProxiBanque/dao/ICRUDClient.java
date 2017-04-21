@@ -9,5 +9,5 @@ import org.springframework.transaction.annotation.Transactional;
 public interface ICRUDClient extends JpaRepository<Client, Long> {
 
 	public List<Client> findByAdvisor_Id(Long idConseiller);
-	public List<Client> findByLastNameAndFirstNameAllIgnoreCase(String lastName, String firstName);
+	public List<Client> findAllByLastNameAndFirstNameAllIgnoreCase(String lastName, String firstName);
 }
