@@ -1,9 +1,8 @@
 package org.ProxiBanque.model;
 
-import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -11,8 +10,7 @@ import javax.persistence.Table;
 @DiscriminatorValue("D")
 public class Director extends Person{
 	
-	@Embedded
-	@Column(name="USER")
+	@OneToOne
 	private User user;
 
 	public Director(String firstName, String lastName, Address address, User user) {
