@@ -99,7 +99,7 @@ public class ServiceAccount implements IServiceAccount {
 	}
 
 	@Override
-	public String doVirement(BankAccount debiteur, BankAccount crediteur, double montant) {
+	public String doVirement(BankAccount debiteur, BankAccount crediteur, double montant) throws RuntimeException{
 		if (debiteur.getAccountNumber() == crediteur.getAccountNumber()) {
 			return "pas le droit pour un même compte";
 		} else {
