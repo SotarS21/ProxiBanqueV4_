@@ -146,7 +146,7 @@
 									<f:facet name="header">
 										<h:outputText value="Numéro"></h:outputText>
 									</f:facet>
-									<h:outputText value="#{account.numAccount}" />
+									<h:outputText value="#{account.accountNumber}" />
 								</p:column>
 								<p:column colspan="2">
 									<f:facet name="header">
@@ -154,20 +154,14 @@
 									</f:facet>
 									<h:outputText value="#{account.sold}" />
 								</p:column>
-								<p:column colspan="1">
-									<f:facet name="header">
-										<h:outputText value="Date ouverture"></h:outputText>
-									</f:facet>
-									<h:outputText value="#{account.openDate}" />
-								</p:column>
-								<p:column colspan="1">
+								<p:column colspan="2">
 									<f:facet name="header">
 										<h:outputText value="Transaction from"></h:outputText>
 									</f:facet>
 									<p:commandButton
-										onclick="if (!confirm('select this account for transaction ?')) return false"
-										title="Débiteur"
-										action="#{clientController.virement(tempClient, account)}">
+										
+										title="Select"
+										action="#{clientController.forwardToVirement(account)}">
 
 									</p:commandButton>
 								</p:column>
@@ -180,4 +174,5 @@
 			</div>
 		</div>
 	</ui:define>
+<!-- 	onclick="if (!confirm('select this account for transaction ?')) return 'virement'" -->
 </ui:composition>

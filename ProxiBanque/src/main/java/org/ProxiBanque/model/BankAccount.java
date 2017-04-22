@@ -36,7 +36,7 @@ public abstract class BankAccount {
 	
 	
 	public enum e_AccountType{
-		CURRUENT_ACCOUNT,
+		CURRENT_ACCOUNT,
 		SAVING_ACCOUNT
 	}
 	
@@ -91,12 +91,5 @@ public abstract class BankAccount {
 	public void setClient(Client client) {
 		this.client = client;
 	}
-
-	public void setAccountNumber(long accountNumber) {
-		this.accountNumber = accountNumber;
-	}
-
-	
-	
 	
 }

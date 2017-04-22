@@ -3,27 +3,36 @@ package org.ProxiBanque.model;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-//@Table(name="FOOTPRINT")
+@Table(name="FOOTPRINT")
 public class Footprint {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	
+	@Column(name="HEAD")
 	private e_HeadType head;
+	
+	@Column(name="BODY")
 	private String body;
+	
+	@Column(name="FOOT")
 	private e_State foot;
+
+	@Column(name="DATECREATION")
 	private String dateCreation;
 	
 	public enum e_HeadType{
 		TRANSACTION,
-		CLENT,
+		CLIENT,
 		ADVISOR
 	};
 	
@@ -88,8 +97,7 @@ public class Footprint {
 
 	@Override
 	public String toString() {
-		return "Footprint [id=" + id + ", head=" + head + ", body=" + body + ", foot=" + foot + ", dateCreation="
-				+ dateCreation + "]";
+		return "[id " + id + "]" + head + " " + body + " " + foot + " timestamp : " + dateCreation;
 	};
 	
 	

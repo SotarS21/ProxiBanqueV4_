@@ -25,14 +25,14 @@ public class FootPrintTest {
 		assertNotNull(service);
 	}
 	
-	@Test
-	public void testAddFootPrint() {
-		
-		int oldSize = service.findAll().size();
-		service.save(new Footprint(e_HeadType.CLENT, "Ajout d'un client de nom : test", e_State.SUCCESS));
-		int newSize = service.findAll().size();
-		
-		assertTrue(oldSize < newSize);
-	}
+//	@Test
+//	public void testAddFootPrint() {
+//		
+//		int oldSize = service.findAll().size();
+//		service.save(new Footprint(e_HeadType.CLENT, "Ajout d'un client de nom : test", e_State.SUCCESS));
+//		int newSize = service.findAll().size();
+//		
+//		assertTrue(oldSize < newSize);
+//	}
 
 }

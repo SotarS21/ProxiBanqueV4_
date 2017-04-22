@@ -9,6 +9,7 @@ import java.util.List;
 import org.ProxiBanque.config.ApplicationConfig;
 import org.ProxiBanque.model.Address;
 import org.ProxiBanque.model.Advisor;
+import org.ProxiBanque.model.Client;
 import org.ProxiBanque.model.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -94,4 +95,5 @@ public class AdvisorTestService {
 		int sizeAfter = service.findByLastNameAndFirstNameAllIgnoreCase( "Valjean", "jean").size();
 		assertTrue(sizeBefor > sizeAfter);
 	}
+	
 }

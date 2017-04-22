@@ -8,7 +8,7 @@
 
 	<ui:define name="login">
 		<h:commandLink action="#{userController.logout()}"
-			value="Deconnection #{userController.login}"></h:commandLink>
+			value="Deconnection #{userController.currentUser.login}"></h:commandLink>
 
 	</ui:define>
 
@@ -16,7 +16,6 @@
 
 		<div id="container">
 			<div id="content">
-				<h:form id="form">
 					<p:panelGrid>
 						<f:facet name="header">
 							<p:row>
@@ -52,6 +51,7 @@
 							</p:column>
 						</p:row>
 					</p:panelGrid>
+				<h:form id="form">
 
 					<p:growl id="msgs" showDetail="true" />
 					<p:dataTable value="#{clientController.listClient}" editable="true"
@@ -124,7 +124,7 @@
 									<f:facet name="header">
 										<h:outputText value="Numéro"></h:outputText>
 									</f:facet>
-									<h:outputText value="#{account.numAccount}" />
+									<h:outputText value="#{account.accountNumber}" />
 								</p:column>
 								<p:column colspan="2">
 									<f:facet name="header">
@@ -134,28 +134,30 @@
 								</p:column>
 								<p:column colspan="2">
 									<f:facet name="header">
-										<h:outputText value="Date ouverture"></h:outputText>
+										<h:outputText value="Montant"></h:outputText>
 									</f:facet>
-									<h:outputText value="#{account.openDate}" />
+									<p:inputText value="#{userController.value}" />
+								</p:column>
+								<p:column colspan="1">
+									<f:facet name="header">
+										<h:outputText value="Validation"></h:outputText>
+									</f:facet>
+									<p:commandButton
+										
+										title="Select"
+										action="#{clientController.forwardToVirement(account)}">
+
+									</p:commandButton>
 								</p:column>
 							</p:dataTable>
 						</p:rowExpansion>
-									<p:inputText value="#{userController.value}" />
-								
-									<p:commandButton
-										onclick="if (!confirm('Voulez vous vraiment faire le virement?')) return false"
-										title="Débiteur"
-										action="#{clientController.virement(tempClient, account)}">
 
-									</p:commandButton>
-
-							</p:panelGrid>
-						</p:rowExpansion>
 					</p:dataTable>
 				</h:form>
 
 			</div>
 		</div>
 	</ui:define>
-
+	
+<!-- onclick="if (!confirm('Voulez vous vraiment faire le virement?')) return false" -->
 </ui:composition>

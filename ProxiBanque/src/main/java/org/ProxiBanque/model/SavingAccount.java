@@ -2,11 +2,13 @@ package org.ProxiBanque.model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
 
 @Entity
+@DiscriminatorValue("saving")
 public class SavingAccount extends BankAccount{
 	
 	@Column(name="TAUXREMUNERATION")

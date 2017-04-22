@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.ProxiBanque.dao.ICRUDAccount;
 import org.ProxiBanque.dao.ICRUDClient;
+import org.ProxiBanque.exception.VirementException;
 import org.ProxiBanque.model.BankAccount;
 import org.ProxiBanque.model.BankAccount.e_AccountType;
 import org.ProxiBanque.model.Client;
@@ -31,7 +32,7 @@ public class ServiceAccount implements IServiceAccount {
 		logger.debug("test add account 1");
 		account.setClient(client);
 		daoAccount.save(account);
-		if (account.getType().equals(e_AccountType.CURRUENT_ACCOUNT)) {
+		if (account.getType().equals(e_AccountType.CURRENT_ACCOUNT)) {
 			if (client.getCurrentAccount() == null) {
 				CurrentAccount account1 = (CurrentAccount) account;
 				client.setCurrentAccount(account1);
@@ -64,7 +65,7 @@ public class ServiceAccount implements IServiceAccount {
 	public void deleteAccount(Long idAccount) {
 		logger.debug("test delete account 1");
 		BankAccount ba = this.getAccount(idAccount);
-		if (ba.getType().equals(e_AccountType.CURRUENT_ACCOUNT)) {
+		if (ba.getType().equals(e_AccountType.CURRENT_ACCOUNT)) {
 			Client cl = ba.getClient();
 			cl.setCurrentAccount(null);
 			daoClient.save(cl);
@@ -99,9 +100,10 @@ public class ServiceAccount implements IServiceAccount {
 	}
 
 	@Override
-	public String doVirement(BankAccount debiteur, BankAccount crediteur, double montant) throws RuntimeException{
+	public String doVirement(BankAccount debiteur, BankAccount crediteur, double montant) throws VirementException{
 		if (debiteur.getAccountNumber() == crediteur.getAccountNumber()) {
-			return "pas le droit pour un même compte";
+			
+			throw new VirementException("pas le droit pour un même compte");
 		} else {
 			double soldDeb = debiteur.getSold();
 			double soldCred = crediteur.getSold();
@@ -110,7 +112,8 @@ public class ServiceAccount implements IServiceAccount {
 			double newSoldCred = soldCred + montant;
 
 			if (newSoldDeb < (0 - debiteur.getDecouvert())) {
-				return "Solde insufisant";
+
+				throw new VirementException("solde insuffisant");
 			} else {
 				debiteur.setSold(newSoldDeb);
 				crediteur.setSold(newSoldCred);
@@ -147,7 +150,7 @@ public class ServiceAccount implements IServiceAccount {
 			List<BankAccount> listAccount = this.getAccountsByClientId(id);
 			double total = 0;
 			for (BankAccount bankAccount : listAccount) {
-				if (bankAccount.getType().equals(e_AccountType.CURRUENT_ACCOUNT)) {
+				if (bankAccount.getType().equals(e_AccountType.CURRENT_ACCOUNT)) {
 					CurrentAccount ca = (CurrentAccount) bankAccount;
 					total += ca.getSold();
 				} else if (bankAccount.getType().equals(e_AccountType.SAVING_ACCOUNT)) {

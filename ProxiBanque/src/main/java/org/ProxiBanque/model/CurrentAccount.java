@@ -2,10 +2,12 @@ package org.ProxiBanque.model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
 @Entity
+@DiscriminatorValue("current")
 public class CurrentAccount extends BankAccount {
 
 	@Column(name = "DECOUVERT")
@@ -23,13 +25,13 @@ public class CurrentAccount extends BankAccount {
 	}
 
 	public CurrentAccount(double sold, double decouvert, Client client) {
-		super(sold, e_AccountType.CURRUENT_ACCOUNT);
+		super(sold, e_AccountType.CURRENT_ACCOUNT);
 		this.decouvert = decouvert;
 		this.client = client;
 	}
 
 	public CurrentAccount(double decouvert, double sold) {
-		super(sold, e_AccountType.CURRUENT_ACCOUNT);
+		super(sold, e_AccountType.CURRENT_ACCOUNT);
 		this.decouvert = decouvert;
 	}
 
@@ -44,5 +46,5 @@ public class CurrentAccount extends BankAccount {
 	public CurrentAccount() {
 		super();
 	}
-
+	
 }

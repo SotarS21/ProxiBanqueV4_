@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.SessionScoped;
 
+import org.ProxiBanque.exception.VirementException;
 import org.ProxiBanque.model.BankAccount;
 import org.ProxiBanque.model.Client;
 import org.ProxiBanque.service.IServiceAccount;
@@ -170,9 +171,14 @@ public class ClientController implements Serializable {
 		return "virement";
 	}
 	
-	public String virement(Client client, BankAccount account) {
+	public String virement(BankAccount account) {
 		
-		serviceAccount.doVirement(bankAccount, account, value);
+		try {
+			serviceAccount.doVirement(bankAccount, account, value);
+		} catch (VirementException e) {
+			// TODO Auto-generated catch block
+			LOGGER.error(e.getMessage());
+		}
 		return "listClient";
 	}
 	public BankAccount getBankAccount() {
