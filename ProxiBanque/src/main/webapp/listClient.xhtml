@@ -154,11 +154,22 @@
 									</f:facet>
 									<h:outputText value="#{account.sold}" />
 								</p:column>
-								<p:column colspan="2">
+								<p:column colspan="1">
 									<f:facet name="header">
 										<h:outputText value="Date ouverture"></h:outputText>
 									</f:facet>
 									<h:outputText value="#{account.openDate}" />
+								</p:column>
+								<p:column colspan="1">
+									<f:facet name="header">
+										<h:outputText value="Transaction from"></h:outputText>
+									</f:facet>
+									<p:commandButton
+										onclick="if (!confirm('select this account for transaction ?')) return false"
+										title="Débiteur"
+										action="#{clientController.virement(tempClient, account)}">
+
+									</p:commandButton>
 								</p:column>
 							</p:dataTable>
 						</p:rowExpansion>

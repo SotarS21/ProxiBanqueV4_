@@ -2,6 +2,7 @@ package org.ProxiBanque.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,11 +24,10 @@ public class User {
 	@Column(name="PASSWORD")
 	private String password;
 	
-
-	@OneToOne(mappedBy="user")
+	@OneToOne(fetch=FetchType.EAGER, mappedBy="user")
 	private Advisor advisor;
 	
-	@OneToOne(mappedBy="user")
+	@OneToOne(fetch=FetchType.EAGER, mappedBy="user")
 	private Director director;
 	
 	public String getLogin() {

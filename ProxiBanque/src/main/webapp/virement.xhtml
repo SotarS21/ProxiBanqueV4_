@@ -140,12 +140,12 @@
 								</p:column>
 							</p:dataTable>
 						</p:rowExpansion>
-									<p:inputText value="#{virement.valeur}" />
+									<p:inputText value="#{userController.value}" />
 								
 									<p:commandButton
 										onclick="if (!confirm('Voulez vous vraiment faire le virement?')) return false"
 										title="Débiteur"
-										action="#{virementController.virement(tempClient, account,virement)}">
+										action="#{clientController.virement(tempClient, account)}">
 
 									</p:commandButton>
 

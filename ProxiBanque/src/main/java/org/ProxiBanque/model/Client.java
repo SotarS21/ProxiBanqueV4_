@@ -34,7 +34,7 @@ public class Client extends Person {
 	@Column(name = "ISRICH")
 	private boolean isRitch;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Advisor advisor;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

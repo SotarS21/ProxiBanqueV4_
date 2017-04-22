@@ -9,6 +9,8 @@ import org.ProxiBanque.model.Address;
 import org.ProxiBanque.model.Advisor;
 import org.ProxiBanque.model.Agence;
 import org.ProxiBanque.model.Client;
+import org.ProxiBanque.model.CurrentAccount;
+import org.ProxiBanque.model.SavingAccount;
 import org.ProxiBanque.model.User;
 import org.ProxiBanque.service.IServiceAdvisor;
 import org.ProxiBanque.service.IServiceUser;
@@ -36,26 +38,31 @@ public class UserController implements Serializable {
 	private void init() {
 
 		currentUser = new User();
-
+		
 		// TODO : supprimer après les tests
 		User user = new User("login", "mdp");
-		Advisor advisor = new Advisor("Bob", "Bob", new Address(), user);
-		Client client = new Client("Boub", "Boub", new Address());
+		User user2 = new User("login2", "mdp2");
+		CurrentAccount current = new CurrentAccount(2000, 2000);
+		SavingAccount saving = new SavingAccount(0.3, 5000);
+		CurrentAccount current2 = new CurrentAccount(1000, 1000);
+		SavingAccount saving2 = new SavingAccount(0.4, 10000);
+		Client client = new Client("Bobinou", "Bobinou", new Address("12 rue des Lila", "94800", "Villejuif"));
+		Client client2 = new Client("Bobinou", "Bobinou", new Address("12 rue des Lila", "94800", "Villejuif"));
+		client.setCurrentAccount(current);
+		client.setSafeAccount(saving);
+		client2.setCurrentAccount(current2);
+		client2.setSafeAccount(saving2);
 		Agence agence = new Agence();
-		advisor.setAgence(agence);
+		Advisor advisor = new Advisor("Bob", "Bob", new Address());
+		advisor.setUser(user);
+		Advisor advisor2 = new Advisor("Bib", "Bib", new Address());
+		advisor2.setUser(user2);
+		agence.addAdvisor(advisor2);
+		agence.addAdvisor(advisor);
 		advisor.addClient(client);
-
+		advisor2.addClient(client2);
 		serviceAdvisor.save(advisor);
-		System.out.println(serviceAdvisor.findOne(advisor.getId()).getClients().get(0));
-
-		client.setLastName("test");
-		client.setAddress(new Address("10 rue lila", "92810", "Sarcelles"));
-		advisor.setCellphone("0000000000000");
-		System.out.println(client);
-		
-		serviceAdvisor.update(advisor);
-		System.out.println(serviceAdvisor.findOne(advisor.getId()).getClients().get(0));
-
+		serviceAdvisor.save(advisor2);
 	}
 
 	public String login() {

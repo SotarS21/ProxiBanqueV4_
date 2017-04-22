@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.bean.SessionScoped;
 
 import org.ProxiBanque.model.BankAccount;
 import org.ProxiBanque.model.Client;
@@ -24,7 +25,7 @@ import org.springframework.stereotype.Controller;
  */
 
 @Controller
-
+@SessionScoped
 public class ClientController implements Serializable {
 
 	/**
@@ -33,6 +34,7 @@ public class ClientController implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private BankAccount bankAccount;
+	private double value;
 
 	private  List<Client> listClient = new ArrayList<>();
 	private  List<Client> listFilter = new ArrayList<>();
@@ -161,6 +163,24 @@ public class ClientController implements Serializable {
 		}
 		return "listClient";
 	}
+	
+	public String forwardToVirement(BankAccount account) {
+		
+		bankAccount = account;
+		return "virement";
+	}
+	
+	public String virement(Client client, BankAccount account) {
+		
+		serviceAccount.doVirement(bankAccount, account, value);
+		return "listClient";
+	}
+	public BankAccount getBankAccount() {
+		return bankAccount;
+	}
+	public void setBankAccount(BankAccount bankAccount) {
+		this.bankAccount = bankAccount;
+	}
 
-
+	
 }

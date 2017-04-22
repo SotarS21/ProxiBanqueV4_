@@ -1,12 +1,10 @@
 package org.ProxiBanque.dao;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.ProxiBanque.config.ApplicationConfig;
 import org.ProxiBanque.model.Address;
-import org.ProxiBanque.model.BankAccount;
 import org.ProxiBanque.model.Client;
 import org.ProxiBanque.model.CurrentAccount;
 import org.ProxiBanque.model.SavingAccount;

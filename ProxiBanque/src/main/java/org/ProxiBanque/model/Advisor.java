@@ -41,6 +41,7 @@ public class Advisor extends Person{
 	}
 	public void setUser(User user) {
 		this.user = user;
+		user.setAdvisor(this);
 	}
 	public List<Client> getClients() {
 		return clients;
