@@ -109,28 +109,37 @@
 							</p:cellEditor>
 						</p:column>
 						<p:rowExpansion>
-							<p:panelGrid columns="5">
-									
-									<p:spacer/>
-									<p:spacer/>
-									<p:outputLabel value="Account Details" />
-									<p:spacer/>
-									<p:spacer/>
-									
-									<h:outputText value="Account type"/>
-									<h:outputText value="Account number"/>
-									<h:outputText value="Account sold"/>
-									<h:outputText value="Date ouverture"/>
-									<h:outputText value="Montant"/>
-																		
-									<f:ajax />
-									<h:outputText value="#{tempClient..type}" />
+							<p:dataTable value="#{clientController.accountLoad(tempClient)}" var="account"
+								resizableColumns="true">
+								<f:facet name="header">
+									<h:outputText value="Détail compte"></h:outputText>
+								</f:facet>
+								<p:column colspan="2">
+									<f:facet name="header">
+										<h:outputText value="Type"></h:outputText>
+									</f:facet>
+									<h:outputText value="#{account.type}" />
+								</p:column>
+								<p:column colspan="2">
+									<f:facet name="header">
+										<h:outputText value="Numéro"></h:outputText>
+									</f:facet>
 									<h:outputText value="#{account.numAccount}" />
+								</p:column>
+								<p:column colspan="2">
+									<f:facet name="header">
+										<h:outputText value="Solde"></h:outputText>
+									</f:facet>
 									<h:outputText value="#{account.sold}" />
-									
+								</p:column>
+								<p:column colspan="2">
+									<f:facet name="header">
+										<h:outputText value="Date ouverture"></h:outputText>
+									</f:facet>
 									<h:outputText value="#{account.openDate}" />
-									
-								
+								</p:column>
+							</p:dataTable>
+						</p:rowExpansion>
 									<p:inputText value="#{virement.valeur}" />
 								
 									<p:commandButton

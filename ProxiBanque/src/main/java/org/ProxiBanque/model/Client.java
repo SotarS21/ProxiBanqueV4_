@@ -36,6 +36,9 @@ public class Client extends Person {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Advisor advisor;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Agence agence;
 
 	public enum e_ClientType {
 		CASUAL_CLIENT, ENTERPRISE_CLIENT
@@ -94,13 +97,35 @@ public class Client extends Person {
 	}
 
 	public void setAdvisor(Advisor advisor) {
+		
+		if(! advisor.getClients().contains(this)) {
+			
+			advisor.addClient(this);
+		}			
 		this.advisor = advisor;
+		setAgence(advisor.getAgence());
+	}
+	
+	public Agence getAgence() {
+		return agence;
+	}
+
+	public void setAgence(Agence agence) {
+		
+		if(! agence.getClients().contains(this)) {
+			
+			agence.addClient(this);
+		}
+		this.agence = agence;
 	}
 
 	@Override
 	public String toString() {
 		return "Client [currentAccount=" + currentAccount + ", safeAccount=" + safeAccount + ", type=" + type
-				+ ", isRitch=" + isRitch + ", advisor=" + advisor + "]";
+				+ ", isRitch=" + isRitch +" , toString()="
+				+ super.toString() + "]";
 	}
+
+	
 
 }

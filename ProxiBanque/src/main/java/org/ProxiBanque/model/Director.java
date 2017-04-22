@@ -26,6 +26,10 @@ public class Director extends Person{
 	public User getUser() {
 		return user;
 	}
+	
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public Director() {
 		super();

@@ -1,6 +1,7 @@
 package org.ProxiBanque.model;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
@@ -25,8 +26,8 @@ public class Advisor extends Person{
 	@OneToOne(cascade=CascadeType.ALL)
 	private User user;
 	
-	@OneToMany(fetch=FetchType.EAGER, cascade={CascadeType.PERSIST, CascadeType.REFRESH}, mappedBy="advisor")
-	private Collection<Client> clients;
+	@OneToMany(fetch=FetchType.EAGER, cascade={CascadeType.ALL}, mappedBy="advisor")
+	private List<Client> clients = new ArrayList<Client>();
 	
 	public Advisor(String firstName, String lastName, Address address, User user) {
 		super(firstName, lastName, address);
@@ -38,12 +39,14 @@ public class Advisor extends Person{
 	public User getUser() {
 		return user;
 	}
-	public Collection<Client> getClients() {
-		return clients;
-	}
-	
 	public void setUser(User user) {
 		this.user = user;
+	}
+	public List<Client> getClients() {
+		return clients;
+	}
+	public void setClients(List<Client> clients) {
+		this.clients = clients;
 	}
 	public Advisor() {
 		super();
@@ -61,6 +64,14 @@ public class Advisor extends Person{
 	public void addClient(Client cl)
 	{
 		this.clients.add(cl);
+		cl.setAdvisor(this);
 	}
-	
+	public void removeClient(Client cl) {
+		
+		if(clients.contains(cl)) {
+			
+			clients.remove(cl);
+			cl.setAdvisor(null);
+		}
+	}
 }

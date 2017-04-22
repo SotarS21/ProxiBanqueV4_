@@ -1,5 +1,6 @@
 package org.ProxiBanque.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Embedded;
@@ -42,7 +43,7 @@ public class Person {
 	@Column(name="ADRESSE")
 	private Address address;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
 	private Agence agence;
 	
 	
@@ -94,6 +95,7 @@ public class Person {
 		return agence;
 	}
 	public void setAgence(Agence agence) {
+		
 		this.agence = agence;
 	}
 	

@@ -1,7 +1,8 @@
 package org.ProxiBanque.model;
 
 import java.text.DateFormat;
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -29,14 +30,14 @@ public class Agence {
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade={CascadeType.PERSIST, CascadeType.REFRESH})
 	@Column(name="ADVISORS")
-	private Collection<Advisor> advisors;
+	private List<Advisor> advisors = new ArrayList<Advisor>();
 	
 	@OneToOne(fetch=FetchType.LAZY, cascade={CascadeType.PERSIST, CascadeType.REFRESH})
 	private Director director;
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade={CascadeType.PERSIST, CascadeType.REFRESH})
 	@Column(name="CLIENTS")
-	private Collection<Client> clients; 
+	private List<Client> clients = new ArrayList<Client>(); 
 	
 	public DateFormat getDateCreation() {
 		return dateCreation;
@@ -44,12 +45,73 @@ public class Agence {
 	public void setDateCreation(DateFormat dateCreation) {
 		this.dateCreation = dateCreation;
 	}
-	public Collection<Advisor> getAdvisors() {
+	public List<Advisor> getAdvisors() {
 		return advisors;
 	}
-	public void setAdvisors(Collection<Advisor> advisors) {
+	public void setAdvisors(List<Advisor> advisors) {
 		this.advisors = advisors;
 	}
+	
+	public Director getDirector() {
+		return director;
+	}
+	public void setDirector(Director director) {
+		
+		this.director = director;
+		director.setAgence(this);
+	}
+	public List<Client> getClients() {
+		return clients;
+	}
+	public void setClients(List<Client> clients) {
+		this.clients = clients;
+	}
+	
+	public void addClient(Client client) {
+		
+		if(! clients.contains(client)) {
+			
+			clients.add(client);
+			client.setAgence(this);
+		}
+	}
+	
+	public void removeClient(Client client) {
+		
+		if(clients.contains(client)) {
+			
+			clients.remove(client);
+			client.setAgence(null);
+		}
+	}
+	
+	public void addAdvisor(Advisor advisor) {
+		
+		if(! advisors.contains(advisor)) {
+			
+			advisors.add(advisor);
+			advisor.setAgence(this);
+			for (Client client : advisor.getClients()) {
+				
+				addClient(client);
+			}
+		}
+	}
+	
+	public void removeAdvisor(Advisor advisor) {
+		
+		if(advisors.contains(advisor)) {
+			
+			advisors.remove(advisor);
+		}
+		advisor.setAgence(null);
+		for (Client client : advisor.getClients()) {
+			
+			client.setAgence(null);
+		}
+	}
+	
+	
 	public Agence(DateFormat dateCreation) {
 		super();
 		this.dateCreation = dateCreation;

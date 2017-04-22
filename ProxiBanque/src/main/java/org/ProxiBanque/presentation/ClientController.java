@@ -109,8 +109,14 @@ public class ClientController implements Serializable {
 	
 	public List<BankAccount> accountLoad(Client client){
 			List<BankAccount> listAccount = new ArrayList<>();
-			listAccount.add(client.getSafeAccount());
-			listAccount.add(client.getCurrentAccount());
+			if (! (client.getSafeAccount() == null)) {
+				
+				listAccount.add(client.getSafeAccount());
+			}
+			if(! (client.getCurrentAccount() == null)) {
+				
+				listAccount.add(client.getCurrentAccount());
+			}
 		return listAccount;
 	}
 
