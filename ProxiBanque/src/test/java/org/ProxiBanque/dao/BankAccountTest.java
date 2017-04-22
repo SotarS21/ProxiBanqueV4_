@@ -161,13 +161,28 @@ public class BankAccountTest {
 	public void isClientSetRich() {
 		Client cl = new Client("Jo", "Bar", new Address());
 		serviceClient.save(cl);
+		Long idClient = cl.getId();
 		SavingAccount sa = new SavingAccount(30000, 0, 0);
 		serviceAccount.addAccount(sa, cl);
 		CurrentAccount ca = new CurrentAccount(0, 30000);
 		serviceAccount.addAccount(ca, cl);
 		serviceAccount.setClientRich();
-		System.out.println(cl.isRitch()+"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-		assertTrue(cl.isRitch());
+		Client cl1 = serviceClient.findOne(idClient);
+		assertTrue(cl1.isRitch());
+	}
+	
+	@Test
+	public void isClientNotRich(){
+		Client cl = new Client("Jo", "Bar", new Address());
+		serviceClient.save(cl);
+		Long idClient = cl.getId();
+		SavingAccount sa = new SavingAccount(2000, 0, 0);
+		serviceAccount.addAccount(sa, cl);
+		CurrentAccount ca = new CurrentAccount(0, 30000);
+		serviceAccount.addAccount(ca, cl);
+		serviceAccount.setClientRich();
+		Client cl1 = serviceClient.findOne(idClient);
+		assertTrue(cl1.isRitch()== false);
 	}
 	// @Test
 	// public void createSavingAccountWithClient(){

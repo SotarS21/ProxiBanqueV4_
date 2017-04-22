@@ -149,19 +149,21 @@ public class ServiceAccount implements IServiceAccount {
 			for (BankAccount bankAccount : listAccount) {
 				if (bankAccount.getType().equals(e_AccountType.CURRUENT_ACCOUNT)) {
 					CurrentAccount ca = (CurrentAccount) bankAccount;
-					total = total + ca.getSold();
+					total += ca.getSold();
 				} else if (bankAccount.getType().equals(e_AccountType.SAVING_ACCOUNT)) {
 					SavingAccount sa = (SavingAccount) bankAccount;
-					total = total + sa.getSold();
+					total += sa.getSold();
 				}
-				total = total + bankAccount.getSold();
 			}
-			System.out.println(total + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			if (total >= 50000) {
 				client.setRitch(true);
+				;
+				daoClient.save(client);
+			} else {
+				client.setRitch(false);
 				daoClient.save(client);
 			}
-			
+
 		}
 	}
 
