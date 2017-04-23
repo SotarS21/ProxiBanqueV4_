@@ -9,6 +9,7 @@ import org.ProxiBanque.exception.VirementException;
 import org.ProxiBanque.model.BankAccount;
 import org.ProxiBanque.model.BankAccount.e_AccountType;
 import org.ProxiBanque.model.Client;
+import org.ProxiBanque.model.Client.e_ClientType;
 import org.ProxiBanque.model.CurrentAccount;
 import org.ProxiBanque.model.SavingAccount;
 import org.slf4j.Logger;
@@ -100,9 +101,9 @@ public class ServiceAccount implements IServiceAccount {
 	}
 
 	@Override
-	public String doVirement(BankAccount debiteur, BankAccount crediteur, double montant) throws VirementException{
+	public String doVirement(BankAccount debiteur, BankAccount crediteur, double montant) throws VirementException {
 		if (debiteur.getAccountNumber() == crediteur.getAccountNumber()) {
-			
+
 			throw new VirementException("pas le droit pour un même compte");
 		} else {
 			double soldDeb = debiteur.getSold();
@@ -137,9 +138,43 @@ public class ServiceAccount implements IServiceAccount {
 	}
 
 	@Override
-	public List<BankAccount> doAudit() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<BankAccount> doAudit() throws RuntimeException {
+		List<Client> listClient = daoClient.findAll();
+		List<BankAccount> listAudit = new ArrayList<>();
+		for (Client client : listClient) {
+			Long id = client.getId();
+			List<BankAccount> listAccount = this.getAccountsByClientId(id);
+			if (client.getType() == e_ClientType.CASUAL_CLIENT) {
+				for (BankAccount bankAccount : listAccount) {
+					if (bankAccount.getType().equals(e_AccountType.CURRENT_ACCOUNT)) {
+						CurrentAccount ca = (CurrentAccount) bankAccount;
+						if (ca.getSold() < -5000) {
+							listAudit.add(ca);
+						}
+					} else if (bankAccount.getType().equals(e_AccountType.SAVING_ACCOUNT)) {
+						SavingAccount sa = (SavingAccount) bankAccount;
+						if (sa.getSold() < -5000) {
+							listAudit.add(sa);
+						}
+					}
+				}
+			} else if (client.getType() == e_ClientType.ENTERPRISE_CLIENT) {
+				for (BankAccount bankAccount : listAccount) {
+					if (bankAccount.getType().equals(e_AccountType.CURRENT_ACCOUNT)) {
+						CurrentAccount ca = (CurrentAccount) bankAccount;
+						if (ca.getSold() < -50000) {
+							listAudit.add(ca);
+						}
+					} else if (bankAccount.getType().equals(e_AccountType.SAVING_ACCOUNT)) {
+						SavingAccount sa = (SavingAccount) bankAccount;
+						if (sa.getSold() < -50000) {
+							listAudit.add(sa);
+						}
+					}
+				}
+			}
+		}
+		return listAudit;
 	}
 
 	@Override
@@ -158,7 +193,7 @@ public class ServiceAccount implements IServiceAccount {
 					total += sa.getSold();
 				}
 			}
-			if (total >= 50000) {
+			if (total >= 500000) {
 				client.setRitch(true);
 				;
 				daoClient.save(client);
