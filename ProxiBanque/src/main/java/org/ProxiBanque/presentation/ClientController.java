@@ -3,13 +3,16 @@ package org.ProxiBanque.presentation;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.ProxiBanque.exception.VirementException;
+import org.ProxiBanque.model.Advisor;
 import org.ProxiBanque.model.BankAccount;
 import org.ProxiBanque.model.BankAccount.e_AccountType;
 import org.ProxiBanque.model.Client;
@@ -98,9 +101,12 @@ public class ClientController implements Serializable {
 		listClient.clear();
 		LOGGER.debug("Load all client in BDD");
 		try {
-
-			listClient = serviceClient.findAll();// findByConseiller_Id(3L);
-			listFilter = serviceClient.findAll();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			ExternalContext extCtx = ctx.getExternalContext();
+			Map<String, Object> sessionMap = extCtx.getSessionMap();
+			Advisor advisor = (Advisor) sessionMap.get("advisor");
+			listClient = serviceClient.findByConseiller_Id(advisor.getId());// findByConseiller_Id(3L);
+			listFilter = serviceClient.findByConseiller_Id(advisor.getId());
 			LOGGER.info("Loading success");
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -117,15 +123,15 @@ public class ClientController implements Serializable {
 	 * @return la page de destination. Si erreur dans la m�thode il restera sur
 	 *         la page en cours
 	 */
-	public void updateClient() {
+	public String updateClient(Client client) {
 		LOGGER.debug("Update Client!");
-		// try {
-		// serviceClient.update(client);
-		//
-		// } catch (Exception e) {
-		// return null;
-		// }
-		// return "listClient";
+		try {
+			serviceClient.update(client);
+
+		} catch (Exception e) {
+			return null;
+		}
+		return "listClient";
 	}
 
 	/**
@@ -139,16 +145,21 @@ public class ClientController implements Serializable {
 	public String deleteClient(long id) {
 		LOGGER.info("Delete CLient!");
 		try {
-			serviceClient.delete(id);
+			Client client1 = serviceClient.findOne(id);
+			client1.setAdvisor(null);
+			
+			serviceClient.save(client1);
+			serviceClient.delete(client1.getId());
 			LOGGER.info("client n� " + id + "deleted");
 			notificationSuccess("client n� " + id + "deleted");
+			return "listClient";
 		} catch (Exception e) {
 
 			LOGGER.error("client n� " + id + "error deleting");
 			notificationError(e, "client n� " + id + "deleting");
 			return null;
 		}
-		return "listClient";
+		
 	}
 
 	public List<BankAccount> accountLoad(Client client) {
@@ -230,7 +241,7 @@ public class ClientController implements Serializable {
 
 		bankAccount = account;
 		clientContr = client;
-		return "virement";
+		return "virement?faces-redirect=true";
 	}
 
 	public String virement(BankAccount account) {
@@ -273,20 +284,43 @@ public class ClientController implements Serializable {
 	public String decouvertColor(Client client) {
 		double solds = 0;
 		double sold = 0;
-		if (client.getCurrentAccount() != null){
+		if (client.getCurrentAccount() != null) {
 			solds = client.getCurrentAccount().getSold();
-			sold =  client.getCurrentAccount().getSold();
+			sold = client.getCurrentAccount().getSold();
 		}
 
 		if (client.getSafeAccount() != null)
 			solds = solds + client.getSafeAccount().getSold();
 
-		if (sold < 0) 
+		if (sold < 0)
 			return "decouvert";
-		 else if (solds > 500000)
+		else if (solds > 500000)
 			return "isRich";
 		else
 			return "";
+	}
+
+	public String decouvertColor(Advisor advisor) {
+		double solds = 0;
+		double sold = 0;
+		
+		List<Client> clients = advisor.getClients();
+		for (Client client : clients) {
+			if (client.getCurrentAccount() != null) {
+				solds = client.getCurrentAccount().getSold();
+				sold = client.getCurrentAccount().getSold();
+			}
+
+			if (client.getSafeAccount() != null)
+				solds = solds + client.getSafeAccount().getSold();
+			if (sold < 0)
+				return "decouvert";
+			else if (solds > 500000)
+				return "isRich";
+
+		}
+
+		return "";
 	}
 
 }

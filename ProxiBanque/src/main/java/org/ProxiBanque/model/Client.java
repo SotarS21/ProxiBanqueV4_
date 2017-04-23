@@ -38,7 +38,7 @@ public class Client extends Person {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Advisor advisor;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Agence agence;
 
@@ -68,8 +68,8 @@ public class Client extends Person {
 
 	public void setCurrentAccount(CurrentAccount currentAccount) {
 		this.currentAccount = currentAccount;
-		if(currentAccount != null) {
-			
+		if (currentAccount != null) {
+
 			currentAccount.setClient(this);
 		}
 	}
@@ -80,8 +80,8 @@ public class Client extends Person {
 
 	public void setSafeAccount(SavingAccount safeAccount) {
 		this.safeAccount = safeAccount;
-		if(safeAccount != null) {
-			
+		if (safeAccount != null) {
+
 			safeAccount.setClient(this);
 		}
 	}
@@ -107,35 +107,34 @@ public class Client extends Person {
 	}
 
 	public void setAdvisor(Advisor advisor) {
-		
-		if(! advisor.getClients().contains(this)) {
-			
-			advisor.addClient(this);
-		}			
+		if (advisor != null) {
+			if (!advisor.getClients().contains(this)) {
+				advisor.addClient(this);
+			}
+		}
 		this.advisor = advisor;
-		setAgence(advisor.getAgence());
-	}
 	
+			//setAgence(advisor.getAgence());
+	}
+
 	public Agence getAgence() {
 		return agence;
 	}
 
 	public void setAgence(Agence agence) {
-		
-		if(! agence.getClients().contains(this)) {
-			
+
+		if (!agence.getClients().contains(this)) {
+
 			agence.addClient(this);
 		}
+
 		this.agence = agence;
 	}
 
 	@Override
 	public String toString() {
 		return "Client [currentAccount=" + currentAccount + ", safeAccount=" + safeAccount + ", type=" + type
-				+ ", isRitch=" + isRitch +" , toString()="
-				+ super.toString() + "]";
+				+ ", isRitch=" + isRitch + " , toString()=" + super.toString() + "]";
 	}
-
-	
 
 }

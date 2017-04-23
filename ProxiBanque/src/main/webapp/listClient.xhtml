@@ -5,7 +5,11 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui" template="/template/template.xhtml">
 
-	
+	<ui:define name="login">
+		<h:commandLink action="#{userController.logout()}"
+			value="Deconnection #{userController.currentUser.login}"></h:commandLink>
+
+	</ui:define>
 	<ui:define name="content">
 		<f:metadata>
 			<f:event type="preRenderView"
@@ -17,8 +21,10 @@
 				<h:form id="form">
 					<p:growl id="msgs" showDetail="true" />
 					<p:dataTable value="#{clientController.listClient}" editable="true"
-						var="tempClient" style="margin-bottom:20px" filteredValue="#{clientController.listFilter}"  scrollable="true"
-						scrollHeight="800" scrollWidth="1600" rowStyleClass="#{clientController.decouvertColor(tempClient)}">
+						var="tempClient" style="margin-bottom:20px"
+						filteredValue="#{clientController.listFilter}" scrollable="true"
+						scrollHeight="800" scrollWidth="1600"
+						rowStyleClass="#{clientController.decouvertColor(tempClient)}">
 						<f:facet name="header">Liste des clients</f:facet>
 						<p:ajax event="rowEdit"
 							listener="#{clientController.updateClient(tempClient)}"
@@ -29,7 +35,10 @@
 						<p:column headerText="Liste Compte" style="width:45px">
 							<p:rowToggler />
 						</p:column>
-						<p:column headerText="Prénom" sortBy="#{tempClient.firstName}" style="width:110px; text-align:center" filterValue="#{tempClient.firstName}" filterBy="#{tempClient.firstName}" filterMatchMode="contains">
+						<p:column headerText="Prénom" sortBy="#{tempClient.firstName}"
+							style="width:110px; text-align:center"
+							filterValue="#{tempClient.firstName}"
+							filterBy="#{tempClient.firstName}" filterMatchMode="contains">
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{tempClient.firstName}" />
@@ -39,7 +48,9 @@
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
-						<p:column  headerText="Nom" sortBy="#{tempClient.lastName}" style="width:110px; text-align:center" filterBy="#{tempClient.lastName}" filterMatchMode="contains">
+						<p:column headerText="Nom" sortBy="#{tempClient.lastName}"
+							style="width:110px; text-align:center"
+							filterBy="#{tempClient.lastName}" filterMatchMode="contains">
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{tempClient.lastName}" />
@@ -50,7 +61,8 @@
 							</p:cellEditor>
 
 						</p:column>
-						<p:column headerText="Email" style="width:120px; text-align:center">
+						<p:column headerText="Email"
+							style="width:120px; text-align:center">
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{tempClient.email}" />
@@ -60,7 +72,8 @@
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
-						<p:column headerText="Téléphone" style="width:120px; text-align:center">
+						<p:column headerText="Téléphone"
+							style="width:120px; text-align:center">
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{tempClient.cellphone}" />
@@ -70,34 +83,27 @@
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
-						<p:column headerText="Conseiller" style="width:110px; text-align:center" filterBy="#{tempClient.advisor.lastName}" filterMatchMode="contains">
-							<p:cellEditor>
-								<f:facet name="output">
-									<h:outputText value="#{tempClient.advisor.lastName}" />
-								</f:facet>
-								<f:facet name="input">
-									<p:inputText value="#{tempClient.advisor.lastName}"
-										style="width:100%" />
-								</f:facet>
-							</p:cellEditor>
-						</p:column>
-						<p:column headerText="Adresse" style="width:120px; text-align:center">
+						<p:column headerText="Adresse"
+							style="width:120px; text-align:center">
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{tempClient.address.number}" />
 								</f:facet>
 								<f:facet name="input">
-									<p:inputText value="#{tempClient.address.number}" style="width:100%" />
+									<p:inputText value="#{tempClient.address.number}"
+										style="width:100%" />
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
-						<p:column headerText="Code postal" style="width:80px; text-align:center">
+						<p:column headerText="Code postal"
+							style="width:80px; text-align:center">
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{tempClient.address.zipCode}" />
 								</f:facet>
 								<f:facet name="input">
-									<p:inputText value="#{tempClient.address.zipCode}" style="width:100%" />
+									<p:inputText value="#{tempClient.address.zipCode}"
+										style="width:100%" />
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
@@ -107,17 +113,18 @@
 									<h:outputText value="#{tempClient.address.town}" />
 								</f:facet>
 								<f:facet name="input">
-									<p:inputText value="#{tempClient.address.town}" style="width:100%" />
+									<p:inputText value="#{tempClient.address.town}"
+										style="width:100%" />
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
 						<p:column headerText="Ajout compte courrant" style="width:90px">
-							<p:commandButton  title="add current"
+							<p:commandButton title="add current"
 								actionListener="#{clientController.addCurrentAccount(tempClient)}"
 								ajax="false" />
 						</p:column>
 						<p:column headerText="Ajout compte epargne" style="width:90px">
-							<p:commandButton  title="add saving"
+							<p:commandButton title="add saving"
 								actionListener="#{clientController.addSavingAccount(tempClient)}"
 								ajax="false" />
 						</p:column>
@@ -126,13 +133,13 @@
 								actionListener="#{clientController.deleteClient(tempClient.id)}"
 								ajax="false" />
 						</p:column>
-						<p:column headerText="Modifier" style="width:80px" >
+						<p:column headerText="Modifier" style="width:80px">
 							<p:rowEditor />
 						</p:column>
-						
+
 						<p:rowExpansion>
-							<p:dataTable value="#{clientController.accountLoad(tempClient)}" var="account"
-								resizableColumns="true" >
+							<p:dataTable value="#{clientController.accountLoad(tempClient)}"
+								var="account" resizableColumns="true">
 								<f:facet name="header">
 									<h:outputText value="Détail compte"></h:outputText>
 								</f:facet>
@@ -158,9 +165,7 @@
 									<f:facet name="header">
 										<h:outputText value="Transaction from"></h:outputText>
 									</f:facet>
-									<p:commandButton
-										
-										title="Select"
+									<p:commandButton title="Select"
 										action="#{clientController.forwardToVirement(tempClient,account)}">
 
 									</p:commandButton>
@@ -174,5 +179,5 @@
 			</div>
 		</div>
 	</ui:define>
-<!-- 	onclick="if (!confirm('select this account for transaction ?')) return 'virement'" -->
+	<!-- 	onclick="if (!confirm('select this account for transaction ?')) return 'virement'" -->
 </ui:composition>

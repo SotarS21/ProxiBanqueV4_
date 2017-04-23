@@ -5,6 +5,11 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	template="/template/template.xhtml" xmlns:p="http://primefaces.org/ui">
 
+	<ui:define name="login">
+		<h:commandLink action="#{userController.logout()}"
+			value="Deconnection #{userController.currentUser.login}"></h:commandLink>
+
+	</ui:define>
 
 	<ui:define name="content">
 		<f:metadata>
@@ -18,7 +23,8 @@
 					<p:growl id="msgs" showDetail="true" />
 					<p:dataTable value="#{advisorController.listAdvisor}"
 						editable="true" var="tempAdvisor" style="margin-bottom:20px"
-						scrollable="true" scrollHeight="800" scrollWidth="1600">
+						scrollable="true" scrollHeight="800" scrollWidth="1600"
+						rowStyleClass="#{clientController.decouvertColor(tempAdvisor)}">
 						<f:facet name="header">Liste des conseiller</f:facet>
 						<p:ajax event="rowEdit"
 							listener="#{advisorController.updateAdvisor(tempAdvisor)}"
@@ -46,8 +52,7 @@
 									<h:outputText value="#{tempAdvisor.lastName}" />
 								</f:facet>
 								<f:facet name="input">
-									<p:inputText value="#{tempAdvisor.lastName}"
-										style="width:100%" />
+									<p:inputText value="#{tempAdvisor.lastName}" style="width:100%" />
 								</f:facet>
 							</p:cellEditor>
 
@@ -81,8 +86,9 @@
 							<p:rowEditor />
 						</p:column>
 						<p:rowExpansion>
-							<p:dataTable value="#{tempAdvisor.clients}"
-								var="tempClient" resizableColumns="true">
+							<p:dataTable value="#{tempAdvisor.clients}" var="tempClient"
+								resizableColumns="true"
+								rowStyleClass="#{clientController.decouvertColor(tempClient)}">
 								<f:facet name="header">
 									<h:outputText value="Client du conseiller"></h:outputText>
 								</f:facet>

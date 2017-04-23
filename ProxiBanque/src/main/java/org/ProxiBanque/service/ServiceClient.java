@@ -61,8 +61,12 @@ public class ServiceClient implements IServiceClient {
 	@Override
 	public void delete(Long id) {
 		// TODO Auto-generated method stub
-		logger.debug("call delete on serviceClient");
-		daoClient.delete(id);
+		logger.debug("call delete on serviceClient " + id);
+		Client client = daoClient.findOne(id);
+		client.setAdvisor(null);
+		
+		daoClient.save(client);
+		daoClient.delete(client.getId());
 	}
 
 	@Override

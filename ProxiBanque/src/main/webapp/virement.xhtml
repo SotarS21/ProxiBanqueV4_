@@ -5,6 +5,10 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	template="/template/template.xhtml" xmlns:p="http://primefaces.org/ui">
 
+		<f:metadata>
+			<f:event type="preRenderView"
+				listener="#{virementController.loadClients()}" />
+		</f:metadata>
 
 	<ui:define name="login">
 		<h:commandLink action="#{userController.logout()}"
@@ -51,15 +55,10 @@
 				<h:form id="form">
 
 					<p:growl id="msgs" showDetail="true" />
-					<p:dataTable value="#{clientController.listClient}" editable="true"
+					<p:dataTable value="#{virementController.listClient}" 
 						var="tempClient" style="margin-bottom:20px" scrollable="true"
-						scrollHeight="800" scrollWidth="1600" filteredValue="#{clientController.listFilter}">
+						scrollHeight="800" scrollWidth="1600" filteredValue="#{virementController.listFilter}">
 						<f:facet name="header">Liste des clients</f:facet>
-						<p:ajax event="rowEdit"
-							listener="#{clientController.updateClient(tempClient)}"
-							update=":form:msgs" />
-						<p:ajax event="rowEditCancel"
-							listener="#{clientController.cancel()}" update=":form:msgs" />
 
 						<p:column style="width:40px">
 							<p:rowToggler />
