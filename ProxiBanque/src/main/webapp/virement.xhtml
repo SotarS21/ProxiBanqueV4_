@@ -19,7 +19,7 @@
 					<p:panelGrid>
 						<f:facet name="header">
 							<p:row>
-								<p:column colspan="6">Compte Debiteur</p:column>
+								<p:column colspan="5">Compte Debiteur</p:column>
 							</p:row>
 							<p:row>
 								<p:column>Prénom </p:column>
@@ -27,28 +27,25 @@
 								<p:column>Type de compte</p:column>
 								<p:column>Numéro de compte</p:column>
 								<p:column>Solde</p:column>
-								<p:column>Date d'ouverture </p:column>
 							</p:row>
 						</f:facet>
 						<p:row>
 							<p:column>
-								<h:outputText value="#{client.firstName}" />
+								<h:outputText value="#{clientController.clientContr.firstName}" />
 							</p:column>
 							<p:column>
-								<h:outputText value="#{client.lastName}" />
+								<h:outputText value="#{clientController.clientContr.lastName}" />
 							</p:column>
 							<p:column>
-								<h:outputText value="#{bankAccount.type}" />
+								<h:outputText value="#{clientController.bankAccount.type}" />
 							</p:column>
 							<p:column>
-								<h:outputText value="#{bankAccount.numAccount}" />
+								<h:outputText value="#{clientController.bankAccount.accountNumber}" />
 							</p:column>
 							<p:column>
-								<h:outputText value="#{bankAccount.sold}" />
+								<h:outputText value="#{clientController.bankAccount.sold}" />
 							</p:column>
-							<p:column>
-								<h:outputText value="#{bankAccount.openDate}" />
-							</p:column>
+							
 						</p:row>
 					</p:panelGrid>
 				<h:form id="form">
@@ -56,7 +53,7 @@
 					<p:growl id="msgs" showDetail="true" />
 					<p:dataTable value="#{clientController.listClient}" editable="true"
 						var="tempClient" style="margin-bottom:20px" scrollable="true"
-						scrollHeight="800" scrollWidth="1600">
+						scrollHeight="800" scrollWidth="1600" filteredValue="#{clientController.listFilter}">
 						<f:facet name="header">Liste des clients</f:facet>
 						<p:ajax event="rowEdit"
 							listener="#{clientController.updateClient(tempClient)}"
@@ -67,28 +64,28 @@
 						<p:column style="width:40px">
 							<p:rowToggler />
 						</p:column>
-						<p:column headerText="Prénom" sortBy="#{tempClient.firstName}">
+						<p:column headerText="Prénom" sortBy="#{tempClient.firstName}" style="width:80px; text-align:center" filterBy="#{tempClient.firstName}" filterMatchMode="contains">
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{tempClient.firstName}" />
 								</f:facet>
 								<f:facet name="input">
-									<p:inputText value="#{tempClient.firstName}" style="width:100%" />
+									<p:inputText value="#{tempClient.firstName}" />
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
-						<p:column headerText="Nom" sortBy="#{tempClient.lastName}">
+						<p:column headerText="Nom" sortBy="#{tempClient.lastName}" style="width:80px; text-align:center" filterBy="#{tempClient.lastName}" filterMatchMode="contains">
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{tempClient.lastName}" />
 								</f:facet>
 								<f:facet name="input">
-									<p:inputText value="#{tempClient.lastName}" style="width:100%" />
+									<p:inputText value="#{tempClient.lastName}" />
 								</f:facet>
 							</p:cellEditor>
 
 						</p:column>
-						<p:column headerText="Email">
+						<p:column headerText="Email" style="width:90px; text-align:center">
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{tempClient.email}" />
@@ -98,7 +95,7 @@
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
-						<p:column headerText="Téléphone">
+						<p:column headerText="Téléphone" style="width:90px; text-align:center">
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{tempClient.cellphone}" />
@@ -114,29 +111,29 @@
 								<f:facet name="header">
 									<h:outputText value="Détail compte"></h:outputText>
 								</f:facet>
-								<p:column colspan="2">
+								<p:column colspan="1">
 									<f:facet name="header">
 										<h:outputText value="Type"></h:outputText>
 									</f:facet>
 									<h:outputText value="#{account.type}" />
 								</p:column>
-								<p:column colspan="2">
+								<p:column colspan="1">
 									<f:facet name="header">
 										<h:outputText value="Numéro"></h:outputText>
 									</f:facet>
 									<h:outputText value="#{account.accountNumber}" />
 								</p:column>
-								<p:column colspan="2">
+								<p:column colspan="1">
 									<f:facet name="header">
 										<h:outputText value="Solde"></h:outputText>
 									</f:facet>
 									<h:outputText value="#{account.sold}" />
 								</p:column>
-								<p:column colspan="2">
+								<p:column colspan="1">
 									<f:facet name="header">
 										<h:outputText value="Montant"></h:outputText>
 									</f:facet>
-									<p:inputText value="#{userController.value}" />
+									<p:inputText value="#{clientController.value}" />
 								</p:column>
 								<p:column colspan="1">
 									<f:facet name="header">
@@ -145,7 +142,7 @@
 									<p:commandButton
 										
 										title="Select"
-										action="#{clientController.forwardToVirement(account)}">
+										action="#{clientController.virement(account)}">
 
 									</p:commandButton>
 								</p:column>

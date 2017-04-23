@@ -4,92 +4,107 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui" 
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
 	template="/template/template.xhtml">
 
 
 	<ui:define name="title">Creation d'un client</ui:define>
-	
-		<ui:define name="content">
+
+	<ui:define name="content">
 
 		<div class="container">
 
-		<form class="form-signin">
-			<h3 class="form-signin-heading">Conseiller </h3>
-			<h2 class="form-signin-heading">Ajout d'un nouveau client</h2>
-			<label class="radio-inline"><input id="pro" type="radio"
-				name="optradio" value="professionnel" onclick="visibilitePro()"/>Professionnel</label> <label
-				class="radio-inline"><input id="part" type="radio"
-				name="optradio" value="particulier" onclick="visibilitePart()"/>Particulier</label><br />
-			<div id="partDiv">
+			<form class="form-signin">
+				<h3 class="form-signin-heading">
+					Conseiller
+					<h:outputText
+						value="#{userController.currentUser.advisor.firstName} " />
+					<h:outputText
+						value="#{userController.currentUser.advisor.lastName}" />
+				</h3>
+				<h2 class="form-signin-heading">Ajout d'un nouveau client</h2>
+
+				<h:selectOneRadio value="#{clientController.typeClient}"
+					onclick="visibilite(this.value)">
+					<f:selectItem itemValue="professionnel" itemLabel="Professionnel" />
+					<f:selectItem itemValue="particulier" itemLabel="Particulier" />
+				</h:selectOneRadio>
+
+				<div id="partDiv">
+
+					<h:inputText a:placeholder="Nom" value="#{client.lastName}"
+						required="true" id="lastname" styleClass="form-control" />
+					<h:inputText a:placeholder="Prenom " value="#{client.firstName}"
+						id="firstname" styleClass="form-control" />
+					<h:inputText a:placeholder="Email" value="#{client.email}"
+						id="email" styleClass="form-control">
+						<f:validateRegex
+							pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+					</h:inputText>
+					<h:inputText a:placeholder="Telephone" value="#{client.cellphone}"
+						id="cellphone" styleClass="form-control" />
+					<h:inputText a:placeholder="Adresse" value="#{client.address}"
+						id="address" styleClass="form-control" />
+					<h:inputText a:placeholder="Ville" value="#{client.town}" id="town"
+						styleClass="form-control" />
+					<h:inputText a:placeholder="Code postal" value="#{client.zipCode}"
+						styleClass="form-control" />
+				</div>
+				<div id="proDiv">
+					<h:inputText a:placeholder="Nom entreprise"
+						value="#{client.lastName}" required="true" id="lastnameE"
+						styleClass="form-control" />
+					<h:inputText a:placeholder="Email " value="#{client.email}"
+						id="emailE" styleClass="form-control">
+						<f:validateRegex
+							pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+					</h:inputText>
+					<h:inputText a:placeholder="Telephone" value="#{client.cellphone}"
+						id="cellphoneE" styleClass="form-control" />
+					<h:inputText a:placeholder="Adresse" value="#{client.address}"
+						id="addressE" styleClass="form-control" />
+					<h:inputText a:placeholder="Ville" value="#{client.town}"
+						id="townE" styleClass="form-control" />
+					<h:inputText a:placeholder="Code postal" value="#{client.zipCode}"
+						styleClass="form-control" />
+				</div>
+
+				<h:commandButton styleClass="btn btn-lg btn-primary btn-block"
+					type="submit" value="valider"></h:commandButton>
+				<h:commandButton styleClass="btn btn-lg btn-primary btn-block"
+					value="Annuler"></h:commandButton>
+
+			</form>
+
+		</div>
+
+		<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+		<script>
+			window.onload = function() {
+				document.getElementById('proDiv').style.display = "none";
+				document.getElementById('partDiv').style.display = "none";
+			}
+
+			function visibilite(type) {
+
+				var part = document.getElementById('partDiv');
+				var pro = document.getElementById('proDiv');
 				
-				<h:inputText a:placeholder="Nom" value="#{client.lastName}" required="true" id="lastname" styleClass="form-control" />
-				<h:inputText a:placeholder="Prenom " value="#{client.firstName}" id="firstname" styleClass="form-control" />
-				<h:inputText a:placeholder="Email" value="#{client.email}" id="email" styleClass="form-control" > <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" /></h:inputText> 
-				<h:inputText a:placeholder="Telephone" value="#{client.cellphone}" id="cellphone" styleClass="form-control"/>
-				<h:inputText a:placeholder="Adresse" value="#{client.address}" id="address" styleClass="form-control"/>
-				<h:inputText a:placeholder="Ville" value="#{client.town}" id="town" styleClass="form-control"/>
-				<h:inputText a:placeholder="Code postal" value="#{client.zipCode}" styleClass="form-control"/>
-			</div>
-			<div id="proDiv">
-				<h:inputText a:placeholder="Nom entreprise" value="#{client.lastName}" required="true" id="lastnameE" styleClass="form-control" />
-				<h:inputText a:placeholder="Email " value="#{client.email}" id="emailE" styleClass="form-control" ><f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" /></h:inputText>
-				<h:inputText a:placeholder="Telephone" value="#{client.cellphone}" id="cellphoneE" styleClass="form-control"/>
-				<h:inputText a:placeholder="Adresse" value="#{client.address}" id="addressE" styleClass="form-control"/>
-				<h:inputText a:placeholder="Ville" value="#{client.town}" id="townE" styleClass="form-control"/>
-				<h:inputText a:placeholder="Code postal" value="#{client.zipCode}" styleClass="form-control"/>
-			</div>
-
-			<h:commandButton styleClass="btn btn-lg btn-primary btn-block" type="submit" value="valider"></h:commandButton>
-						<h:commandButton styleClass="btn btn-lg btn-primary btn-block" value="Annuler" ></h:commandButton>
-
-		</form>
-
-	</div>
-
-	<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
-	<script>
-		window.onload = function() {
-			document.getElementById('proDiv').style.display = "none";
-			document.getElementById('partDiv').style.display = "none";
-		}
-
-		function visibilitePro() {
-
-			var targetElement;
-			var targetElement2;
-			targetElement = document.getElementById('proDiv');
-			targetElement2 = document.getElementById('partDiv');
-
-			if (document.getElementById('part').checked) {
-				targetElement.style.display = "none";
-				targetElement2.style.display = "";
-			} else {
-				targetElement.style.display = "";
-				targetElement2.style.display = "none";
+				switch (type) {
+				case 'particulier':
+					pro.style.display = "none";
+					part.style.display = "";
+					break;
+				case 'professionnel':
+					pro.style.display = "";
+					part.style.display = "none";
+					break;
+				}
 
 			}
 
-		}
-
-		function visibilitePart() {
-
-			var targetElement;
-			var targetElement2;
-			targetElement = document.getElementById('proDiv');
-			targetElement2 = document.getElementById('partDiv');
-
-			if (document.getElementById('pro').checked) {
-				targetElement2.style.display = "none";
-				targetElement.style.display = "";
-			} else {
-				targetElement2.style.display = "";
-				targetElement.style.display = "none";
-
-			}
-
-		}
-	</script>
+			
+		</script>
 	</ui:define>
 </ui:composition>

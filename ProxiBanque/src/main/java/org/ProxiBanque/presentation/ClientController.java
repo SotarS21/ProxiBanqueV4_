@@ -9,6 +9,7 @@ import javax.faces.bean.SessionScoped;
 
 import org.ProxiBanque.exception.VirementException;
 import org.ProxiBanque.model.BankAccount;
+import org.ProxiBanque.model.BankAccount.e_AccountType;
 import org.ProxiBanque.model.Client;
 import org.ProxiBanque.service.IServiceAccount;
 import org.ProxiBanque.service.IServiceClient;
@@ -19,7 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 /**
- * Classe de contrôler permettant d'effectuer des actions sur le client dans nos pages xhtml
+ * Classe de contrï¿½ler permettant d'effectuer des actions sur le client dans nos
+ * pages xhtml
  * 
  * @author kevin jonas
  *
@@ -35,68 +37,99 @@ public class ClientController implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private BankAccount bankAccount;
+	private Client clientContr;
 	private double value;
-
-	private  List<Client> listClient = new ArrayList<>();
-	private  List<Client> listFilter = new ArrayList<>();
+	private List<Client> listClient = new ArrayList<>();
+	private List<Client> listFilter = new ArrayList<>();
 	private static Logger LOGGER = LoggerFactory.getLogger(ClientController.class);
-	
-
+	private String typeClient;
 	@Autowired
 	private IServiceClient serviceClient;
 	@Autowired
 	private IServiceAccount serviceAccount;
 
+	public Client getClientContr() {
+		return clientContr;
+	}
+
+	public void setClientContr(Client clientContr) {
+		this.clientContr = clientContr;
+	}
+
+	public double getValue() {
+		return value;
+	}
+
+	public void setValue(double value) {
+		this.value = value;
+	}
+
 	
+	public String getTypeClient() {
+		return typeClient;
+	}
+
+	public void setTypeClient(String typeClient) {
+		this.typeClient = typeClient;
+	}
+
+	public void setListFilter(List<Client> listFilter) {
+		this.listFilter = listFilter;
+	}
+
 	public List<Client> getListClient() {
 		return listClient;
 	}
+
 	public List<Client> getListFilter() {
 		return listFilter;
 	}
 
-	
 	@PostConstruct
 	private void init() {
-		
+
 		serviceClient.init();
-//		serviceAccount.init();
+		// serviceAccount.init();
 	}
-	
 
-	
-	
-
-	
 	public void loadClients() {
 		listClient.clear();
 		LOGGER.debug("Load all client in BDD");
 		try {
-			listClient = serviceClient.findAll();//findByConseiller_Id(3L);
+
+			listClient = serviceClient.findAll();// findByConseiller_Id(3L);
+			listFilter = serviceClient.findAll();
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 	}
-/**
- * Appelle le service pour effectuer une mise à jour sur la basse de données
- * @param client : récupère le client a modifier
- * @return la page de destination. Si erreur dans la méthode il restera sur la page en cours
- */
+
+	/**
+	 * Appelle le service pour effectuer une mise ï¿½ jour sur la basse de donnï¿½es
+	 * 
+	 * @param client
+	 *            : rï¿½cupï¿½re le client a modifier
+	 * @return la page de destination. Si erreur dans la mï¿½thode il restera sur
+	 *         la page en cours
+	 */
 	public void updateClient() {
 		LOGGER.debug("Update Client!");
-//		try {
-//			serviceClient.update(client);
-//
-//		} catch (Exception e) {
-//			return null;
-//		}
-//		return "listClient";
+		// try {
+		// serviceClient.update(client);
+		//
+		// } catch (Exception e) {
+		// return null;
+		// }
+		// return "listClient";
 	}
 
 	/**
-	 * Appelle le service pour supprimer le client dans la basse de données 
-	 * @param id : identifiant du client
-	 * @return la page de destination. Si erreur dans la méthode il restera sur la page en cours
+	 * Appelle le service pour supprimer le client dans la basse de donnï¿½es
+	 * 
+	 * @param id
+	 *            : identifiant du client
+	 * @return la page de destination. Si erreur dans la mï¿½thode il restera sur
+	 *         la page en cours
 	 */
 	public String deleteClient(long id) {
 		LOGGER.info("Delete CLient!");
@@ -109,25 +142,29 @@ public class ClientController implements Serializable {
 		}
 		return "listClient";
 	}
-	
-	public List<BankAccount> accountLoad(Client client){
-			List<BankAccount> listAccount = new ArrayList<>();
-			if (! (client.getSafeAccount() == null)) {
-				
-				listAccount.add(client.getSafeAccount());
-			}
-			if(! (client.getCurrentAccount() == null)) {
-				
-				listAccount.add(client.getCurrentAccount());
-			}
+
+	public List<BankAccount> accountLoad(Client client) {
+		List<BankAccount> listAccount = new ArrayList<>();
+		if (!(client.getSafeAccount() == null)) {
+
+			listAccount.add(client.getSafeAccount());
+		}
+		if (!(client.getCurrentAccount() == null)) {
+
+			listAccount.add(client.getCurrentAccount());
+		}
 		return listAccount;
 	}
 
 	/**
-	 * Appelle le service pour supprimer le compte dans la basse de données 
-	 * @param idClient : identifiant du client
-	 * @param account : compte à supprimer
-	 * @return la page de destination. Si erreur dans la méthode il restera sur la page en cours
+	 * Appelle le service pour supprimer le compte dans la basse de donnï¿½es
+	 * 
+	 * @param idClient
+	 *            : identifiant du client
+	 * @param account
+	 *            : compte ï¿½ supprimer
+	 * @return la page de destination. Si erreur dans la mï¿½thode il restera sur
+	 *         la page en cours
 	 */
 
 	public void cancel(RowEditEvent event) {
@@ -135,13 +172,17 @@ public class ClientController implements Serializable {
 	}
 
 	/**
-	 * Appelle le service pour créer un compt épargne au client dans la basse de données 
-	 * @param client : envois le client sur lequel créer un compte épargne
-	 * @return la page de destination. Si erreur dans la méthode il restera sur la page en cours
+	 * Appelle le service pour crï¿½er un compt ï¿½pargne au client dans la basse de
+	 * donnï¿½es
+	 * 
+	 * @param client
+	 *            : envois le client sur lequel crï¿½er un compte ï¿½pargne
+	 * @return la page de destination. Si erreur dans la mï¿½thode il restera sur
+	 *         la page en cours
 	 */
 	public String addSavingAccount(Client client) {
 		try {
-			//serviceAccount.addAccountToClient(client.getId(), e_AccountType.SAVING_ACCOUNT, 80);
+			serviceAccount.addAccount(client, e_AccountType.SAVING_ACCOUNT);
 		} catch (Exception e) {
 
 			LOGGER.error("error virement:" + e.getMessage());
@@ -151,42 +192,49 @@ public class ClientController implements Serializable {
 	}
 
 	/**
-	 * Appelle le service pour créer un compt courrant au client dans la basse de données 
-	 * @param client : envois le client sur lequel créer un compte courrant
-	 * @return la page de destination. Si erreur dans la méthode il restera sur la page en cours
+	 * Appelle le service pour crï¿½er un compt courrant au client dans la basse
+	 * de donnï¿½es
+	 * 
+	 * @param client
+	 *            : envois le client sur lequel crï¿½er un compte courrant
+	 * @return la page de destination. Si erreur dans la mï¿½thode il restera sur
+	 *         la page en cours
 	 */
 	public String addCurrentAccount(Client client) {
 		try {
-			//serviceAccount.addAccountToClient(client.getId(), e_AccountType.CURRENT_ACCOUNT, 80);
+			serviceAccount.addAccount(client, e_AccountType.CURRENT_ACCOUNT);
 		} catch (Exception e) {
 			LOGGER.error("error virement:" + e.getMessage());
 			return null;
 		}
 		return "listClient";
 	}
-	
-	public String forwardToVirement(BankAccount account) {
-		
+
+	public String forwardToVirement(Client client, BankAccount account) {
+
 		bankAccount = account;
+		clientContr = client;
 		return "virement";
 	}
-	
+
 	public String virement(BankAccount account) {
-		
+
 		try {
 			serviceAccount.doVirement(bankAccount, account, value);
+			value = 0;
 		} catch (VirementException e) {
 			// TODO Auto-generated catch block
 			LOGGER.error(e.getMessage());
 		}
 		return "listClient";
 	}
+
 	public BankAccount getBankAccount() {
 		return bankAccount;
 	}
+
 	public void setBankAccount(BankAccount bankAccount) {
 		this.bankAccount = bankAccount;
 	}
 
-	
 }

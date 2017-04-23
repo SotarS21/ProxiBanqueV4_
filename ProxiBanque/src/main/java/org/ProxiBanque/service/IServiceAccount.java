@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.ProxiBanque.exception.VirementException;
 import org.ProxiBanque.model.BankAccount;
+import org.ProxiBanque.model.BankAccount.e_AccountType;
 import org.ProxiBanque.model.Client;
 
 public interface IServiceAccount {
@@ -18,4 +19,6 @@ public interface IServiceAccount {
 	public List<Client> findAllClientOverdrawn();
 	public List<BankAccount> doAudit();
 	public void setClientRich();
+	public void addAccount (Client client, e_AccountType type);
+	
 }

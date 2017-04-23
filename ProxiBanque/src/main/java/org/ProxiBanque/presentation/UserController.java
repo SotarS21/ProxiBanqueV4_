@@ -41,7 +41,7 @@ public class UserController implements Serializable {
 
 		currentUser = new User();
 		
-		// TODO : supprimer après les tests
+		// TODO : supprimer aprï¿½s les tests
 		User user = new User("login", "mdp");
 		User user2 = new User("login2", "mdp2");
 		Agence agence = new Agence();

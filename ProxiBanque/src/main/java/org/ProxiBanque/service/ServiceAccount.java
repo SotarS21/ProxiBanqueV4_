@@ -104,7 +104,7 @@ public class ServiceAccount implements IServiceAccount {
 	public String doVirement(BankAccount debiteur, BankAccount crediteur, double montant) throws VirementException {
 		if (debiteur.getAccountNumber() == crediteur.getAccountNumber()) {
 
-			throw new VirementException("pas le droit pour un même compte");
+			throw new VirementException("pas le droit pour un mï¿½me compte");
 		} else {
 			double soldDeb = debiteur.getSold();
 			double soldCred = crediteur.getSold();
@@ -122,7 +122,7 @@ public class ServiceAccount implements IServiceAccount {
 				this.editAccount(debiteur);
 			}
 		}
-		return "Le virement a été effectué";
+		return "Le virement a ï¿½tï¿½ effectuï¿½";
 	}
 
 	@Override
@@ -203,6 +203,40 @@ public class ServiceAccount implements IServiceAccount {
 			}
 
 		}
+		
+		
+	}
+
+	@Override
+	public void addAccount(Client client, e_AccountType type) {
+		BankAccount account = new BankAccount() {
+		};
+		logger.debug("test add account 1");
+		account.setClient(client);
+		daoAccount.save(account);
+		if (type.equals(e_AccountType.CURRENT_ACCOUNT)) {
+			if (client.getCurrentAccount() == null) {
+				CurrentAccount account1 = (CurrentAccount) account;
+				client.setCurrentAccount(account1);
+				daoClient.save(client);
+			} else {
+				daoAccount.delete(account);
+			}
+
+		} else if (type.equals(e_AccountType.SAVING_ACCOUNT)) {
+			if (client.getSafeAccount() == null) {
+				SavingAccount account2 = (SavingAccount) account;
+				client.setSafeAccount(account2);
+				daoClient.save(client);
+			} else {
+				daoAccount.delete(account);
+			}
+
+		}
+
+		logger.debug("test add account 2");
+	
+		
 	}
 
 }

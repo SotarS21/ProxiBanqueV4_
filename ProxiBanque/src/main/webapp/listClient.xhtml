@@ -17,7 +17,7 @@
 				<h:form id="form">
 					<p:growl id="msgs" showDetail="true" />
 					<p:dataTable value="#{clientController.listClient}" editable="true"
-						var="tempClient" style="margin-bottom:20px" scrollable="true"
+						var="tempClient" style="margin-bottom:20px" filteredValue="#{clientController.listFilter}"  scrollable="true"
 						scrollHeight="800" scrollWidth="1600" >
 						<f:facet name="header">Liste des clients</f:facet>
 						<p:ajax event="rowEdit"
@@ -26,10 +26,10 @@
 						<p:ajax event="rowEditCancel"
 							listener="#{clientController.cancel}" update=":form:msgs" />
 
-						<p:column headerText="Liste Compte" style="width:40px">
+						<p:column headerText="Liste Compte" style="width:45px">
 							<p:rowToggler />
 						</p:column>
-						<p:column headerText="Prénom" sortBy="#{tempClient.firstName}">
+						<p:column headerText="Prénom" sortBy="#{tempClient.firstName}" style="width:110px; text-align:center" filterValue="#{tempClient.firstName}" filterBy="#{tempClient.firstName}" filterMatchMode="contains">
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{tempClient.firstName}" />
@@ -39,7 +39,7 @@
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
-						<p:column  headerText="Nom" sortBy="#{tempClient.lastName}">
+						<p:column  headerText="Nom" sortBy="#{tempClient.lastName}" style="width:110px; text-align:center" filterBy="#{tempClient.lastName}" filterMatchMode="contains">
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{tempClient.lastName}" />
@@ -50,7 +50,7 @@
 							</p:cellEditor>
 
 						</p:column>
-						<p:column headerText="Email">
+						<p:column headerText="Email" style="width:120px; text-align:center">
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{tempClient.email}" />
@@ -60,7 +60,7 @@
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
-						<p:column headerText="Téléphone">
+						<p:column headerText="Téléphone" style="width:120px; text-align:center">
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{tempClient.cellphone}" />
@@ -70,7 +70,7 @@
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
-						<p:column headerText="Conseiller">
+						<p:column headerText="Conseiller" style="width:110px; text-align:center" filterBy="#{tempClient.advisor.lastName}" filterMatchMode="contains">
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{tempClient.advisor.lastName}" />
@@ -81,7 +81,7 @@
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
-						<p:column headerText="Adresse">
+						<p:column headerText="Adresse" style="width:120px; text-align:center">
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{tempClient.address.number}" />
@@ -91,7 +91,7 @@
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
-						<p:column headerText="Code postal">
+						<p:column headerText="Code postal" style="width:80px; text-align:center">
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{tempClient.address.zipCode}" />
@@ -101,7 +101,7 @@
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
-						<p:column headerText="Ville">
+						<p:column headerText="Ville" style="width:80px; text-align:center">
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{tempClient.address.town}" />
@@ -121,18 +121,18 @@
 								actionListener="#{clientController.addSavingAccount(tempClient)}"
 								ajax="false" />
 						</p:column>
-						<p:column headerText="Supprimer" style="width:60px">
+						<p:column headerText="Supprimer" style="width:90px">
 							<p:commandButton icon="ui-icon-trash" title="Delete this client"
 								actionListener="#{clientController.deleteClient(tempClient.id)}"
 								ajax="false" />
 						</p:column>
-						<p:column headerText="Modifier" style="width:60px" >
+						<p:column headerText="Modifier" style="width:80px" >
 							<p:rowEditor />
 						</p:column>
 						
 						<p:rowExpansion>
 							<p:dataTable value="#{clientController.accountLoad(tempClient)}" var="account"
-								resizableColumns="true">
+								resizableColumns="true" >
 								<f:facet name="header">
 									<h:outputText value="Détail compte"></h:outputText>
 								</f:facet>
@@ -161,7 +161,7 @@
 									<p:commandButton
 										
 										title="Select"
-										action="#{clientController.forwardToVirement(account)}">
+										action="#{clientController.forwardToVirement(tempClient,account)}">
 
 									</p:commandButton>
 								</p:column>
