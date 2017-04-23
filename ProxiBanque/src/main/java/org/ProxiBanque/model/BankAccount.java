@@ -52,6 +52,10 @@ public abstract class BankAccount {
 	public long getAccountNumber() {
 		return accountNumber;
 	}
+	
+	public void setAccountNumber(long accountNumber) {
+		this.accountNumber = accountNumber;
+	}
 
 	public BankAccount() {
 		super();

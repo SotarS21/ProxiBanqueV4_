@@ -24,6 +24,10 @@ public abstract class BankAccount {
 		this.decouvert = decouvert;
 	}
 
+	public void setAccountNumber(long accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+
 	public long getAccountNumber() {
 		return accountNumber;
 	}
