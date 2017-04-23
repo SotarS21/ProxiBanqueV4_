@@ -22,7 +22,7 @@ public class User {
 	private String login;
 	
 	@Column(name="PASSWORD")
-	private String password;
+	private String password = "null";
 	
 	@OneToOne(fetch=FetchType.EAGER, mappedBy="user")
 	private Advisor advisor;

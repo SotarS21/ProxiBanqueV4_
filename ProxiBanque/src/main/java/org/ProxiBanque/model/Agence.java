@@ -26,7 +26,7 @@ public class Agence {
 	private long id;
 	
 	@Column(name="DATECREATION")
-	private DateFormat dateCreation;
+	private String dateCreation = DateFormat.getDateInstance().toString();
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade={CascadeType.PERSIST, CascadeType.REFRESH})
 	@Column(name="ADVISORS")
@@ -39,11 +39,15 @@ public class Agence {
 	@Column(name="CLIENTS")
 	private List<Client> clients = new ArrayList<Client>(); 
 	
-	public DateFormat getDateCreation() {
+	
+	public String getDateCreation() {
 		return dateCreation;
 	}
-	public void setDateCreation(DateFormat dateCreation) {
+	public void setDateCreation(String dateCreation) {
 		this.dateCreation = dateCreation;
+	}
+	public void setId(long id) {
+		this.id = id;
 	}
 	public List<Advisor> getAdvisors() {
 		return advisors;
@@ -112,7 +116,7 @@ public class Agence {
 	}
 	
 	
-	public Agence(DateFormat dateCreation) {
+	public Agence(String dateCreation) {
 		super();
 		this.dateCreation = dateCreation;
 	}

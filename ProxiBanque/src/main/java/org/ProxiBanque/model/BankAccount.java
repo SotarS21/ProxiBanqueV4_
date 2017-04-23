@@ -26,7 +26,7 @@ public abstract class BankAccount {
 	private double sold;
 	
 	@Column(name="TYPE")
-	private e_AccountType type;
+	private e_AccountType type = e_AccountType.CURRENT_ACCOUNT;
 	
 	@OneToOne(cascade=CascadeType.REFRESH)
 	private Client client;

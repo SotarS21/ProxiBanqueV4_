@@ -29,10 +29,10 @@ public class Client extends Person {
 	private SavingAccount safeAccount;
 
 	@Column(name = "TYPE")
-	private e_ClientType type;
+	private e_ClientType type = e_ClientType.CASUAL_CLIENT;
 
 	@Column(name = "ISRICH")
-	private boolean isRitch;
+	private boolean isRitch = false;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Advisor advisor;

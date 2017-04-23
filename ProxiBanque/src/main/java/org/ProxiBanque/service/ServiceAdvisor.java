@@ -2,8 +2,6 @@ package org.ProxiBanque.service;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.ProxiBanque.dao.ICRUDAdvisor;
 import org.ProxiBanque.model.Advisor;
 import org.slf4j.Logger;
@@ -12,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@Transactional
 public class ServiceAdvisor implements IServiceAdvisor {
 
 
@@ -56,7 +53,7 @@ public class ServiceAdvisor implements IServiceAdvisor {
 	@Override
 	public void delete(Long id) {
 		logger.debug("Call advisor service update() : id "+id); 
-		daoAdvisor.delete(id);;
+		daoAdvisor.delete(id);
 	}
 
 }
