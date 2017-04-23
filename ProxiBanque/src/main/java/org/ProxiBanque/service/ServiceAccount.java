@@ -213,27 +213,26 @@ public class ServiceAccount implements IServiceAccount {
 
 	@Override
 	public void addAccount(Client client, e_AccountType type) {
-		BankAccount account = new BankAccount() {
-		};
-		logger.debug("test add account 1");
-		account.setClient(client);
-		daoAccount.save(account);
+		
 		if (type.equals(e_AccountType.CURRENT_ACCOUNT)) {
 			if (client.getCurrentAccount() == null) {
-				CurrentAccount account1 = (CurrentAccount) account;
-				client.setCurrentAccount(account1);
+				CurrentAccount currentAccount = new CurrentAccount();
+				client.setCurrentAccount(currentAccount);
+				currentAccount.setType(e_AccountType.CURRENT_ACCOUNT);
+				currentAccount.setClient(client);
+				daoAccount.save(currentAccount);
 				daoClient.save(client);
-			} else {
-				daoAccount.delete(account);
-			}
+				
+			} 
 
 		} else if (type.equals(e_AccountType.SAVING_ACCOUNT)) {
 			if (client.getSafeAccount() == null) {
-				SavingAccount account2 = (SavingAccount) account;
-				client.setSafeAccount(account2);
+				SavingAccount savingAccount = new SavingAccount();
+				savingAccount.setType(e_AccountType.SAVING_ACCOUNT);
+				client.setSafeAccount(savingAccount);
+				savingAccount.setClient(client);
+				daoAccount.save(savingAccount);
 				daoClient.save(client);
-			} else {
-				daoAccount.delete(account);
 			}
 
 		}

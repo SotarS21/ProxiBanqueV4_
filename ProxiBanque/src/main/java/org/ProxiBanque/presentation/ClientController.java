@@ -45,7 +45,7 @@ public class ClientController implements Serializable {
 	private List<Client> listFilter = new ArrayList<>();
 	private static Logger LOGGER = LoggerFactory.getLogger(ClientController.class);
 	private String typeClient;
-	
+
 	@Autowired
 	private IServiceClient serviceClient;
 	@Autowired
@@ -67,7 +67,6 @@ public class ClientController implements Serializable {
 		this.value = value;
 	}
 
-	
 	public String getTypeClient() {
 		return typeClient;
 	}
@@ -219,7 +218,7 @@ public class ClientController implements Serializable {
 			serviceAccount.addAccount(client, e_AccountType.CURRENT_ACCOUNT);
 			notificationSuccess("account creation");
 		} catch (Exception e) {
-			
+
 			LOGGER.error("error virement:" + e.getMessage());
 			notificationError(e, "account creation");
 			return "";
@@ -241,7 +240,7 @@ public class ClientController implements Serializable {
 			value = 0;
 			notificationSuccess("virement");
 		} catch (VirementException e) {
-			
+
 			LOGGER.error(e.getMessage());
 			notificationError(e, "virement");
 		}
@@ -249,21 +248,20 @@ public class ClientController implements Serializable {
 	}
 
 	public void notificationSuccess(String operation) {
-		
-		LOGGER.info("Operation " + operation + " success");
-		FacesMessage msg = null;  
-		msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Notification", "Success"); 
-		FacesContext.getCurrentInstance().addMessage(null, msg);  
-	}
 
+		LOGGER.info("Operation " + operation + " success");
+		FacesMessage msg = null;
+		msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Notification", "Success");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
 
 	public void notificationError(Exception e, String operation) {
-		LOGGER.error("Operation "+operation+" Error ",e);
-		FacesMessage msg = null;  
-		msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Notification", "Une erreur est survenue");  
-		FacesContext.getCurrentInstance().addMessage(null, msg);  
+		LOGGER.error("Operation " + operation + " Error ", e);
+		FacesMessage msg = null;
+		msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Notification", "Une erreur est survenue");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
-	
+
 	public BankAccount getBankAccount() {
 		return bankAccount;
 	}
@@ -271,18 +269,24 @@ public class ClientController implements Serializable {
 	public void setBankAccount(BankAccount bankAccount) {
 		this.bankAccount = bankAccount;
 	}
-	
+
 	public String decouvertColor(Client client) {
-		double sold = client.getCurrentAccount().getSold();
-	   
-	      if (sold < 0) 
-	      {
-	        return "decouvert";
-	      } 
-	      else 
-	      {
-	         return "";
-	      }
-	   } 
+		double solds = 0;
+		double sold = 0;
+		if (client.getCurrentAccount() != null){
+			solds = client.getCurrentAccount().getSold();
+			sold =  client.getCurrentAccount().getSold();
+		}
+
+		if (client.getSafeAccount() != null)
+			solds = solds + client.getSafeAccount().getSold();
+
+		if (sold < 0) 
+			return "decouvert";
+		 else if (solds > 500000)
+			return "isRich";
+		else
+			return "";
+	}
 
 }

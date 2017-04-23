@@ -104,7 +104,10 @@ body {
   display: inline-block;
   border-radius: 50%;
 }
-
+.isRich{
+	font-weight:bold;
+	background-color: #c6a841;
+}
 .decouvert{
-	background-color: gray;
+	background-color: #d3595a;
 }
