@@ -68,7 +68,10 @@ public class Client extends Person {
 
 	public void setCurrentAccount(CurrentAccount currentAccount) {
 		this.currentAccount = currentAccount;
-		currentAccount.setClient(this);
+		if(currentAccount != null) {
+			
+			currentAccount.setClient(this);
+		}
 	}
 
 	public SavingAccount getSafeAccount() {
@@ -77,7 +80,10 @@ public class Client extends Person {
 
 	public void setSafeAccount(SavingAccount safeAccount) {
 		this.safeAccount = safeAccount;
-		safeAccount.setClient(this);
+		if(safeAccount != null) {
+			
+			safeAccount.setClient(this);
+		}
 	}
 
 	public e_ClientType getType() {

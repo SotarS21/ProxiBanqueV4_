@@ -65,19 +65,23 @@ public class ServiceAccount implements IServiceAccount {
 	@Override
 	public void deleteAccount(Long idAccount) {
 		logger.debug("test delete account 1");
-		BankAccount ba = this.getAccount(idAccount);
-		if (ba.getType().equals(e_AccountType.CURRENT_ACCOUNT)) {
-			Client cl = ba.getClient();
-			cl.setCurrentAccount(null);
-			daoClient.save(cl);
-			daoAccount.delete(idAccount);
-		} else if (ba.getType().equals(e_AccountType.SAVING_ACCOUNT)) {
-			Client cl = ba.getClient();
-			cl.setSafeAccount(null);
-			daoClient.save(cl);
-			daoAccount.delete(idAccount);
-		}
-		logger.debug("test delete account 2");
+		
+		daoAccount.delete(idAccount);
+		
+//		BankAccount ba = this.getAccount(idAccount);
+//		System.out.println(ba);
+//		if (ba.getType().equals(e_AccountType.CURRENT_ACCOUNT)) {
+//			Client cl = ba.getClient();
+//			cl.setCurrentAccount(null);
+//			daoClient.save(cl);
+//			daoAccount.delete(idAccount);
+//		} else if (ba.getType().equals(e_AccountType.SAVING_ACCOUNT)) {
+//			Client cl = ba.getClient();
+////			cl.setSafeAccount(null);
+//			daoClient.save(cl);
+//			daoAccount.delete(idAccount);
+//		}
+//		logger.debug("test delete account 2");
 	}
 
 	@Override

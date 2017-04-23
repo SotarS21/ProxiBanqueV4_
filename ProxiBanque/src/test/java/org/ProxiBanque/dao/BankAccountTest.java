@@ -152,19 +152,19 @@ public class BankAccountTest {
 //		assertTrue(i == j);
 //	}
 
-//	@Test
-//	public void deleteSavingAccount() {
-//		Client cl = new Client("Jo", "Bar", new Address());
-//		serviceClient.save(cl);
-//		SavingAccount ba = new SavingAccount(100, 0, 0);
-//		serviceAccount.addAccount(ba, cl);
-//		int i = serviceAccount.listAccounts().size();
-//		long id = ba.getAccountNumber();
-//		serviceAccount.deleteAccount(id);
-//		int j = serviceAccount.listAccounts().size();
-//		j++;
-//		assertTrue(i == j);
-//	}
+	@Test
+	public void deleteSavingAccount() {
+		Client cl = new Client("Jo", "Bar", new Address());
+		SavingAccount ba = new SavingAccount(100, 0, 0);
+		cl.setSafeAccount(ba);
+		serviceClient.save(cl);
+		cl.setSafeAccount(null);
+		serviceClient.update(cl);
+		long id = ba.getAccountNumber();
+		serviceAccount.deleteAccount(id);
+		BankAccount accountTemp = serviceAccount.getAccount(id);
+		assertTrue(accountTemp == null);
+	}
 
 //	@Test
 //	public void isClientSetRich() {
