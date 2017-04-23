@@ -1,10 +1,12 @@
 package org.ProxiBanque.presentation;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.ProxiBanque.model.Address;
@@ -99,6 +101,10 @@ public class UserController implements Serializable {
 		} else {
 
 			currentUser = verifUser;
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			   ExternalContext extCtx = ctx.getExternalContext();
+			   Map<String, Object> sessionMap = extCtx.getSessionMap();
+			   sessionMap.put("advisor", currentUser.getAdvisor());
 			if (currentUser.getAdvisor() != null && currentUser.getDirector() == null) {
 
 				LOGGER.info("user logged as Advisor");

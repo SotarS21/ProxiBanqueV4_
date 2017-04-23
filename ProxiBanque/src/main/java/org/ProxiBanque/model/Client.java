@@ -9,14 +9,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.springframework.stereotype.Component;
+
 /**
  * Bean Client regroupe les informations du client : le compte courant, le
- * compte épargne; son type , s'il est riche, son conseiller
+ * compte ï¿½pargne; son type , s'il est riche, son conseiller
  * 
  * @author Jonas, Kevin, Andy, Mathieu
  *
  */
-
+@Component
 @Entity
 @Table(name = "CLIENT")
 @DiscriminatorValue("C")

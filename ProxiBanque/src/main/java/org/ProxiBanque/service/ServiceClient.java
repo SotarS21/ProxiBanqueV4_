@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import ch.qos.logback.classic.Logger;
 
+
 @Service
 @Transactional
 public class ServiceClient implements IServiceClient {

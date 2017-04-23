@@ -3,13 +3,16 @@ package org.ProxiBanque.model;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+import org.springframework.stereotype.Component;
+
 /**
- *	Bean Address regroupe les informations d'adresse : le numéro, le code postale et la ville 
+ *	Bean Address regroupe les informations d'adresse : le numï¿½ro, le code postale et la ville 
  * 
  * @author Jonas, Kevin, Andy, Mathieu 
  *
  */
 
+@Component
 @Embeddable
 public class Address {
 
@@ -34,8 +37,8 @@ public class Address {
 	}
 
 	/**
-	 * Retourne le numéro de rue de l'adresse
-	 * @return le numéro de l'adresse sous forme de string
+	 * Retourne le numï¿½ro de rue de l'adresse
+	 * @return le numï¿½ro de l'adresse sous forme de string
 	 */
 	public String getNumber() {
 		return number;
@@ -58,7 +61,7 @@ public class Address {
 	}
 
 	/**
-	 * Retourne le numéro de rue de l'adresse
+	 * Retourne le numï¿½ro de rue de l'adresse
 	 * @param zipCode
 	 */
 	public void setZipCode(String zipCode) {

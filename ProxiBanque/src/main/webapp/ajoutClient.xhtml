@@ -15,7 +15,7 @@
 
 		<div class="container">
 
-			<form class="form-signin">
+			<form class="form-signin" >
 				<h3 class="form-signin-heading">
 					Conseiller
 					<h:outputText
@@ -24,8 +24,8 @@
 						value="#{userController.currentUser.advisor.lastName}" />
 				</h3>
 				<h2 class="form-signin-heading">Ajout d'un nouveau client</h2>
-
-				<h:selectOneRadio value="#{clientController.typeClient}"
+				<h:form >
+				<h:selectOneRadio value="#{addClientController.typeClient}"
 					onclick="visibilite(this.value)">
 					<f:selectItem itemValue="professionnel" itemLabel="Professionnel" />
 					<f:selectItem itemValue="particulier" itemLabel="Particulier" />
@@ -34,7 +34,7 @@
 				<div id="partDiv">
 
 					<h:inputText a:placeholder="Nom" value="#{client.lastName}"
-						required="true" id="lastname" styleClass="form-control" />
+						 id="lastname" styleClass="form-control" />
 					<h:inputText a:placeholder="Prenom " value="#{client.firstName}"
 						id="firstname" styleClass="form-control" />
 					<h:inputText a:placeholder="Email" value="#{client.email}"
@@ -44,37 +44,43 @@
 					</h:inputText>
 					<h:inputText a:placeholder="Telephone" value="#{client.cellphone}"
 						id="cellphone" styleClass="form-control" />
-					<h:inputText a:placeholder="Adresse" value="#{client.address}"
-						id="address" styleClass="form-control" />
-					<h:inputText a:placeholder="Ville" value="#{client.town}" id="town"
-						styleClass="form-control" />
-					<h:inputText a:placeholder="Code postal" value="#{client.zipCode}"
-						styleClass="form-control" />
-				</div>
-				<div id="proDiv">
-					<h:inputText a:placeholder="Nom entreprise"
-						value="#{client.lastName}" required="true" id="lastnameE"
-						styleClass="form-control" />
-					<h:inputText a:placeholder="Email " value="#{client.email}"
-						id="emailE" styleClass="form-control">
-						<f:validateRegex
-							pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
-					</h:inputText>
-					<h:inputText a:placeholder="Telephone" value="#{client.cellphone}"
-						id="cellphoneE" styleClass="form-control" />
-					<h:inputText a:placeholder="Adresse" value="#{client.address}"
-						id="addressE" styleClass="form-control" />
-					<h:inputText a:placeholder="Ville" value="#{client.town}"
-						id="townE" styleClass="form-control" />
-					<h:inputText a:placeholder="Code postal" value="#{client.zipCode}"
-						styleClass="form-control" />
-				</div>
-
-				<h:commandButton styleClass="btn btn-lg btn-primary btn-block"
-					type="submit" value="valider"></h:commandButton>
+<!-- 					<h:inputText a:placeholder="Adresse" value="#{client.address.number}" -->
+<!-- 						id="address" styleClass="form-control" /> -->
+<!-- 					<h:inputText a:placeholder="Ville" value="#{client.address.town}" id="town" -->
+<!-- 						styleClass="form-control" /> -->
+<!-- 					<h:inputText a:placeholder="Code postal" value="#{client.address.zipCode}" -->
+<!-- 						styleClass="form-control" /> -->
+					<h:commandButton styleClass="btn btn-lg btn-primary btn-block"
+					type="submit" value="valider" action="#{addClientController.addClient(client)}"></h:commandButton>
 				<h:commandButton styleClass="btn btn-lg btn-primary btn-block"
 					value="Annuler"></h:commandButton>
-
+				</div>
+				<div id="proDiv">
+<!-- 					<h:inputText a:placeholder="Nom entreprise" -->
+<!-- 						value="#{addClientController.clientPro.lastName}" id="lastnameE" -->
+<!-- 						styleClass="form-control" /> -->
+<!-- 					<h:inputText a:placeholder="Email " value="#{addClientController.clientPro.email}" -->
+<!-- 						id="emailE" styleClass="form-control"> -->
+<!-- 						<f:validateRegex -->
+<!-- 							pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" /> -->
+<!-- 					</h:inputText> -->
+<!-- 					<h:inputText a:placeholder="Telephone" value="#{addClientController.clientPro.cellphone}" -->
+<!-- 						id="cellphoneE" styleClass="form-control" /> -->
+<!-- 					<h:inputText a:placeholder="Adresse" value="#{addClientController.clientPro.address.number}" -->
+<!-- 						id="addressE" styleClass="form-control" /> -->
+<!-- 					<h:inputText a:placeholder="Ville" value="#{addClientController.clientPro.address.town}" -->
+<!-- 						id="townE" styleClass="form-control" /> -->
+<!-- 					<h:inputText a:placeholder="Code postal" value="#{addClientController.clientPro.address.zipCode}" -->
+<!-- 						styleClass="form-control" /> -->
+						
+<!-- 						<h:commandButton styleClass="btn btn-lg btn-primary btn-block" -->
+<!-- 					type="submit" value="valider" action="#{addClientController.addClient(client)}></h:commandButton> -->
+<!-- 				<h:commandButton styleClass="btn btn-lg btn-primary btn-block" -->
+<!-- 					value="Annuler"></h:commandButton> -->
+				</div>
+				
+				
+			</h:form>
 			</form>
 
 		</div>
