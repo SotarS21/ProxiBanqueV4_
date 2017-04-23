@@ -15,7 +15,7 @@
 		</jaxrs:providers>
 	</jaxrs:server>
 	
-	<bean id="serviceBean" class="org.ProxiBanque.service.ServiceAdvisorWSRest"/>
+	<bean id="serviceBean" class="org.ProxiBanque.wsrest.service.ServiceAdvisorWSRest"/>
 	<bean id="jacksonProvider" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"/>
 	
 </beans>
