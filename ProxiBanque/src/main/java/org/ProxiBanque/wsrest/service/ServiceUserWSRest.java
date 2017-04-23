@@ -16,7 +16,7 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 @Component
 public class ServiceUserWSRest implements IServiceUserWSRest {
 
-	private static final Logger logger = LoggerFactory.getLogger(ServiceAdvisorWSRest.class);
+	private static final Logger logger = LoggerFactory.getLogger(ServiceUserWSRest.class);
 
 	@Autowired
 	IServiceUser serviceUser;

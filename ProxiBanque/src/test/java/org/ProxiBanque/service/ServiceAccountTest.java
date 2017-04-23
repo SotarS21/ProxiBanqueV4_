@@ -20,7 +20,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ApplicationConfig.class)
 public class ServiceAccountTest {
-
 	
 	@Autowired
 	IServiceAccount serviceAccount;
@@ -72,16 +71,16 @@ public class ServiceAccountTest {
 		} catch (VirementException e) {
 			// TODO Auto-generated catch block
 			res = e.getMessage();
+			assertTrue("solde insuffisant".equals(res));
 		}
-		assertTrue("solde insuffisant".equals(res));
 		
 		try {
 			serviceAccount.doVirement(currentAccount, currentAccount, 100000);
 		} catch (VirementException e) {
 			// TODO Auto-generated catch block
 			res = e.getMessage();
+			assertTrue("pas le droit pour un même compte".equals(res));
 		}
-		assertTrue("pas le droit pour un même compte".equals(res));
 	}
 
 }
