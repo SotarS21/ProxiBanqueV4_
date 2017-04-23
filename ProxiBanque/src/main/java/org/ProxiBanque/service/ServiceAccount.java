@@ -83,7 +83,7 @@ public class ServiceAccount implements IServiceAccount {
 	@Override
 	public void editAccount(BankAccount account) {
 		logger.debug("test edit account 1");
-		if (account != null) {
+		if (account.getClient() != null) {
 			daoAccount.save(account);
 			logger.debug("test edit account 2");
 		}
