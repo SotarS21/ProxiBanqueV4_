@@ -5,7 +5,6 @@ import java.util.List;
 import org.ProxiBanque.exception.VirementException;
 import org.ProxiBanque.model.BankAccount;
 import org.ProxiBanque.model.Client;
-import org.ProxiBanque.model.Footprint;
 
 public interface IServiceAccount {
 

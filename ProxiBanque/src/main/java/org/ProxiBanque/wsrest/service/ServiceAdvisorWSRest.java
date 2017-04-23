@@ -7,7 +7,6 @@ import javax.annotation.PostConstruct;
 import javax.ws.rs.core.Response;
 
 import org.ProxiBanque.service.IServiceAdvisor;
-import org.ProxiBanque.service.ServiceAdvisor;
 import org.ProxiBanque.wsrest.adapter.WSRestAdapter;
 import org.ProxiBanque.wsrest.bean.Advisor;
 import org.slf4j.Logger;
@@ -19,7 +18,7 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 @Component
 public class ServiceAdvisorWSRest implements IServiceAdvisorWSRest {
 
-	private static final Logger logger = LoggerFactory.getLogger(ServiceAdvisor.class);
+	private static final Logger logger = LoggerFactory.getLogger(ServiceAdvisorWSRest.class);
 
 	@Autowired
 	IServiceAdvisor serviceAdvisor;
