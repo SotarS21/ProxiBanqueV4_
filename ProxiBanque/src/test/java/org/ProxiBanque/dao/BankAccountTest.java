@@ -1,16 +1,12 @@
 package org.ProxiBanque.dao;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-
-import java.util.List;
 
 import org.ProxiBanque.config.ApplicationConfig;
 import org.ProxiBanque.exception.VirementException;
 import org.ProxiBanque.model.Address;
 import org.ProxiBanque.model.BankAccount;
 import org.ProxiBanque.model.Client;
-import org.ProxiBanque.model.Client.e_ClientType;
 import org.ProxiBanque.model.CurrentAccount;
 import org.ProxiBanque.model.SavingAccount;
 import org.ProxiBanque.service.IServiceAccount;
