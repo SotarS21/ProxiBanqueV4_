@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import org.ProxiBanque.exception.VirementException;
 import org.ProxiBanque.model.BankAccount;
@@ -43,6 +45,7 @@ public class ClientController implements Serializable {
 	private List<Client> listFilter = new ArrayList<>();
 	private static Logger LOGGER = LoggerFactory.getLogger(ClientController.class);
 	private String typeClient;
+	
 	@Autowired
 	private IServiceClient serviceClient;
 	@Autowired
@@ -99,8 +102,11 @@ public class ClientController implements Serializable {
 
 			listClient = serviceClient.findAll();// findByConseiller_Id(3L);
 			listFilter = serviceClient.findAll();
+			LOGGER.info("Loading success");
 		} catch (Exception e) {
 			// TODO: handle exception
+			LOGGER.error("all clients loading failure");
+			notificationError(e, "all clients loading failure");
 		}
 	}
 
@@ -135,9 +141,12 @@ public class ClientController implements Serializable {
 		LOGGER.info("Delete CLient!");
 		try {
 			serviceClient.delete(id);
+			LOGGER.info("client n° " + id + "deleted");
+			notificationSuccess("client n° " + id + "deleted");
 		} catch (Exception e) {
 
-			LOGGER.error("error virement:" + e.getMessage());
+			LOGGER.error("client n° " + id + "error deleting");
+			notificationError(e, "client n° " + id + "deleting");
 			return null;
 		}
 		return "listClient";
@@ -169,6 +178,7 @@ public class ClientController implements Serializable {
 
 	public void cancel(RowEditEvent event) {
 		LOGGER.info("Cancel modification!");
+		notificationSuccess("operation cancelled");
 	}
 
 	/**
@@ -183,10 +193,13 @@ public class ClientController implements Serializable {
 	public String addSavingAccount(Client client) {
 		try {
 			serviceAccount.addAccount(client, e_AccountType.SAVING_ACCOUNT);
+			LOGGER.info("saving account added");
+			notificationSuccess("saving account added");
 		} catch (Exception e) {
 
-			LOGGER.error("error virement:" + e.getMessage());
-			return null;
+			LOGGER.info("error adding account : " + e.getMessage());
+			notificationError(e, "adding saving account");
+			return "";
 		}
 		return "listClient";
 	}
@@ -203,9 +216,12 @@ public class ClientController implements Serializable {
 	public String addCurrentAccount(Client client) {
 		try {
 			serviceAccount.addAccount(client, e_AccountType.CURRENT_ACCOUNT);
+			notificationSuccess("account creation");
 		} catch (Exception e) {
+			
 			LOGGER.error("error virement:" + e.getMessage());
-			return null;
+			notificationError(e, "account creation");
+			return "";
 		}
 		return "listClient";
 	}
@@ -222,13 +238,31 @@ public class ClientController implements Serializable {
 		try {
 			serviceAccount.doVirement(bankAccount, account, value);
 			value = 0;
+			notificationSuccess("virement");
 		} catch (VirementException e) {
-			// TODO Auto-generated catch block
+			
 			LOGGER.error(e.getMessage());
+			notificationError(e, "virement");
 		}
 		return "listClient";
 	}
 
+	public void notificationSuccess(String operation) {
+		
+		LOGGER.info("Operation " + operation + " success");
+		FacesMessage msg = null;  
+		msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Notification", "Success"); 
+		FacesContext.getCurrentInstance().addMessage(null, msg);  
+	}
+
+
+	public void notificationError(Exception e, String operation) {
+		LOGGER.error("Operation "+operation+" Error ",e);
+		FacesMessage msg = null;  
+		msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Notification", "Une erreur est survenue");  
+		FacesContext.getCurrentInstance().addMessage(null, msg);  
+	}
+	
 	public BankAccount getBankAccount() {
 		return bankAccount;
 	}

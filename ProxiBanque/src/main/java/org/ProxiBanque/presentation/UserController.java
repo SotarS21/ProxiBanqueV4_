@@ -3,7 +3,9 @@ package org.ProxiBanque.presentation;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import org.ProxiBanque.model.Address;
 import org.ProxiBanque.model.Advisor;
@@ -16,6 +18,8 @@ import org.ProxiBanque.model.SavingAccount;
 import org.ProxiBanque.model.User;
 import org.ProxiBanque.service.IServiceAdvisor;
 import org.ProxiBanque.service.IServiceUser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -27,6 +31,7 @@ public class UserController implements Serializable {
 	 * @author Andy
 	 */
 	private static final long serialVersionUID = -9176116508320531060L;
+	private static Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
 	@Autowired
 	IServiceUser serviceUser;
@@ -40,7 +45,7 @@ public class UserController implements Serializable {
 	private void init() {
 
 		currentUser = new User();
-		
+
 		// TODO : supprimer apr�s les tests
 		User user = new User("login", "mdp");
 		User user2 = new User("login2", "mdp2");
@@ -87,6 +92,8 @@ public class UserController implements Serializable {
 
 			currentUser.setLogin("");
 			currentUser.setPassword("");
+			LOGGER.info("connexion identifier failure");
+			notificationSuccess("Wrong login or password");
 
 			return "";
 		} else {
@@ -94,9 +101,13 @@ public class UserController implements Serializable {
 			currentUser = verifUser;
 			if (currentUser.getAdvisor() != null && currentUser.getDirector() == null) {
 
+				LOGGER.info("user logged as Advisor");
+				notificationSuccess("successfully logged as Advisor");
 				return "listClient?sendredirect=true";
 			} else if (currentUser.getDirector() != null && currentUser.getAdvisor() == null) {
-
+				
+				LOGGER.info("user logged as Director");
+				notificationSuccess("successfully logged as Director");
 				return "listAdvisor?sendredirect=true";
 			}
 		}
@@ -106,7 +117,24 @@ public class UserController implements Serializable {
 	public String logout() {
 
 		currentUser = new User();
+		LOGGER.info("user logout");
+		notificationSuccess("successfully logged out");
 		return "index";
+	}
+
+	public void notificationSuccess(String operation) {
+
+		LOGGER.info("Operation " + operation + " success");
+		FacesMessage msg = null;
+		msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Notification", "Success");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public void notificationError(Exception e, String operation) {
+		LOGGER.error("Operation " + operation + " Error ", e);
+		FacesMessage msg = null;
+		msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Notification", "Une erreur est survenue");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
 	public User getCurrentUser() {
