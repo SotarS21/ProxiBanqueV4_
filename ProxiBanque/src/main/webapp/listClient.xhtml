@@ -18,7 +18,7 @@
 					<p:growl id="msgs" showDetail="true" />
 					<p:dataTable value="#{clientController.listClient}" editable="true"
 						var="tempClient" style="margin-bottom:20px" filteredValue="#{clientController.listFilter}"  scrollable="true"
-						scrollHeight="800" scrollWidth="1600" >
+						scrollHeight="800" scrollWidth="1600" rowStyleClass="#{clientController.decouvertColor(tempClient)}">
 						<f:facet name="header">Liste des clients</f:facet>
 						<p:ajax event="rowEdit"
 							listener="#{clientController.updateClient(tempClient)}"

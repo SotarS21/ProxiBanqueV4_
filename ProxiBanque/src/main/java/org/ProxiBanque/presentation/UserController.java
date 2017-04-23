@@ -57,10 +57,10 @@ public class UserController implements Serializable {
 		agence.setDirector(director);
 		CurrentAccount current = new CurrentAccount(2000, 2000);
 		SavingAccount saving = new SavingAccount(0.3, 5000);
-		CurrentAccount current2 = new CurrentAccount(1000, 1000);
-		SavingAccount saving2 = new SavingAccount(0.4, 10000);
+		CurrentAccount current2 = new CurrentAccount(1000, -1000);
+		//SavingAccount saving2 = new SavingAccount(0.4, 10000);
 		Client client = new Client("Bobinou", "Bobinou", new Address("12 rue des Lila", "94800", "Villejuif"));
-		Client client2 = new Client("Bobinou", "Bobinou", new Address("12 rue des Lila", "94800", "Villejuif"));
+		Client client2 = new Client("Bobina", "Bobina", new Address("12 rue des Lila", "94800", "Villejuif"));
 		client.setCellphone("0101010101");
 		client.setEmail("a@a.a");
 		client.setType(e_ClientType.CASUAL_CLIENT);
@@ -70,7 +70,7 @@ public class UserController implements Serializable {
 		client.setCurrentAccount(current);
 		client.setSafeAccount(saving);
 		client2.setCurrentAccount(current2);
-		client2.setSafeAccount(saving2);
+		//client2.setSafeAccount(saving2);
 		Advisor advisor = new Advisor("Bob", "Bob", new Address());
 		advisor.setCellphone("0101010101");
 		advisor.setEmail("a@a.a");

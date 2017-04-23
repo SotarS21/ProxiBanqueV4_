@@ -141,12 +141,12 @@ public class ClientController implements Serializable {
 		LOGGER.info("Delete CLient!");
 		try {
 			serviceClient.delete(id);
-			LOGGER.info("client n° " + id + "deleted");
-			notificationSuccess("client n° " + id + "deleted");
+			LOGGER.info("client nï¿½ " + id + "deleted");
+			notificationSuccess("client nï¿½ " + id + "deleted");
 		} catch (Exception e) {
 
-			LOGGER.error("client n° " + id + "error deleting");
-			notificationError(e, "client n° " + id + "deleting");
+			LOGGER.error("client nï¿½ " + id + "error deleting");
+			notificationError(e, "client nï¿½ " + id + "deleting");
 			return null;
 		}
 		return "listClient";
@@ -214,6 +214,7 @@ public class ClientController implements Serializable {
 	 *         la page en cours
 	 */
 	public String addCurrentAccount(Client client) {
+		LOGGER.debug("add CurrentAccount");
 		try {
 			serviceAccount.addAccount(client, e_AccountType.CURRENT_ACCOUNT);
 			notificationSuccess("account creation");
@@ -270,5 +271,18 @@ public class ClientController implements Serializable {
 	public void setBankAccount(BankAccount bankAccount) {
 		this.bankAccount = bankAccount;
 	}
+	
+	public String decouvertColor(Client client) {
+		double sold = client.getCurrentAccount().getSold();
+	   
+	      if (sold < 0) 
+	      {
+	        return "decouvert";
+	      } 
+	      else 
+	      {
+	         return "";
+	      }
+	   } 
 
 }
