@@ -7,7 +7,7 @@
 
 	<jaxrs:server id="advisorService" address="/advisorservice">
 		<jaxrs:serviceBeans>
-			<ref bean="serviceBean"/>
+			<ref bean="serviceBeanAdvisor"/>
 		</jaxrs:serviceBeans>
 		
 		<jaxrs:providers>
@@ -15,7 +15,56 @@
 		</jaxrs:providers>
 	</jaxrs:server>
 	
-	<bean id="serviceBean" class="org.ProxiBanque.wsrest.service.ServiceAdvisorWSRest"/>
+	<bean id="serviceBeanAdvisor" class="org.ProxiBanque.wsrest.service.ServiceAdvisorWSRest"/>
+	
+	<jaxrs:server id="clientsService" address="/clientservice">
+		<jaxrs:serviceBeans>
+			<ref bean="serviceBeanClient"/>
+		</jaxrs:serviceBeans>
+		
+		<jaxrs:providers>
+			<ref bean="jacksonProvider"/>
+		</jaxrs:providers>
+	</jaxrs:server>
+	
+	<bean id="serviceBeanClient" class="org.ProxiBanque.wsrest.service.ServiceClientWSRest"/>
+	
+	<jaxrs:server id="directorsService" address="/directorservice">
+		<jaxrs:serviceBeans>
+			<ref bean="serviceBeanDirector"/>
+		</jaxrs:serviceBeans>
+		
+		<jaxrs:providers>
+			<ref bean="jacksonProvider"/>
+		</jaxrs:providers>
+	</jaxrs:server>
+	
+	<bean id="serviceBeanDirector" class="org.ProxiBanque.wsrest.service.ServiceDirectorWSRest"/>
+	
+	<jaxrs:server id="accountsService" address="/accountservice">
+		<jaxrs:serviceBeans>
+			<ref bean="serviceBeanAccount"/>
+		</jaxrs:serviceBeans>
+		
+		<jaxrs:providers>
+			<ref bean="jacksonProvider"/>
+		</jaxrs:providers>
+	</jaxrs:server>
+	
+	<bean id="serviceBeanAccount" class="org.ProxiBanque.wsrest.service.ServiceAccountWSRest"/>
+	
+	<jaxrs:server id="usersService" address="/userservice">
+		<jaxrs:serviceBeans>
+			<ref bean="serviceBeanUser"/>
+		</jaxrs:serviceBeans>
+		
+		<jaxrs:providers>
+			<ref bean="jacksonProvider"/>
+		</jaxrs:providers>
+	</jaxrs:server>
+	
+	<bean id="serviceBeanUser" class="org.ProxiBanque.wsrest.service.ServiceUserWSRest"/>
+	
 	<bean id="jacksonProvider" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"/>
 	
 </beans>
