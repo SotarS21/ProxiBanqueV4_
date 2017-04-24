@@ -43,7 +43,7 @@ public class ApplicationConfig {
 		dataSource.setUrl(environment.getProperty("jdbc.url"));
 		dataSource.setUsername(environment.getProperty("jdbc.username"));
 		dataSource.setPassword(environment.getProperty("jdbc.password"));
-		DatabasePopulatorUtils.execute(databasePopulator(), dataSource);
+		//DatabasePopulatorUtils.execute(databasePopulator(), dataSource);
 		return dataSource;
 	}
 	
@@ -76,11 +76,11 @@ public class ApplicationConfig {
 		return jpaTransactionManager;
 	}
 	
-	public DatabasePopulator databasePopulator() {
-		
-		ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
-		databasePopulator.setContinueOnError(true);
-		databasePopulator.addScript(new ClassPathResource("database_populator.sql"));
-		return databasePopulator;
-	}
+//	public DatabasePopulator databasePopulator() {
+//		
+//		ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
+//		databasePopulator.setContinueOnError(true);
+//		databasePopulator.addScript(new ClassPathResource("database_populator.sql"));
+//		return databasePopulator;
+//	}
 }
