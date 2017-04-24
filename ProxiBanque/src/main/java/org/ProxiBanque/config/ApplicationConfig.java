@@ -12,8 +12,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jdbc.datasource.init.DatabasePopulator;
+import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -39,6 +43,7 @@ public class ApplicationConfig {
 		dataSource.setUrl(environment.getProperty("jdbc.url"));
 		dataSource.setUsername(environment.getProperty("jdbc.username"));
 		dataSource.setPassword(environment.getProperty("jdbc.password"));
+		DatabasePopulatorUtils.execute(databasePopulator(), dataSource);
 		return dataSource;
 	}
 	
@@ -71,12 +76,11 @@ public class ApplicationConfig {
 		return jpaTransactionManager;
 	}
 	
-//	@Bean
-//	public DatabasePopulator databasePopulator() {
-//		
-//		ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
-//		databasePopulator.setContinueOnError(true);
-//		databasePopulator.addScript(new FileSystemResource(new File("database_populator.txt")));
-//		return databasePopulator;
-//	}
+	public DatabasePopulator databasePopulator() {
+		
+		ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
+		databasePopulator.setContinueOnError(true);
+		databasePopulator.addScript(new ClassPathResource("database_populator.sql"));
+		return databasePopulator;
+	}
 }
