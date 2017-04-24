@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 /**
  * AOP permettant la transversalité pour la communication
  * avec le dashboard
- * 
+ *  
  * @author Kévin, Jonas, Andy, Mathieu
  * @version 1.0
  */
