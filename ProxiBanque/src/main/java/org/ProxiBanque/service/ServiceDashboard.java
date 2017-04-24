@@ -11,6 +11,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+/**
+ * Implémentation de l'interface de service concernant le dashBorad, elle est
+ * appeler dans les controllers addapter ou dans un webService
+ * 
+ * @author kevin, jonas, andy, mathieu
+ * @version 1.0
+ */
 
 @Service
 public class ServiceDashboard implements IServiceDashboard {
