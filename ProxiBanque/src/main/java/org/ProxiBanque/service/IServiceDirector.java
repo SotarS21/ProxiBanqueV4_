@@ -44,8 +44,7 @@ public interface IServiceDirector {
 
 	/**
 	 * 
-	 * @param id
-	 *            identifiant du directeur à supprimer
+	 * @param id identifiant du directeur à supprimer
 	 */
 	public void delete(Long id);
 }
