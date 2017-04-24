@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 /**
- * Implémentation de l'interface de service concernant le compte bancaire, elle est appeler dans les controllers addapter ou dans un webService
+ * Implémentation de l'interface de service concernant l'agence, elle est appeler dans les controllers addapter ou dans un webService
  * 
 * @author kevin, jonas, andy, mathieu
 * @version 1.0
