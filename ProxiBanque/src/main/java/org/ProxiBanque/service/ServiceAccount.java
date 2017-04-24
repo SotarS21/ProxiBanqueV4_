@@ -166,7 +166,7 @@ public class ServiceAccount implements IServiceAccount {
 				for (BankAccount bankAccount : listAccount) {
 					if (bankAccount.getType().equals(e_AccountType.CURRENT_ACCOUNT)) {
 						CurrentAccount ca = (CurrentAccount) bankAccount;
-						if (ca.getSold() < -50000) {
+						if (ca.getSold() < -5000) {
 							listAudit.add(ca);
 						}
 					} else if (bankAccount.getType().equals(e_AccountType.SAVING_ACCOUNT)) {
