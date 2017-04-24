@@ -18,6 +18,11 @@ import org.ProxiBanque.wsrest.bean.SavingAccount;
 */
 public abstract class WSRestAdapter {
 
+	/**
+	 * Transforme un Compte courant du modèle en compte courant transmissible en REST.
+	 * @param current
+	 * @return
+	 */
 	public static CurrentAccount marshallCurrentAccount(org.ProxiBanque.model.CurrentAccount current) {
 
 		CurrentAccount marshallCurrent = null;
@@ -32,6 +37,11 @@ public abstract class WSRestAdapter {
 		return marshallCurrent;
 	}
 
+	/**
+	 * Transforme un Compte courant transmissible en REST en compte courant du modèle.
+	 * @param current
+	 * @return
+	 */
 	public static org.ProxiBanque.model.CurrentAccount unmarshallCurrentAccount(CurrentAccount current) {
 
 		org.ProxiBanque.model.CurrentAccount unmarshallCurrent = null;
@@ -45,7 +55,12 @@ public abstract class WSRestAdapter {
 		}
 		return unmarshallCurrent;
 	}
-
+	
+	/**
+	 * Transforme un Compte épargne du modèle en compte épargne transmissible en REST.
+	 * @param saving
+	 * @return
+	 */
 	public static SavingAccount marshallSavingAccount(org.ProxiBanque.model.SavingAccount saving) {
 
 		SavingAccount marshallSaving = null;
@@ -60,6 +75,11 @@ public abstract class WSRestAdapter {
 		return marshallSaving;
 	}
 
+	/**
+	 * Transforme un Compte épargne transmissible en REST en compte épargne du modèle.
+	 * @param saving
+	 * @return
+	 */
 	public static org.ProxiBanque.model.SavingAccount unmarshallSavingAccount(SavingAccount saving) {
 
 		org.ProxiBanque.model.SavingAccount unmarshallSaving = null;
@@ -74,6 +94,11 @@ public abstract class WSRestAdapter {
 		return unmarshallSaving;
 	}
 
+	/**
+	 * Transforme une Adresse du modèle en Adresse transmissible en REST.
+	 * @param address
+	 * @return
+	 */
 	public static Address marshallAddress(org.ProxiBanque.model.Address address) {
 
 		Address marshallAddress = null;
@@ -88,6 +113,11 @@ public abstract class WSRestAdapter {
 		return marshallAddress;
 	}
 
+	/**
+	 * Transforme une Adresse transmissible en REST en Adresse du modèle.
+	 * @param address
+	 * @return
+	 */
 	public static org.ProxiBanque.model.Address unmarshallAddress(Address address) {
 
 		org.ProxiBanque.model.Address unmarshallAddress = null;
@@ -102,6 +132,11 @@ public abstract class WSRestAdapter {
 		return unmarshallAddress;
 	}
 
+	/**
+	 * Transforme un Client du modèle en Client transmissible en REST.
+	 * @param client
+	 * @return
+	 */
 	public static Client marshallClient(org.ProxiBanque.model.Client client) {
 
 		Client marhallClient = null;
@@ -119,6 +154,11 @@ public abstract class WSRestAdapter {
 		return marhallClient;
 	}
 
+	/**
+	 * Transforme un Client transmissible en REST en Client du modèle.
+	 * @param client
+	 * @return
+	 */
 	public static org.ProxiBanque.model.Client unmarshallClient(Client client) {
 
 		org.ProxiBanque.model.Client unmarhallClient = null;
@@ -138,6 +178,11 @@ public abstract class WSRestAdapter {
 		return unmarhallClient;
 	}
 
+	/**
+	 * Transforme un Director du modèle en Director transmissible en REST.
+	 * @param director
+	 * @return
+	 */
 	public static Director marshallDirector(org.ProxiBanque.model.Director director) {
 		
 		
@@ -153,7 +198,12 @@ public abstract class WSRestAdapter {
 		}
 		return marhallDirector;
 	}
-
+	
+	/**
+	 * Transforme un Director transmissible en REST en Director du modèle.
+	 * @param director
+	 * @return
+	 */
 	public static org.ProxiBanque.model.Director unmarshallDirector(Director director) {
 
 		org.ProxiBanque.model.Director unmarhallDirector = null;
@@ -168,7 +218,12 @@ public abstract class WSRestAdapter {
 		}
 		return unmarhallDirector;
 	}
-
+	
+	/**
+	 * Transforme un Advisor du modèle en Advisor transmissible en REST.
+	 * @param advisor
+	 * @return
+	 */
 	public static Advisor marshallAdvisor(org.ProxiBanque.model.Advisor advisor) {
 
 		Advisor marshallAdvisor = null;
@@ -191,7 +246,12 @@ public abstract class WSRestAdapter {
 		}
 		return marshallAdvisor;
 	}
-
+	
+	/**
+	 * Transforme un Advisor transmissible en REST en Advisor du modèle.
+	 * @param advisor
+	 * @return
+	 */
 	public static org.ProxiBanque.model.Advisor unmarshallAdvisor(Advisor advisor) {
 
 		org.ProxiBanque.model.Advisor unmarshallAdvisor = null;
@@ -214,7 +274,12 @@ public abstract class WSRestAdapter {
 		}
 		return unmarshallAdvisor;
 	}
-
+	
+	/**
+	 * Transforme une Agence du modèle en Agence transmissible en REST.
+	 * @param agence
+	 * @return
+	 */
 	public static Agence marshallAgence(org.ProxiBanque.model.Agence agence) {
 
 		Agence marshallAgence = null;
@@ -245,6 +310,11 @@ public abstract class WSRestAdapter {
 		return marshallAgence;
 	}
 
+	/**
+	 * Transforme une Agence transmissible en REST en Agence du modèle.
+	 * @param agence
+	 * @return
+	 */
 	public static org.ProxiBanque.model.Agence unmarshallAgence(Agence agence) {
 
 		org.ProxiBanque.model.Agence unmarshallAgence = null;
