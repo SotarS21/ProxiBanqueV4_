@@ -9,6 +9,7 @@ import java.util.List;
 import org.ProxiBanque.config.ApplicationConfig;
 import org.ProxiBanque.model.Address;
 import org.ProxiBanque.model.Advisor;
+import org.ProxiBanque.model.Agence;
 import org.ProxiBanque.model.Client;
 import org.ProxiBanque.model.User;
 import org.junit.Test;
@@ -84,16 +85,33 @@ public class AdvisorTestService {
 	@Test
 	public void testDelete()
 	{
+		Agence agence = new Agence();
 		Advisor advisor = new Advisor("Jean", "Valjean", new Address("10", "75010", "Paris"), new User("jean", "jean"));
 		advisor.setCellphone("09784556");
 		advisor.setEmail("jean.valjean@gmail.com");
-
+		Client client = new Client("lol", "lol", new Address("lol", "lol", "lol"));
+		client.setAdvisor(advisor);
+		advisor.setAgence(agence);
+		
 		service.save(advisor);
-		List<Advisor> advisors = service.findByLastNameAndFirstNameAllIgnoreCase( "Valjean", "jean");
-		int sizeBefor = advisors.size();
-		service.delete(advisors.get(0).getId());
-		int sizeAfter = service.findByLastNameAndFirstNameAllIgnoreCase( "Valjean", "jean").size();
-		assertTrue(sizeBefor > sizeAfter);
+		
+		long id = advisor.getId();
+		
+		Advisor advisor2 = service.findOne(id);
+		
+		assertTrue(advisor.getId() == advisor2.getId());
+		
+		service.delete(id);
+		
+		advisor2 = service.findOne(id);
+		
+		assertTrue(advisor2 == null);
+		
+//		List<Advisor> advisors = service.findByLastNameAndFirstNameAllIgnoreCase( "Valjean", "jean");
+//		int sizeBefor = advisors.size();
+//		service.delete(advisors.get(0).getId());
+//		int sizeAfter = service.findByLastNameAndFirstNameAllIgnoreCase( "Valjean", "jean").size();
+//		assertTrue(sizeBefor > sizeAfter);
 	}
 	
 }

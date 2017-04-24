@@ -12,67 +12,93 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
- *	Bean Advisor regroupe les informations du conseiler  : Le user , La liste des clients  
+ * Bean Advisor regroupe les informations du conseiler : Le user , La liste des
+ * clients
  * 
- * @author Jonas, Kevin, Andy, Mathieu 
+ * @author Jonas, Kevin, Andy, Mathieu
  *
  */
 
 @Entity
-@Table(name="ADVISOR")
+@Table(name = "ADVISOR")
 @DiscriminatorValue("A")
-public class Advisor extends Person{
+public class Advisor extends Person {
 
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL)
 	private User user;
-	
-	@OneToMany(fetch=FetchType.EAGER, cascade={CascadeType.ALL}, mappedBy="advisor")
+
+	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL }, mappedBy = "advisor")
 	private List<Client> clients = new ArrayList<Client>();
-	
+
 	public Advisor(String firstName, String lastName, Address address, User user) {
 		super(firstName, lastName, address);
 		this.user = user;
 	}
+
 	public Advisor(String firstName, String lastName, Address address) {
 		super(firstName, lastName, address);
 	}
+
 	public User getUser() {
 		return user;
 	}
+
 	public void setUser(User user) {
 		this.user = user;
 		user.setAdvisor(this);
 	}
+
 	public List<Client> getClients() {
 		return clients;
 	}
+
 	public void setClients(List<Client> clients) {
 		this.clients = clients;
 	}
+
 	public Advisor() {
 		super();
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Advisor [user=" + user + ", clients=" + clients + "]";
 	}
-	
+
 	/**
 	 * Ajout un client dans la liste des clients du conseiller
-	 * @param cl : client
+	 * 
+	 * @param cl
+	 *            : client
 	 */
-	public void addClient(Client cl)
-	{
-		this.clients.add(cl);
-		cl.setAdvisor(this);
+	public void addClient(Client cl) {
+		if (!clients.contains(cl)) {
+
+			this.clients.add(cl);
+			cl.setAdvisor(this);
+		}
 	}
+
 	public void removeClient(Client cl) {
-		
-		if(clients.contains(cl)) {
-			
+
+		if (clients.contains(cl)) {
+
 			clients.remove(cl);
 			cl.setAdvisor(null);
+		}
+	}
+
+	@Override
+	public void setAgence(Agence agence) {
+
+		if (super.getAgence() != null && agence != super.getAgence()) {
+
+			super.getAgence().removeAdvisor(this);
+		}
+		super.setAgence(agence);
+		if (agence != null && !super.getAgence().getClients().contains(this)) {
+
+			agence.addAdvisor(this);
 		}
 	}
 }

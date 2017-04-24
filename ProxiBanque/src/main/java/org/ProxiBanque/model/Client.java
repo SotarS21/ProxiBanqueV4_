@@ -107,14 +107,18 @@ public class Client extends Person {
 	}
 
 	public void setAdvisor(Advisor advisor) {
-		if (advisor != null) {
-			if (!advisor.getClients().contains(this)) {
-				advisor.addClient(this);
-			}
+		
+		if(this.advisor != null && advisor != this.advisor) {
+			
+			this.advisor.removeClient(this);
 		}
 		this.advisor = advisor;
+		if (advisor != null && ! advisor.getClients().contains(this)) {
+			
+				advisor.addClient(this);
+				setAgence(advisor.getAgence());
+		}
 	
-			//setAgence(advisor.getAgence());
 	}
 
 	public Agence getAgence() {
@@ -123,12 +127,15 @@ public class Client extends Person {
 
 	public void setAgence(Agence agence) {
 
-		if (!agence.getClients().contains(this)) {
-
+		if (super.getAgence() != null && agence != super.getAgence()) {
+			
+			super.getAgence().removeClient(this);
+		}
+		super.setAgence(agence);
+		if(agence != null && ! super.getAgence().getClients().contains(this)) {
+			
 			agence.addClient(this);
 		}
-
-		this.agence = agence;
 	}
 
 	@Override

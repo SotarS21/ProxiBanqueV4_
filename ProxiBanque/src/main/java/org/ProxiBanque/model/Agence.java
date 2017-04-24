@@ -62,7 +62,10 @@ public class Agence {
 	public void setDirector(Director director) {
 		
 		this.director = director;
-		director.setAgence(this);
+		if(director != null && director.getAgence() != this) {
+			
+			director.setAgence(this);
+		}
 	}
 	public List<Client> getClients() {
 		return clients;
@@ -107,12 +110,13 @@ public class Agence {
 		if(advisors.contains(advisor)) {
 			
 			advisors.remove(advisor);
+			advisor.setAgence(null);
 		}
-		advisor.setAgence(null);
-		for (Client client : advisor.getClients()) {
-			
-			client.setAgence(null);
-		}
+//		advisor.setAgence(null);
+//		for (Client client : advisor.getClients()) {
+//			
+//			client.setAgence(null);
+//		}
 	}
 	
 	

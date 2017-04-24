@@ -41,7 +41,15 @@ public class Director extends Person{
 		return "Director [user=" + user + "]";
 	}
 
-	
+	@Override
+	public void setAgence(Agence agence) {
+		
+		super.setAgence(agence);
+		if(agence != null && agence.getDirector() != this) {
+			
+			agence.setDirector(this);
+		}
+	}
 	
 	
 
