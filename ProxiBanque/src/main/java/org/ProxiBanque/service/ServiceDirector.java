@@ -1,5 +1,11 @@
 package org.ProxiBanque.service;
-
+/**
+ * Implémentation de l'interface de service concernant le directeur, elle est
+ * appeler dans les controllers addapter ou dans un webService
+ * 
+ * @author kevin, jonas, andy, mathieu
+ * @version 1.0
+ */
 import java.util.List;
 
 import javax.transaction.Transactional;
