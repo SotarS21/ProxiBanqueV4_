@@ -1,7 +1,9 @@
 package org.ProxiBanque.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.ProxiBanque.model.Footprint;
 import org.ProxiBanque.model.Footprint.e_HeadType;
@@ -17,21 +19,25 @@ public class ServiceDashboard implements IServiceDashboard {
 
 	@Autowired
 	IServiceAccount serviceAccount;
+	
+	@Autowired
+	IServiceClient serviceClient;
 
 	@Autowired
 	IServiceFootPrint serviceFoot;
 
 	@Override
-	public List<Footprint> getAllTransactions() {
-		List<Footprint> listret = new ArrayList<>();
+	public List<String> getAllTransactions() {
+		List<String> listret = new ArrayList<>();
 		List<Footprint> listFoot = serviceFoot.findAll();
 		for (Footprint footprint : listFoot) {
 			if (footprint.getHead().equals(e_HeadType.TRANSACTION)) {
-				listret.add(footprint);
+				listret.add(footprint.toString());
 			}
 		}
 		return listret;
 	}
+	
 
 	@Override
 	public int numberComptesOk() {
@@ -45,5 +51,42 @@ public class ServiceDashboard implements IServiceDashboard {
 		logger.debug("test nbre comptes nok");
 		return serviceAccount.findAllClientOverdrawn().size();
 	}
+	
+	@Override
+	public int numberComptesOkAdvisor(Long id) {
+		logger.debug("test nbre comptes ok");
+		int i = serviceClient.findByConseiller_Id(id).size() - serviceAccount.findByAdvisorClientOverdrawn(id).size();
+		return i;
+	}
 
+	@Override
+	public int numberComptesNOkAdvisor(Long id) {
+		logger.debug("test nbre comptes nok");
+		return serviceAccount.findByAdvisorClientOverdrawn(id).size();
+	}
+
+	@Override
+	public Map<String, Number> getPieMapDirector() {
+
+		Map<String, Number> map = new HashMap<String, Number>();
+		
+		map.put("Sain", numberComptesOk());
+		map.put("A Decouvert", numberComptesNOk());
+		
+		return map;
+	}
+	
+	@Override
+	public Map<String, Number> getPieMapAdvisor(long id) {
+		
+		Map<String, Number> map = new HashMap<String, Number>();
+		
+		map.put("Sain", numberComptesOkAdvisor(id));
+		map.put("A Decouvert", numberComptesNOkAdvisor(id));
+		
+		return map;
+	}
+
+
+	
 }

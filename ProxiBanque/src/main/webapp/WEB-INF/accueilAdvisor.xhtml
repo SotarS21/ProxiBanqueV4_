@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/template/template.xhtml" xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="login">
+		<h:commandLink action="#{userController.logout()}"
+			value="Deconnection #{userController.currentUser.login}"></h:commandLink>
+
+	</ui:define>
+
+	<ui:define name="content">
+		
+		<h:form>
+    <p:chart type="pie" widgetVar="browserChart" model="#{dashboardController.pieModelAdvisor}" style="width:400px;height:300px"  />
+ 
+    <p:socket onMessage="handleMessage" channel="/browser" />
+</h:form>
+
+<h:form> 
+    <p:dataScroller value="#{dashboardController.getAllTransactions()}" var="transaction" chunkSize="10">
+        <f:facet name="header">
+            Transactions
+        </f:facet>
+ 
+        <h:panelGrid columns="2" style="width:100%" columnClasses="detail">
+ 
+            <p:outputPanel>
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputText value="transaction : " />
+                    <h:outputText value="#{transaction}" style="font-weight: bold"/>
+ 
+                </h:panelGrid>
+            </p:outputPanel>
+        </h:panelGrid>
+    </p:dataScroller>
+</h:form>
+ 
+<script type="text/javascript">
+    function handleMessage(data) {
+        var series = [],
+        chart = PF('browserChart').plot;
+ 
+        for(var key in data) {
+            series.push([key, data[key]]);
+        }
+ 
+        chart.series[0].data = series;
+        chart.replot();
+    }
+</script>
+		
+	</ui:define>
+</ui:composition>

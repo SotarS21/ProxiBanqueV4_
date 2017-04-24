@@ -20,5 +20,6 @@ public interface IServiceAccount {
 	public List<BankAccount> doAudit();
 	public void setClientRich();
 	public void addAccount (Client client, e_AccountType type);
+	List<Client> findByAdvisorClientOverdrawn(Long id);
 	
 }

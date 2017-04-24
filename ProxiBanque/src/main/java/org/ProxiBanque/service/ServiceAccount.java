@@ -6,6 +6,7 @@ import java.util.List;
 import org.ProxiBanque.dao.ICRUDAccount;
 import org.ProxiBanque.dao.ICRUDClient;
 import org.ProxiBanque.exception.VirementException;
+import org.ProxiBanque.model.Advisor;
 import org.ProxiBanque.model.BankAccount;
 import org.ProxiBanque.model.BankAccount.e_AccountType;
 import org.ProxiBanque.model.Client;
@@ -27,6 +28,9 @@ public class ServiceAccount implements IServiceAccount {
 
 	@Autowired
 	ICRUDClient daoClient;
+	
+	@Autowired
+	IServiceAdvisor serviceAdvisor;
 
 	@Override
 	public void addAccount(BankAccount account, Client client) {
@@ -140,6 +144,26 @@ public class ServiceAccount implements IServiceAccount {
 		}
 		return listret;
 	}
+	
+	@Override
+	public List<Client> findByAdvisorClientOverdrawn(Long id) {
+		
+		Advisor advisor = serviceAdvisor.findOne(id);
+		List<BankAccount> list = new ArrayList<BankAccount>();
+		
+		for (Client client : advisor.getClients()) {
+			
+			list = this.getAccountsByClientId(client.getId());
+		}
+		
+		List<Client> listret = new ArrayList<>();
+		for (BankAccount bankAccount : list) {
+			if (bankAccount.getSold() < 0) {
+				listret.add(bankAccount.getClient());
+			}
+		}
+		return listret;
+	}
 
 	@Override
 	public List<BankAccount> doAudit() throws RuntimeException {
@@ -166,7 +190,7 @@ public class ServiceAccount implements IServiceAccount {
 				for (BankAccount bankAccount : listAccount) {
 					if (bankAccount.getType().equals(e_AccountType.CURRENT_ACCOUNT)) {
 						CurrentAccount ca = (CurrentAccount) bankAccount;
-						if (ca.getSold() < -5000) {
+						if (ca.getSold() < -50000) {
 							listAudit.add(ca);
 						}
 					} else if (bankAccount.getType().equals(e_AccountType.SAVING_ACCOUNT)) {
