@@ -1,7 +1,6 @@
 package org.ProxiBanque.wsrest.bean;
 
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -11,7 +10,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  */
 
-@Embeddable
 @XmlRootElement
 public class Address {
 

@@ -13,7 +13,13 @@ import javax.ws.rs.core.Response;
 
 import org.ProxiBanque.wsrest.bean.Advisor;
 
-
+/**
+ * Interface de service concernant le conseiller, est exposé au web en tant que web service REST, pour
+ * une fourniture de service à des applications externes ( non nécessairement JAVA) 
+ * 
+* @author kevin, jonas, andy, mathieu
+* @version 1.0
+*/
 @Produces({"application/xml", "application/json"})
 public interface IServiceAdvisorWSRest {
 

@@ -16,8 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 /**
- * Classe de contrï¿½ler permettant d'effectuer des actions sur le client dans
- * nos pages xhtml
+ *Controller permettant d'ajouter des clients à l'utilisateur courant
  * 
  * @author kevin jonas
  *
@@ -76,6 +75,11 @@ public class AddClientController implements Serializable {
 		this.client = client;
 	}
 
+	/**
+	 * Fonction ajoutant un client au conseiller contenu dans ce controller,
+	 * selon le type d'utilisateur spécifié dans la page JSF correspondante.
+	 * @return
+	 */
 	public String addClient() {
 		LOGGER.debug("addClient");
 		// FacesContext ctx = FacesContext.getCurrentInstance();
