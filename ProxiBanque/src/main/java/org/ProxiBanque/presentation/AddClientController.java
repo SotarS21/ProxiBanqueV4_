@@ -82,10 +82,6 @@ public class AddClientController implements Serializable {
 	 */
 	public String addClient() {
 		LOGGER.debug("addClient");
-		// FacesContext ctx = FacesContext.getCurrentInstance();
-		// ExternalContext extCtx = ctx.getExternalContext();
-		// Map<String, Object> sessionMap = extCtx.getSessionMap();
-		// Advisor advisor = (Advisor) sessionMap.get("advisor");4
 		Advisor advisor = userController.getCurrentUser().getAdvisor();
 
 		LOGGER.debug("advisor" + advisor);
@@ -94,9 +90,9 @@ public class AddClientController implements Serializable {
 			advisor.addClient(client);
 			serviceAdvisor.save(advisor);
 		} else if (typeClient.equals("professionnel")) {
-			clientPro.setType(e_ClientType.ENTERPRISE_CLIENT);
-			clientPro.setFirstName("Entreprise :");
-			advisor.addClient(clientPro);
+			client.setType(e_ClientType.ENTERPRISE_CLIENT);
+			client.setFirstName("Entreprise :");
+			advisor.addClient(client);
 			serviceAdvisor.save(advisor);
 		}
 

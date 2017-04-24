@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/template/template.xhtml">
+
+	<ui:define name="login">
+		<h:commandLink action="#{userController.logout()}"
+			value="Deconnection #{userController.currentUser.login}"></h:commandLink>
+
+	</ui:define>
+	
+		
+
+	<ui:define name="content">
+		<f:metadata>
+			<f:event type="preRenderView"
+				listener="#{auditController.loadAudit()}" />
+		</f:metadata>
+	
+	<div class="page-header">
+        <h1>Audit de l'agence</h1>
+        <p class="lead">Voici la liste des clients ayant un compte avec un solde inférieur à 5000€ pour les particuliers et 50 000€ pour les professionnels.</p>
+      </div>
+
+
+		<div id="container">
+			<div id="content">
+				<h:form id="form">
+					<p:growl id="msgs" showDetail="true" />
+					<p:dataTable value="#{auditController.listAudit}" editable="true"
+						var="account" style="margin-bottom:20px"
+						filteredValue="#{auditController.listFilter}" scrollable="true"
+						scrollHeight="800" scrollWidth="1600">
+						<f:facet name="header">Audit de l'agence</f:facet>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Type"></h:outputText>
+							</f:facet>
+							<h:outputText value="#{account.type.type}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Numéro"></h:outputText>
+							</f:facet>
+							<h:outputText value="#{account.accountNumber}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Solde"></h:outputText>
+							</f:facet>
+							<h:outputText value="#{account.sold} €" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Prénom"></h:outputText>
+							</f:facet>
+							<h:outputText value="#{account.client.firstName}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Nom"></h:outputText>
+							</f:facet>
+							<h:outputText value="#{account.client.lastName}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Téléphone"></h:outputText>
+							</f:facet>
+							<h:outputText value="#{account.client.cellphone}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Email"></h:outputText>
+							</f:facet>
+							<h:outputText value="#{account.client.email}" />
+						</p:column>
+
+					</p:dataTable>
+				</h:form>
+			</div>
+		</div>
+	</ui:define>
+	<!-- 	onclick="if (!confirm('select this account for transaction ?')) return 'virement'" -->
+</ui:composition>

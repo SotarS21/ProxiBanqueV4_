@@ -51,9 +51,9 @@ public class RoleController implements Serializable {
 	public String listClient() {
 
 		
-		Advisor advisor = (Advisor) sessionMap.get("advisor");
+		Advisor advisor = userController.getCurrentUser().getAdvisor();
 //		Director director = (Director) sessionMap.get("director");
-		LOGGER.debug("listClient");
+		LOGGER.debug("listClient" + advisor.getFirstName());
 		if (advisor != null)
 			return "listClient?faces-redirect=true";
 		else

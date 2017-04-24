@@ -18,16 +18,18 @@
 	<ui:define name="content">
 
 		<div class="container">
-
-			<form class="form-signin" >
-				<h3 class="form-signin-heading">
-					Conseiller
+		<div class="page-header">
+				<h1>Conseiller
 					<h:outputText
 						value="#{userController.currentUser.advisor.firstName} " />
 					<h:outputText
 						value="#{userController.currentUser.advisor.lastName}" />
-				</h3>
-				<h2 class="form-signin-heading">Ajout d'un nouveau client</h2>
+				</h1>
+			<p class="lead">Ajout d'un nouveau client</p>
+		</div>
+			<form class="form-signin" >
+			
+				
 				<h:form >
 				<h:selectOneRadio value="#{addClientController.typeClient}"
 					onclick="visibilite(this.value)">
@@ -40,14 +42,14 @@
 					<h:inputText a:placeholder="Nom" value="#{addClientController.client.lastName}"
 						 id="lastname" styleClass="form-control" required="true" />
 					<h:inputText a:placeholder="Prenom " value="#{addClientController.client.firstName}"
-						id="firstname" styleClass="form-control" required="true" />
+						id="firstname" styleClass="form-control" />
 					<h:inputText a:placeholder="Email" value="#{addClientController.client.email}"
 						id="email" styleClass="form-control">
 						<f:validateRegex
 							pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
 					</h:inputText>
 					<h:inputText a:placeholder="Telephone" value="#{addClientController.client.cellphone}"
-						id="cellphone" styleClass="form-control" required="true" ><f:validateLength for="cellphoneE" minimum="10" maximum="10" /></h:inputText>
+						id="cellphone" styleClass="form-control" required="true" ><f:validateLength for="cellphone" minimum="10" maximum="10" /></h:inputText>
 					<h:inputText a:placeholder="Adresse" value="#{addClientController.client.address.number}"
 						id="address" styleClass="form-control" />
 					<h:inputText a:placeholder="Ville" value="#{addClientController.client.address.town}" id="town"
@@ -58,29 +60,6 @@
 					type="submit" value="valider" action="#{addClientController.addClient}"></h:commandButton>
 				<h:commandButton styleClass="btn btn-lg btn-primary btn-block"
 					value="Annuler"  action="#{addClientController.annule}"></h:commandButton>
-				</div>
-				<div id="proDiv">
-					<h:inputText a:placeholder="Nom entreprise"
-						value="#{addClientController.clientPro.lastName}" id="lastnameE"
-						styleClass="form-control" required="true" />
-					<h:inputText a:placeholder="Email " value="#{addClientController.clientPro.email}"
-						id="emailE" styleClass="form-control">
-						<f:validateRegex
-							pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
-					</h:inputText>
-					<h:inputText a:placeholder="Telephone" value="#{addClientController.clientPro.cellphone}"
-						id="cellphoneE" styleClass="form-control" required="true" ><f:validateLength for="cellphoneE" minimum="10" maximum="10" /></h:inputText>
-					<h:inputText a:placeholder="Adresse" value="#{addClientController.clientPro.address.number}"
-						id="addressE" styleClass="form-control" />
-					<h:inputText a:placeholder="Ville" value="#{addClientController.clientPro.address.town}"
-						id="townE" styleClass="form-control" />
-					<h:inputText id="zipcodeE" a:placeholder="Code postal" value="#{addClientController.clientPro.address.zipCode}"
-						styleClass="form-control" ><f:validateLength for="zipcodeE" minimum="5" maximum="5" /></h:inputText>
-						
-						<h:commandButton styleClass="btn btn-lg btn-primary btn-block"
-					type="submit" value="valider" action="#{addClientController.addClient}"></h:commandButton>
- 					<h:commandButton styleClass="btn btn-lg btn-primary btn-block" 
-					value="Annuler" action="#{addClientController.annule}"></h:commandButton>
 				</div>
 				<h:messages></h:messages>
 				
@@ -94,20 +73,22 @@
 			window.onload = function() {
 				document.getElementById('proDiv').style.display = "none";
 				//document.getElementById('partDiv').style.display = "none";
+
 			}
 
 			function visibilite(type) {
 
-				var part = document.getElementById('partDiv');
-				var pro = document.getElementById('proDiv');
+				var part = document.getElementById('firstname');
+// 				var pro = document.getElementById('proDiv');
 				
 				switch (type) {
 				case 'particulier':
-					pro.style.display = "none";
+					//pro.style.display = "none";
 					part.style.display = "";
+					
 					break;
 				case 'professionnel':
-					pro.style.display = "";
+					//pro.style.display = "";
 					part.style.display = "none";
 					break;
 				}

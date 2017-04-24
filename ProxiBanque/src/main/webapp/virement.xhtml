@@ -18,6 +18,12 @@
 
 	<ui:define name="content">
 
+		<div class="page-header">
+			<h1>Virement compte à compte</h1>
+			<p class="lead">Veuillez selectionner le compte créditeur !</p>
+		</div>
+
+
 		<div id="container">
 			<div id="content">
 				<p:panelGrid>
@@ -48,22 +54,23 @@
 								value="#{clientController.bankAccount.accountNumber}" />
 						</p:column>
 						<p:column>
-							<h:outputText value="#{clientController.bankAccount.sold}" />
+							<h:outputText value="#{clientController.bankAccount.sold} €" />
 						</p:column>
 
 					</p:row>
 				</p:panelGrid>
 				<h:form id="form">
-
+					<br />
+					<br />
 					<p:growl id="msgs" showDetail="true" />
 					<p:dataTable value="#{virementController.listClient}"
 						var="tempClient" style="margin-bottom:20px" scrollable="true"
 						scrollHeight="800" scrollWidth="1600"
-						filteredValue="#{virementController.listFilter}"
-						rows="10" paginator="true"
-                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         rowsPerPageTemplate="5,10,15,20">>
-						<f:facet name="header">Liste des clients</f:facet>
+						filteredValue="#{virementController.listFilter}" rows="10"
+						paginator="true"
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15,20">>
+						<f:facet name="header">Compte créditeur</f:facet>
 
 						<p:column style="width:40px">
 							<p:rowToggler />
@@ -118,7 +125,8 @@
 							<p:dataTable value="#{clientController.accountLoad(tempClient)}"
 								var="account" resizableColumns="true">
 								<f:facet name="header">
-									<h:outputText value=" Détail compte "></h:outputText><br/>
+									<h:outputText value=" Détail compte "></h:outputText>
+									<br />
 									<h:outputText value=" Montant "></h:outputText>
 									<p:inputText value="#{clientController.virement.value}" />
 								</f:facet>
@@ -138,29 +146,18 @@
 									<f:facet name="header">
 										<h:outputText value="Solde"></h:outputText>
 									</f:facet>
-									<h:outputText value="#{account.sold}" />
+									<h:outputText value="#{account.sold} €" />
 								</p:column>
-
+								
 								<p:column colspan="1">
 									<f:facet name="header">
 										<h:outputText value="Virement"></h:outputText>
 									</f:facet>
-									<h:form>
-									<p:growl id="message" showDetail="true"/>
-									<p:commandButton title="Selection compte créditeur" styleClass="btn btn-success"
-										actionListener="#{clientController.doVirement(account)}" update="message">
-										<p:confirm header="Confirmation"
-											message="Voulez-vous vraiment effectuer ce virement"
-											icon="ui-icon-alert"></p:confirm>
-									</p:commandButton>
-									<p:confirmDialog global="true" showEffect="fade"
-										hideEffect="fade">
-										<p:commandButton value="Valider" type="button"
-											styleClass="btn btn-success" icon="ui-icon-check"></p:commandButton>
-										<p:commandButton value="Annuler" type="button"
-											styleClass="btn btn-success" icon="ui-icon-close"></p:commandButton>
-									</p:confirmDialog>
-									</h:form>
+
+										<p:commandButton title="Selection compte créditeur"
+											styleClass="btn btn-success"
+											action="#{clientController.doVirement(account)}" onclick="return confirm('Etes vous sur de vouloir faire le virement?');" >
+										</p:commandButton>
 
 								</p:column>
 							</p:dataTable>

@@ -1,8 +1,12 @@
 package org.ProxiBanque.presentation;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.ProxiBanque.model.Advisor;
@@ -11,6 +15,8 @@ import org.primefaces.model.chart.PieChartModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.context.annotation.SessionScope;
+
+
 
 @Controller
 @SessionScope
@@ -24,12 +30,36 @@ public class DashBoardController implements Serializable {
 	@Autowired
 	private IServiceDashboard serviceDashboard;
 	
+	private List<String> listModel = new ArrayList<>();
 	private PieChartModel pieModelAdvisor, pieModelDirector;
 
+	
+	
+	public List<String> getListModel() {
+		return listModel;
+	}
+
+	
+	
+	
+	public void loadAllTransaction() {
+		listModel.clear();
+		
+		try {
+			listModel = serviceDashboard.getAllTransactions();
+		
+		} catch (Exception e) {
+			// TODO: handle exception
+			
+		}
+	}
+	
+	
+	
 	@PostConstruct
     public void init() {
 		   
-		
+		listModel = serviceDashboard.getAllTransactions();
 		long id = ((Advisor) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("advisor")).getId();
 		
         pieModelAdvisor = new PieChartModel();

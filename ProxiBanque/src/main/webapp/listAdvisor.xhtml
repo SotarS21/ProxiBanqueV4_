@@ -17,6 +17,14 @@
 				listener="#{advisorController.loadAdvisors}" />
 		</f:metadata>
 
+		<div class="page-header">
+				<h1>Liste des conseillers du directeur  
+					<h:outputText value=" #{userController.currentUser.director.firstName} " />
+					<h:outputText value="#{userController.currentUser.director.lastName}" />
+				</h1>
+				<p class="lead"></p>
+		</div>
+
 		<div id="container">
 			<div id="content">
 				<h:form id="form">
@@ -112,7 +120,7 @@
 									<f:facet name="header">
 										<h:outputText value="Solde des comptes"></h:outputText>
 									</f:facet>
-									<h:outputText value="#{advisorController.sumSold(tempClient)}" />
+									<h:outputText value="#{advisorController.sumSold(tempClient)} €" />
 								</p:column>
 
 

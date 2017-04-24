@@ -113,7 +113,7 @@ public class UserController implements Serializable {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			   ExternalContext extCtx = ctx.getExternalContext();
 			   Map<String, Object> sessionMap = extCtx.getSessionMap();
-			   sessionMap.put("advisor", currentUser.getAdvisor());
+//			   sessionMap.put("advisor", currentUser.getAdvisor());
 			   
 			if (currentUser.getAdvisor() != null && currentUser.getDirector() == null) {
 				if (sessionMap.get("director") != null)
@@ -121,14 +121,14 @@ public class UserController implements Serializable {
 				sessionMap.put("advisor", currentUser.getAdvisor());
 				LOGGER.info("user logged as Advisor");
 				notificationSuccess("successfully logged as Advisor");
-				return "listClient?sendredirect=true";
+				return "accueilAdvisor?sendredirect=true";
 			} else  {
 				if (sessionMap.get("advisor") != null)
 					sessionMap.remove("advisor");
 				sessionMap.put("director", currentUser.getDirector());
 				LOGGER.info("user logged as Director");
 				notificationSuccess("successfully logged as Director");
-				return "listAdvisor?faces-redirect=true";
+				return "accueilDirector?faces-redirect=true";
 			}
 		}
 		

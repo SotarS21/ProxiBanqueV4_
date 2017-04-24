@@ -10,16 +10,20 @@
 			value="Deconnection #{userController.currentUser.login}"></h:commandLink>
 
 	</ui:define>
+		<f:metadata>
+			<f:event type="preRenderView"
+				listener="#{dashBoardController.loadAllTransaction()}" />
+		</f:metadata>
 
 	<ui:define name="content">
 		
 		<h:form>
-    <p:chart type="pie" widgetVar="browserChart" model="#{dashboardController.pieModelAdvisor}" style="width:400px;height:300px"  />
+    <p:chart type="pie" widgetVar="browserChart" model="#{dashBoardController.pieModelAdvisor}" style="width:400px;height:300px"  />
  
 </h:form>
 
 <h:form> 
-    <p:dataScroller value="#{dashboardController.getAllTransactions()}" var="transaction" chunkSize="10">
+    <p:dataScroller value="#{dashBoardController.listModel}" var="transaction" chunkSize="10">
         <f:facet name="header">
             Transactions
         </f:facet>
