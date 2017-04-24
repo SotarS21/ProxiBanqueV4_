@@ -25,6 +25,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+/**
+ * Controller gérant le login des deux types d'utilisateurs : Conseiller ou Gérant.
+ * @author jonas, kevin, matthieu, andy
+ *
+ */
 @Controller
 @SessionScoped
 public class UserController implements Serializable {
@@ -85,6 +90,10 @@ public class UserController implements Serializable {
 		serviceAdvisor.save(advisor2);
 	}
 
+	/**
+	 * Vérifie les identifiants de connection fournit, et redirige vers une page selon la nature de l'utilisateur
+	 * @return
+	 */
 	public String login() {
 
 		User verifUser = serviceUser.findFirstByLoginAndPasswordAllIgnoreCase(currentUser.getLogin().trim(),
@@ -125,6 +134,10 @@ public class UserController implements Serializable {
 		
 	}
 
+	/**
+	 * Cette fonction permet de déconnecter l'utilisateur courant
+	 * @return
+	 */
 	public String logout() {
 
 		currentUser = new User();

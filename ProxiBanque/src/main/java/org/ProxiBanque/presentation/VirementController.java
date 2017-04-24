@@ -9,26 +9,19 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
-import org.ProxiBanque.exception.VirementException;
-import org.ProxiBanque.model.BankAccount;
-import org.ProxiBanque.model.BankAccount.e_AccountType;
 import org.ProxiBanque.model.Client;
-import org.ProxiBanque.service.IServiceAccount;
 import org.ProxiBanque.service.IServiceClient;
-import org.primefaces.event.RowEditEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 /**
- * Classe de contrï¿½ler permettant d'effectuer des actions sur le client dans nos
- * pages xhtml
+ * controller gérant une action de virement entre deux comptes
  * 
- * @author kevin jonas
+ * @author kevin, jonas, andy, matthieu
  *
  */
-
 @Controller
 @SessionScoped
 public class VirementController implements Serializable {
@@ -66,6 +59,9 @@ public class VirementController implements Serializable {
 		// serviceAccount.init();
 	}
 
+	/**
+	 * Charge la liste de tout les clients dans le controller afin de proposer le client bénéficiaire du virement
+	 */
 	public void loadClients() {
 		listClient.clear();
 		LOGGER.debug("VIREMENT Load all client in BDD");
@@ -83,6 +79,10 @@ public class VirementController implements Serializable {
 
 	
 
+	/**
+	 * Affiche un message pop up lors de la réussite d'une opération
+	 * @param operation
+	 */
 	public void notificationSuccess(String operation) {
 
 		LOGGER.info("Operation " + operation + " success");
@@ -91,6 +91,10 @@ public class VirementController implements Serializable {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
+	/**
+	 * Affiche un message pop up lors de l'échec d'une opération
+	 * @param operation
+	 */
 	public void notificationError(Exception e, String operation) {
 		LOGGER.error("Operation " + operation + " Error ", e);
 		FacesMessage msg = null;
