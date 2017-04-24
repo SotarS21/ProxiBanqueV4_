@@ -29,6 +29,7 @@ public class DashBoardController implements Serializable {
 	@PostConstruct
     public void init() {
 		   
+		
 		long id = ((Advisor) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("advisor")).getId();
 		
         pieModelAdvisor = new PieChartModel();
