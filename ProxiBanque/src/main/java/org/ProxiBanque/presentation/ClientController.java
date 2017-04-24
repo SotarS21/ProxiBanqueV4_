@@ -150,13 +150,13 @@ public class ClientController implements Serializable {
 			
 			serviceClient.save(client1);
 			serviceClient.delete(client1.getId());
-			LOGGER.info("client nï¿½ " + id + "deleted");
-			notificationSuccess("client nï¿½ " + id + "deleted");
-			return "listClient";
+			LOGGER.info("client n° " + id + "deleted");
+			notificationSuccess("client n° " + id + "deleted");
+			return "listClient?faces-redirect=true";
 		} catch (Exception e) {
 
-			LOGGER.error("client nï¿½ " + id + "error deleting");
-			notificationError(e, "client nï¿½ " + id + "deleting");
+			LOGGER.error("client n° " + id + "error deleting");
+			notificationError(e, "client n° " + id + "deleting");
 			return null;
 		}
 		
@@ -317,10 +317,34 @@ public class ClientController implements Serializable {
 				return "decouvert";
 			else if (solds > 500000)
 				return "isRich";
-
 		}
-
 		return "";
+	}
+	
+	public void notificationFullClient() {
+
+		LOGGER.info("Operation ajout client echec");
+		FacesMessage msg = null;
+		msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Notification", "Le conseiller a plus de 10 clients");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+	
+	public String forwardToAddClient() {
+		FacesContext ctx = FacesContext.getCurrentInstance();
+		ExternalContext extCtx = ctx.getExternalContext();
+		Map<String, Object> sessionMap = extCtx.getSessionMap();
+		Advisor advisor = (Advisor) sessionMap.get("advisor");
+		if (advisor.getClients().size()<11){
+			LOGGER.debug("Ajout d'un client");
+			notificationSuccess("Ajout client");
+			return "ajoutClient";
+		}
+		else{
+			notificationFullClient();
+			return "";
+		}
+			
+		
 	}
 
 }

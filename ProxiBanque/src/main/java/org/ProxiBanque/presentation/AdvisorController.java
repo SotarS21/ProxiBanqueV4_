@@ -12,6 +12,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.ProxiBanque.model.Advisor;
+import org.ProxiBanque.model.BankAccount;
 import org.ProxiBanque.model.Client;
 import org.ProxiBanque.service.IServiceAdvisor;
 import org.ProxiBanque.service.IServiceClient;
@@ -189,4 +190,19 @@ public class AdvisorController implements Serializable {
 		msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Notification", "Une erreur est survenue");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
+	
+	
+	public double sumSold(Client client) {
+		 double sumSold = 0;
+		if (!(client.getSafeAccount() == null)) {
+
+			sumSold = client.getSafeAccount().getSold();
+		}
+		if (!(client.getCurrentAccount() == null)) {
+
+			sumSold = client.getCurrentAccount().getSold();
+		}
+		return sumSold;
+	}
+	
 }

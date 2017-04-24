@@ -42,7 +42,7 @@
 								</f:facet>
 								<f:facet name="input">
 									<p:inputText value="#{tempAdvisor.firstName}"
-										style="width:100%" />
+										style="width:100%" required="true"/>
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
@@ -52,7 +52,7 @@
 									<h:outputText value="#{tempAdvisor.lastName}" />
 								</f:facet>
 								<f:facet name="input">
-									<p:inputText value="#{tempAdvisor.lastName}" style="width:100%" />
+									<p:inputText value="#{tempAdvisor.lastName}" style="width:100%" required="true"/>
 								</f:facet>
 							</p:cellEditor>
 
@@ -74,13 +74,9 @@
 								</f:facet>
 								<f:facet name="input">
 									<p:inputText value="#{tempAdvisor.cellphone}"
-										style="width:100%" />
+										style="width:100%" required="true" />
 								</f:facet>
 							</p:cellEditor>
-						</p:column>
-						<p:column headerText="Ajouter Client" style="width:85px">
-							<p:commandButton title="Ajout"
-								action="#{advisorController.addClient(tempAdvisor)}" />
 						</p:column>
 						<p:column headerText="Modifier" style="width:80px">
 							<p:rowEditor />
@@ -109,6 +105,12 @@
 										<h:outputText value="Téléphone client"></h:outputText>
 									</f:facet>
 									<h:outputText value="#{tempClient.cellphone}" />
+								</p:column>
+								<p:column colspan="2">
+									<f:facet name="header">
+										<h:outputText value="Solde des comptes"></h:outputText>
+									</f:facet>
+									<h:outputText value="#{advisorController.sumSold(tempClient)}" />
 								</p:column>
 
 

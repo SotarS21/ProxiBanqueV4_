@@ -36,8 +36,15 @@ public abstract class BankAccount {
 	
 	
 	public enum e_AccountType{
-		CURRENT_ACCOUNT,
-		SAVING_ACCOUNT
+		CURRENT_ACCOUNT("Compte courant"),
+		SAVING_ACCOUNT("Compte épargne");
+		 private final String type;
+		  private e_AccountType(String type) {
+			this.type = type;
+		  }
+		  public String getType() {
+			  return type;
+		  }
 	}
 	
 	
