@@ -8,6 +8,14 @@ import org.ProxiBanque.wsrest.bean.CurrentAccount;
 import org.ProxiBanque.wsrest.bean.Director;
 import org.ProxiBanque.wsrest.bean.SavingAccount;
 
+/**
+ * Cette Classe abstraite expose des méthode Construite sur le principe du pattern Adapter,
+ * permettant de convertir des objets du model en objets compatibles avec un service WS REST,
+ *  et inversement.
+ * 
+* @author kevin, jonas, andy, mathieu
+* @version 1.0
+*/
 public abstract class WSRestAdapter {
 
 	public static CurrentAccount marshallCurrentAccount(org.ProxiBanque.model.CurrentAccount current) {

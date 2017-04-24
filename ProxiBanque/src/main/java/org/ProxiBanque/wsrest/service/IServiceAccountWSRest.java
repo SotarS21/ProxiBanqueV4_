@@ -15,6 +15,13 @@ import org.ProxiBanque.exception.VirementException;
 import org.ProxiBanque.wsrest.bean.BankAccount;
 import org.ProxiBanque.wsrest.bean.Client;
 
+/**
+ * Interface de service concernant les comptes en banque, est exposé au web en tant que web service REST, pour
+ * une fourniture de service à des applications externes ( non nécessairement JAVA) 
+ * 
+* @author kevin, jonas, andy, mathieu
+* @version 1.0
+*/
 @Produces({"application/xml", "application/json"})
 public interface IServiceAccountWSRest {
 
