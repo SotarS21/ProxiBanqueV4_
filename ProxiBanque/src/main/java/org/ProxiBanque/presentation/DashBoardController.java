@@ -10,10 +10,10 @@ import org.ProxiBanque.service.IServiceDashboard;
 import org.primefaces.model.chart.PieChartModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.context.annotation.RequestScope;
+import org.springframework.web.context.annotation.SessionScope;
 
 @Controller
-@RequestScope
+@SessionScope
 public class DashBoardController implements Serializable {
 
 	/**
