@@ -27,7 +27,7 @@
 						rowStyleClass="#{clientController.decouvertColor(tempClient)}">
 						<f:facet name="header">Liste des clients  <br/>
 						<p:commandButton title="Ajout client"
-								actionListener="#{clientController.forwardToAddClient()}" styleClass="btn btn-success" />
+								action="#{clientController.forwardToAddClient()}" styleClass="btn btn-success" />
 						</f:facet>
 						<p:ajax event="rowEdit"
 							listener="#{clientController.updateClient(tempClient)}"
@@ -35,13 +35,13 @@
 						<p:ajax event="rowEditCancel"
 							listener="#{clientController.cancel}" update=":form:msgs" />
 
-						<p:column headerText="Liste Compte" style="width:45px">
+						<p:column headerText="Liste Comptes" style="width:45px" priority="12">
 							<p:rowToggler />
 						</p:column>
 						<p:column headerText="Prénom" sortBy="#{tempClient.firstName}"
 							style="width:110px; text-align:center"
 							filterValue="#{tempClient.firstName}"
-							filterBy="#{tempClient.firstName}" filterMatchMode="contains">
+							filterBy="#{tempClient.firstName}" filterMatchMode="contains" >
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{tempClient.firstName}" />
@@ -53,7 +53,7 @@
 						</p:column>
 						<p:column headerText="Nom" sortBy="#{tempClient.lastName}"
 							style="width:110px; text-align:center"
-							filterBy="#{tempClient.lastName}" filterMatchMode="contains">
+							filterBy="#{tempClient.lastName}" filterMatchMode="contains" priority="2">
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{tempClient.lastName}" />
@@ -65,7 +65,7 @@
 
 						</p:column>
 						<p:column headerText="Email"
-							style="width:120px; text-align:center">
+							style="width:120px; text-align:center" priority="3">
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{tempClient.email}" />
@@ -76,7 +76,7 @@
 							</p:cellEditor>
 						</p:column>
 						<p:column headerText="Téléphone"
-							style="width:120px; text-align:center">
+							style="width:120px; text-align:center" priority="4">
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{tempClient.cellphone}" />
@@ -87,7 +87,7 @@
 							</p:cellEditor>
 						</p:column>
 						<p:column headerText="Adresse"
-							style="width:120px; text-align:center">
+							style="width:120px; text-align:center" priority="5">
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{tempClient.address.number}" />
@@ -99,7 +99,7 @@
 							</p:cellEditor>
 						</p:column>
 						<p:column headerText="Code postal"
-							style="width:80px; text-align:center">
+							style="width:80px; text-align:center" priority="6">
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{tempClient.address.zipCode}" />
@@ -110,7 +110,7 @@
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
-						<p:column headerText="Ville" style="width:80px; text-align:center">
+						<p:column headerText="Ville" style="width:80px; text-align:center" priority="7">
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{tempClient.address.town}" />
@@ -121,22 +121,22 @@
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
-						<p:column headerText="Compte courrant" style="width:90px; text-align:center">
-							<p:commandButton title="Ajout" styleClass="btn btn-success"
+						<p:column headerText="Compte courant" style="width:90px; text-align:center" priority="8">
+							<p:commandButton title="Ajout" styleClass="#{clientController.styleCurrentAccountFull(tempClient)}"
 								actionListener="#{clientController.addCurrentAccount(tempClient)}"
 								ajax="false" />
 						</p:column>
-						<p:column headerText="Compte epargne" style="width:90px; text-align:center">
-							<p:commandButton title="Ajout" styleClass="btn btn-success"
+						<p:column headerText="Compte épargne" style="width:90px; text-align:center" priority="9">
+							<p:commandButton title="Ajout" styleClass="#{clientController.styleSavingAccountFull(tempClient)}"
 								actionListener="#{clientController.addSavingAccount(tempClient)}"
 								ajax="false" />
 						</p:column>
-						<p:column headerText="Supprimer" style="width:90px">
+						<p:column headerText="Supprimer" style="width:90px" priority="10">
 							<p:commandButton icon="ui-icon-trash" styleClass="btn btn-success" title="Delete this client"
 								actionListener="#{clientController.deleteClient(tempClient.id)}"
 								ajax="false" />
 						</p:column>
-						<p:column headerText="Modifier" style="width:80px">
+						<p:column headerText="Modifier" style="width:80px" priority="11">
 							<p:rowEditor />
 						</p:column>
 
@@ -164,11 +164,11 @@
 									</f:facet>
 									<h:outputText value="#{account.sold}" />
 								</p:column>
-								<p:column colspan="2">
+								<p:column colspan="2" style="text-align:center">
 									<f:facet name="header">
-										<h:outputText value="Transaction from"></h:outputText>
+										<h:outputText value="Virement "></h:outputText>
 									</f:facet>
-									<p:commandButton title="Select"
+									<p:commandButton styleClass="btn btn-success" title="Selection compte débiteur"
 										action="#{clientController.forwardToVirement(tempClient,account)}">
 
 									</p:commandButton>

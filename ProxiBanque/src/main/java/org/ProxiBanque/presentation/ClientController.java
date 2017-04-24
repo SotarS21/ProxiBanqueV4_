@@ -16,6 +16,7 @@ import org.ProxiBanque.model.Advisor;
 import org.ProxiBanque.model.BankAccount;
 import org.ProxiBanque.model.BankAccount.e_AccountType;
 import org.ProxiBanque.model.Client;
+import org.ProxiBanque.model.Virement;
 import org.ProxiBanque.service.IServiceAccount;
 import org.ProxiBanque.service.IServiceClient;
 import org.primefaces.event.RowEditEvent;
@@ -25,8 +26,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 /**
- * Classe de contrï¿½ler permettant d'effectuer des actions sur le client dans nos
- * pages xhtml
+ * Classe de contrï¿½ler permettant d'effectuer des actions sur le client dans
+ * nos pages xhtml
  * 
  * @author kevin jonas
  *
@@ -43,7 +44,7 @@ public class ClientController implements Serializable {
 
 	private BankAccount bankAccount;
 	private Client clientContr;
-	private double value;
+	private Virement virement;
 	private List<Client> listClient = new ArrayList<>();
 	private List<Client> listFilter = new ArrayList<>();
 	private static Logger LOGGER = LoggerFactory.getLogger(ClientController.class);
@@ -62,12 +63,14 @@ public class ClientController implements Serializable {
 		this.clientContr = clientContr;
 	}
 
-	public double getValue() {
-		return value;
+
+
+	public Virement getVirement() {
+		return virement;
 	}
 
-	public void setValue(double value) {
-		this.value = value;
+	public void setVirement(Virement virement) {
+		this.virement = virement;
 	}
 
 	public String getTypeClient() {
@@ -95,6 +98,7 @@ public class ClientController implements Serializable {
 
 		serviceClient.init();
 		// serviceAccount.init();
+		virement = new Virement(0, this.bankAccount );
 	}
 
 	public void loadClients() {
@@ -116,12 +120,13 @@ public class ClientController implements Serializable {
 	}
 
 	/**
-	 * Appelle le service pour effectuer une mise ï¿½ jour sur la basse de donnï¿½es
+	 * Appelle le service pour effectuer une mise ï¿½ jour sur la basse de
+	 * donnï¿½es
 	 * 
 	 * @param client
 	 *            : rï¿½cupï¿½re le client a modifier
-	 * @return la page de destination. Si erreur dans la mï¿½thode il restera sur
-	 *         la page en cours
+	 * @return la page de destination. Si erreur dans la mï¿½thode il restera
+	 *         sur la page en cours
 	 */
 	public String updateClient(Client client) {
 		LOGGER.debug("Update Client!");
@@ -131,7 +136,7 @@ public class ClientController implements Serializable {
 		} catch (Exception e) {
 			return null;
 		}
-		return "listClient";
+		return "listClient?faces-redirect=true";
 	}
 
 	/**
@@ -139,15 +144,15 @@ public class ClientController implements Serializable {
 	 * 
 	 * @param id
 	 *            : identifiant du client
-	 * @return la page de destination. Si erreur dans la mï¿½thode il restera sur
-	 *         la page en cours
+	 * @return la page de destination. Si erreur dans la mï¿½thode il restera
+	 *         sur la page en cours
 	 */
 	public String deleteClient(long id) {
 		LOGGER.info("Delete CLient!");
 		try {
 			Client client1 = serviceClient.findOne(id);
 			client1.setAdvisor(null);
-			
+
 			serviceClient.save(client1);
 			serviceClient.delete(client1.getId());
 			LOGGER.info("client n° " + id + "deleted");
@@ -159,7 +164,7 @@ public class ClientController implements Serializable {
 			notificationError(e, "client n° " + id + "deleting");
 			return null;
 		}
-		
+
 	}
 
 	public List<BankAccount> accountLoad(Client client) {
@@ -182,8 +187,8 @@ public class ClientController implements Serializable {
 	 *            : identifiant du client
 	 * @param account
 	 *            : compte ï¿½ supprimer
-	 * @return la page de destination. Si erreur dans la mï¿½thode il restera sur
-	 *         la page en cours
+	 * @return la page de destination. Si erreur dans la mï¿½thode il restera
+	 *         sur la page en cours
 	 */
 
 	public void cancel(RowEditEvent event) {
@@ -192,13 +197,13 @@ public class ClientController implements Serializable {
 	}
 
 	/**
-	 * Appelle le service pour crï¿½er un compt ï¿½pargne au client dans la basse de
-	 * donnï¿½es
+	 * Appelle le service pour crï¿½er un compt ï¿½pargne au client dans la
+	 * basse de donnï¿½es
 	 * 
 	 * @param client
 	 *            : envois le client sur lequel crï¿½er un compte ï¿½pargne
-	 * @return la page de destination. Si erreur dans la mï¿½thode il restera sur
-	 *         la page en cours
+	 * @return la page de destination. Si erreur dans la mï¿½thode il restera
+	 *         sur la page en cours
 	 */
 	public String addSavingAccount(Client client) {
 		try {
@@ -211,7 +216,7 @@ public class ClientController implements Serializable {
 			notificationError(e, "adding saving account");
 			return "";
 		}
-		return "listClient";
+		return "listClient?faces-redirect=true";
 	}
 
 	/**
@@ -220,8 +225,8 @@ public class ClientController implements Serializable {
 	 * 
 	 * @param client
 	 *            : envois le client sur lequel crï¿½er un compte courrant
-	 * @return la page de destination. Si erreur dans la mï¿½thode il restera sur
-	 *         la page en cours
+	 * @return la page de destination. Si erreur dans la mï¿½thode il restera
+	 *         sur la page en cours
 	 */
 	public String addCurrentAccount(Client client) {
 		LOGGER.debug("add CurrentAccount");
@@ -234,7 +239,7 @@ public class ClientController implements Serializable {
 			notificationError(e, "account creation");
 			return "";
 		}
-		return "listClient";
+		return "listClient?faces-redirect=true";
 	}
 
 	public String forwardToVirement(Client client, BankAccount account) {
@@ -244,11 +249,14 @@ public class ClientController implements Serializable {
 		return "virement?faces-redirect=true";
 	}
 
-	public String virement(BankAccount account) {
-
+	public String doVirement(BankAccount account) {
+		
 		try {
-			serviceAccount.doVirement(bankAccount, account, value);
-			value = 0;
+			virement.setAccount(account);
+			
+			
+			serviceAccount.doVirement(bankAccount, account, virement.getValue());
+
 			notificationSuccess("virement");
 		} catch (VirementException e) {
 
@@ -300,10 +308,26 @@ public class ClientController implements Serializable {
 			return "";
 	}
 
+	public String styleCurrentAccountFull(Client client) {
+
+		if (client.getCurrentAccount() != null)
+			return "btn accountFull";
+		else
+			return "btn btn-success";
+	}
+
+	public String styleSavingAccountFull(Client client) {
+
+		if (client.getSafeAccount()!= null)
+			return "btn accountFull";
+		else
+			return "btn btn-success";
+	}
+
 	public String decouvertColor(Advisor advisor) {
 		double solds = 0;
 		double sold = 0;
-		
+
 		List<Client> clients = advisor.getClients();
 		for (Client client : clients) {
 			if (client.getCurrentAccount() != null) {
@@ -320,7 +344,7 @@ public class ClientController implements Serializable {
 		}
 		return "";
 	}
-	
+
 	public void notificationFullClient() {
 
 		LOGGER.info("Operation ajout client echec");
@@ -328,23 +352,21 @@ public class ClientController implements Serializable {
 		msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Notification", "Le conseiller a plus de 10 clients");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
-	
+
 	public String forwardToAddClient() {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		Map<String, Object> sessionMap = extCtx.getSessionMap();
 		Advisor advisor = (Advisor) sessionMap.get("advisor");
-		if (advisor.getClients().size()<11){
-			LOGGER.debug("Ajout d'un client");
+		if (advisor.getClients().size() < 10) {
+			LOGGER.debug("Ajout d'un client " + advisor.getClients().size());
 			notificationSuccess("Ajout client");
-			return "ajoutClient";
-		}
-		else{
+			return "ajoutClient?faces-redirect=true";
+		} else {
 			notificationFullClient();
 			return "";
 		}
-			
-		
+
 	}
 
 }

@@ -33,10 +33,14 @@
 		<param-name>javax.faces.PARTIAL_STATE_SAVING</param-name>
 		<param-value>false</param-value>
 	</context-param>
+	<context-param>
+	<param-name>primefaces.THEME</param-name>
+	<param-value>bootstrap</param-value>
+</context-param>
 
    <!-- Welcome Page -->
    <welcome-file-list>
-     <welcome-file>/index.xhtml</welcome-file>
+     <welcome-file>index.xhtml</welcome-file>
    </welcome-file-list>
 
    <!-- JSF Servlet is defined to container -->

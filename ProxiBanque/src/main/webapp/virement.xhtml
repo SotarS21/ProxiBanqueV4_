@@ -5,10 +5,10 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	template="/template/template.xhtml" xmlns:p="http://primefaces.org/ui">
 
-		<f:metadata>
-			<f:event type="preRenderView"
-				listener="#{virementController.loadClients()}" />
-		</f:metadata>
+	<f:metadata>
+		<f:event type="preRenderView"
+			listener="#{virementController.loadClients()}" />
+	</f:metadata>
 
 	<ui:define name="login">
 		<h:commandLink action="#{userController.logout()}"
@@ -20,50 +20,57 @@
 
 		<div id="container">
 			<div id="content">
-					<p:panelGrid>
-						<f:facet name="header">
-							<p:row>
-								<p:column colspan="5">Compte Debiteur</p:column>
-							</p:row>
-							<p:row>
-								<p:column>Prénom </p:column>
-								<p:column>Nom </p:column>
-								<p:column>Type de compte</p:column>
-								<p:column>Numéro de compte</p:column>
-								<p:column>Solde</p:column>
-							</p:row>
-						</f:facet>
+				<p:panelGrid>
+					<f:facet name="header">
 						<p:row>
-							<p:column>
-								<h:outputText value="#{clientController.clientContr.firstName}" />
-							</p:column>
-							<p:column>
-								<h:outputText value="#{clientController.clientContr.lastName}" />
-							</p:column>
-							<p:column>
-								<h:outputText value="#{clientController.bankAccount.type}" />
-							</p:column>
-							<p:column>
-								<h:outputText value="#{clientController.bankAccount.accountNumber}" />
-							</p:column>
-							<p:column>
-								<h:outputText value="#{clientController.bankAccount.sold}" />
-							</p:column>
-							
+							<p:column colspan="5">Compte Debiteur</p:column>
 						</p:row>
-					</p:panelGrid>
+						<p:row>
+							<p:column>Prénom </p:column>
+							<p:column>Nom </p:column>
+							<p:column>Type de compte</p:column>
+							<p:column>Numéro de compte</p:column>
+							<p:column>Solde</p:column>
+						</p:row>
+					</f:facet>
+					<p:row>
+						<p:column>
+							<h:outputText value="#{clientController.clientContr.firstName}" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{clientController.clientContr.lastName}" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{clientController.bankAccount.type}" />
+						</p:column>
+						<p:column>
+							<h:outputText
+								value="#{clientController.bankAccount.accountNumber}" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{clientController.bankAccount.sold}" />
+						</p:column>
+
+					</p:row>
+				</p:panelGrid>
 				<h:form id="form">
 
 					<p:growl id="msgs" showDetail="true" />
-					<p:dataTable value="#{virementController.listClient}" 
+					<p:dataTable value="#{virementController.listClient}"
 						var="tempClient" style="margin-bottom:20px" scrollable="true"
-						scrollHeight="800" scrollWidth="1600" filteredValue="#{virementController.listFilter}">
+						scrollHeight="800" scrollWidth="1600"
+						filteredValue="#{virementController.listFilter}"
+						rows="10" paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15,20">>
 						<f:facet name="header">Liste des clients</f:facet>
 
 						<p:column style="width:40px">
 							<p:rowToggler />
 						</p:column>
-						<p:column headerText="Prénom" sortBy="#{tempClient.firstName}" style="width:80px; text-align:center" filterBy="#{tempClient.firstName}" filterMatchMode="contains">
+						<p:column headerText="Prénom" sortBy="#{tempClient.firstName}"
+							style="width:80px; text-align:center"
+							filterBy="#{tempClient.firstName}" filterMatchMode="contains">
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{tempClient.firstName}" />
@@ -73,7 +80,9 @@
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
-						<p:column headerText="Nom" sortBy="#{tempClient.lastName}" style="width:80px; text-align:center" filterBy="#{tempClient.lastName}" filterMatchMode="contains">
+						<p:column headerText="Nom" sortBy="#{tempClient.lastName}"
+							style="width:80px; text-align:center"
+							filterBy="#{tempClient.lastName}" filterMatchMode="contains">
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{tempClient.lastName}" />
@@ -94,7 +103,8 @@
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
-						<p:column headerText="Téléphone" style="width:90px; text-align:center">
+						<p:column headerText="Téléphone"
+							style="width:90px; text-align:center">
 							<p:cellEditor>
 								<f:facet name="output">
 									<h:outputText value="#{tempClient.cellphone}" />
@@ -105,10 +115,12 @@
 							</p:cellEditor>
 						</p:column>
 						<p:rowExpansion>
-							<p:dataTable value="#{clientController.accountLoad(tempClient)}" var="account"
-								resizableColumns="true">
+							<p:dataTable value="#{clientController.accountLoad(tempClient)}"
+								var="account" resizableColumns="true">
 								<f:facet name="header">
-									<h:outputText value="Détail compte"></h:outputText>
+									<h:outputText value=" Détail compte "></h:outputText><br/>
+									<h:outputText value=" Montant "></h:outputText>
+									<p:inputText value="#{clientController.virement.value}" />
 								</f:facet>
 								<p:column colspan="1">
 									<f:facet name="header">
@@ -128,22 +140,28 @@
 									</f:facet>
 									<h:outputText value="#{account.sold}" />
 								</p:column>
-								<p:column colspan="1">
-									<f:facet name="header">
-										<h:outputText value="Montant"></h:outputText>
-									</f:facet>
-									<p:inputText value="#{clientController.value}" />
-								</p:column>
-								<p:column colspan="1">
-									<f:facet name="header">
-										<h:outputText value="Validation"></h:outputText>
-									</f:facet>
-									<p:commandButton
-										
-										title="Select"
-										action="#{clientController.virement(account)}">
 
+								<p:column colspan="1">
+									<f:facet name="header">
+										<h:outputText value="Virement"></h:outputText>
+									</f:facet>
+									<h:form>
+									<p:growl id="message" showDetail="true"/>
+									<p:commandButton title="Selection compte créditeur" styleClass="btn btn-success"
+										actionListener="#{clientController.doVirement(account)}" update="message">
+										<p:confirm header="Confirmation"
+											message="Voulez-vous vraiment effectuer ce virement"
+											icon="ui-icon-alert"></p:confirm>
 									</p:commandButton>
+									<p:confirmDialog global="true" showEffect="fade"
+										hideEffect="fade">
+										<p:commandButton value="Valider" type="button"
+											styleClass="btn btn-success" icon="ui-icon-check"></p:commandButton>
+										<p:commandButton value="Annuler" type="button"
+											styleClass="btn btn-success" icon="ui-icon-close"></p:commandButton>
+									</p:confirmDialog>
+									</h:form>
+
 								</p:column>
 							</p:dataTable>
 						</p:rowExpansion>
@@ -154,6 +172,6 @@
 			</div>
 		</div>
 	</ui:define>
-	
-<!-- onclick="if (!confirm('Voulez vous vraiment faire le virement?')) return false" -->
+
+	<!-- onclick="if (!confirm('Voulez vous vraiment faire le virement?')) return false" -->
 </ui:composition>

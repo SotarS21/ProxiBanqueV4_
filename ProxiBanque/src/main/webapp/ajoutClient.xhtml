@@ -8,8 +8,12 @@
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
 	template="/template/template.xhtml">
 
+	<ui:define name="login">
+		<h:commandLink action="#{userController.logout()}"
+			value="Deconnection #{userController.currentUser.login}"></h:commandLink>
 
-	<ui:define name="title">Creation d'un client</ui:define>
+	</ui:define>
+
 
 	<ui:define name="content">
 
@@ -27,58 +31,58 @@
 				<h:form >
 				<h:selectOneRadio value="#{addClientController.typeClient}"
 					onclick="visibilite(this.value)">
+					<f:selectItem itemValue="particulier" itemLabel="Particulier"  />
 					<f:selectItem itemValue="professionnel" itemLabel="Professionnel" />
-					<f:selectItem itemValue="particulier" itemLabel="Particulier" />
 				</h:selectOneRadio>
 
 				<div id="partDiv">
 
 					<h:inputText a:placeholder="Nom" value="#{addClientController.client.lastName}"
-						 id="lastname" styleClass="form-control" />
+						 id="lastname" styleClass="form-control" required="true" />
 					<h:inputText a:placeholder="Prenom " value="#{addClientController.client.firstName}"
-						id="firstname" styleClass="form-control" />
+						id="firstname" styleClass="form-control" required="true" />
 					<h:inputText a:placeholder="Email" value="#{addClientController.client.email}"
 						id="email" styleClass="form-control">
 						<f:validateRegex
 							pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
 					</h:inputText>
 					<h:inputText a:placeholder="Telephone" value="#{addClientController.client.cellphone}"
-						id="cellphone" styleClass="form-control" />
+						id="cellphone" styleClass="form-control" required="true" ><f:validateLength for="cellphoneE" minimum="10" maximum="10" /></h:inputText>
 					<h:inputText a:placeholder="Adresse" value="#{addClientController.client.address.number}"
 						id="address" styleClass="form-control" />
 					<h:inputText a:placeholder="Ville" value="#{addClientController.client.address.town}" id="town"
 						styleClass="form-control" />
-					<h:inputText a:placeholder="Code postal" value="#{addClientController.client.address.zipCode}"
-						styleClass="form-control" />
+					<h:inputText id="zipcode" a:placeholder="Code postal" value="#{addClientController.client.address.zipCode}"
+						styleClass="form-control" ><f:validateLength for="zipcode" minimum="5" maximum="5" /> </h:inputText>
 					<h:commandButton styleClass="btn btn-lg btn-primary btn-block"
 					type="submit" value="valider" action="#{addClientController.addClient}"></h:commandButton>
 				<h:commandButton styleClass="btn btn-lg btn-primary btn-block"
-					value="Annuler"></h:commandButton>
+					value="Annuler"  action="#{addClientController.annule}"></h:commandButton>
 				</div>
 				<div id="proDiv">
-<!-- 					<h:inputText a:placeholder="Nom entreprise" -->
-<!-- 						value="#{addClientController.clientPro.lastName}" id="lastnameE" -->
-<!-- 						styleClass="form-control" /> -->
-<!-- 					<h:inputText a:placeholder="Email " value="#{addClientController.clientPro.email}" -->
-<!-- 						id="emailE" styleClass="form-control"> -->
-<!-- 						<f:validateRegex -->
-<!-- 							pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" /> -->
-<!-- 					</h:inputText> -->
-<!-- 					<h:inputText a:placeholder="Telephone" value="#{addClientController.clientPro.cellphone}" -->
-<!-- 						id="cellphoneE" styleClass="form-control" /> -->
-<!-- 					<h:inputText a:placeholder="Adresse" value="#{addClientController.clientPro.address.number}" -->
-<!-- 						id="addressE" styleClass="form-control" /> -->
-<!-- 					<h:inputText a:placeholder="Ville" value="#{addClientController.clientPro.address.town}" -->
-<!-- 						id="townE" styleClass="form-control" /> -->
-<!-- 					<h:inputText a:placeholder="Code postal" value="#{addClientController.clientPro.address.zipCode}" -->
-<!-- 						styleClass="form-control" /> -->
+					<h:inputText a:placeholder="Nom entreprise"
+						value="#{addClientController.clientPro.lastName}" id="lastnameE"
+						styleClass="form-control" required="true" />
+					<h:inputText a:placeholder="Email " value="#{addClientController.clientPro.email}"
+						id="emailE" styleClass="form-control">
+						<f:validateRegex
+							pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+					</h:inputText>
+					<h:inputText a:placeholder="Telephone" value="#{addClientController.clientPro.cellphone}"
+						id="cellphoneE" styleClass="form-control" required="true" ><f:validateLength for="cellphoneE" minimum="10" maximum="10" /></h:inputText>
+					<h:inputText a:placeholder="Adresse" value="#{addClientController.clientPro.address.number}"
+						id="addressE" styleClass="form-control" />
+					<h:inputText a:placeholder="Ville" value="#{addClientController.clientPro.address.town}"
+						id="townE" styleClass="form-control" />
+					<h:inputText id="zipcodeE" a:placeholder="Code postal" value="#{addClientController.clientPro.address.zipCode}"
+						styleClass="form-control" ><f:validateLength for="zipcodeE" minimum="5" maximum="5" /></h:inputText>
 						
-<!-- 						<h:commandButton styleClass="btn btn-lg btn-primary btn-block" -->
-<!-- 					type="submit" value="valider" action="#{addClientController.addClient(client)}></h:commandButton> -->
-<!-- 				<h:commandButton styleClass="btn btn-lg btn-primary btn-block" -->
-<!-- 					value="Annuler"></h:commandButton> -->
+						<h:commandButton styleClass="btn btn-lg btn-primary btn-block"
+					type="submit" value="valider" action="#{addClientController.addClient}"></h:commandButton>
+ 					<h:commandButton styleClass="btn btn-lg btn-primary btn-block" 
+					value="Annuler" action="#{addClientController.annule}"></h:commandButton>
 				</div>
-				
+				<h:messages></h:messages>
 				
 			</h:form>
 			</form>
@@ -89,7 +93,7 @@
 		<script>
 			window.onload = function() {
 				document.getElementById('proDiv').style.display = "none";
-				document.getElementById('partDiv').style.display = "none";
+				//document.getElementById('partDiv').style.display = "none";
 			}
 
 			function visibilite(type) {

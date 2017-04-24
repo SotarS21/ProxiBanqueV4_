@@ -105,19 +105,20 @@ public class UserController implements Serializable {
 			   ExternalContext extCtx = ctx.getExternalContext();
 			   Map<String, Object> sessionMap = extCtx.getSessionMap();
 			   sessionMap.put("advisor", currentUser.getAdvisor());
+			   
 			if (currentUser.getAdvisor() != null && currentUser.getDirector() == null) {
-
+				sessionMap.put("advisor", currentUser.getAdvisor());
 				LOGGER.info("user logged as Advisor");
 				notificationSuccess("successfully logged as Advisor");
 				return "listClient?sendredirect=true";
-			} else if (currentUser.getDirector() != null && currentUser.getAdvisor() == null) {
-				
+			} else  {
+				sessionMap.put("director", currentUser.getDirector());
 				LOGGER.info("user logged as Director");
 				notificationSuccess("successfully logged as Director");
-				return "listAdvisor?sendredirect=true";
+				return "listAdvisor?faces-redirect=true";
 			}
 		}
-		return "";
+		
 	}
 
 	public String logout() {

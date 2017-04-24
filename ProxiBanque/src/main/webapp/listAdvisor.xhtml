@@ -25,7 +25,7 @@
 						editable="true" var="tempAdvisor" style="margin-bottom:20px"
 						scrollable="true" scrollHeight="800" scrollWidth="1600"
 						rowStyleClass="#{clientController.decouvertColor(tempAdvisor)}">
-						<f:facet name="header">Liste des conseiller</f:facet>
+						<f:facet name="header">Liste des conseillers</f:facet>
 						<p:ajax event="rowEdit"
 							listener="#{advisorController.updateAdvisor(tempAdvisor)}"
 							update=":form:msgs" />
@@ -86,11 +86,13 @@
 								resizableColumns="true"
 								rowStyleClass="#{clientController.decouvertColor(tempClient)}">
 								<f:facet name="header">
-									<h:outputText value="Client du conseiller"></h:outputText>
+									<h:outputText value="Clients du conseiller"/> <br/>
+									<h:outputText value="#{tempAdvisor.lastName} "/>
+									<h:outputText value=" #{tempAdvisor.firstName}"/> 
 								</f:facet>
 								<p:column colspan="2">
 									<f:facet name="header">
-										<h:outputText value="Prenom client"></h:outputText>
+										<h:outputText value="Prénom client"></h:outputText>
 									</f:facet>
 									<h:outputText value="#{tempClient.firstName}" />
 								</p:column>

@@ -15,20 +15,25 @@
 				<a class="navbar-brand" href="listClient.xhtml">PROXIBANQUE</a>
 			</div>
 			<div class="navbar-collapse collapse">
-				<ul class="nav navbar-nav ">
-					<li><a href="listClient.xhtml">Liste des clients</a></li>
-					<li><a href="listAdvisor.xhtml">Liste des conseillers</a></li>
-					<li><a href="ajoutClient.xhtml">Ajout d'un client</a></li>
-					<li><a href="audit.xhtml">Audit</a></li>
-					<li><a href="#">Settings</a></li>
+				<h:form>
+					<ul class="nav navbar-nav ">
+						<li><h:commandLink action="#{roleController.listClient}">Liste des clients</h:commandLink>
+						</li>
+						<li><h:commandLink action="#{roleController.listAdvisor}">Liste des
+								conseillers</h:commandLink></li>
+						<li><h:commandLink action="#{roleController.ajoutClient}">Ajout d'un
+								client</h:commandLink></li>
+						<li><a href="audit.xhtml">Audit</a></li>
+						<li><a href="#">Settings</a></li>
 
-				</ul>
+					</ul>
+				</h:form>
 				<h:form class="navbar-form navbar-right">
-				
-					<ui:insert name="login" >
-					
+
+					<ui:insert name="login">
+
 						<h:outputText>Bienvenue #{userController.currentUser.login} !</h:outputText>
-					
+
 					</ui:insert>
 				</h:form>
 			</div>
