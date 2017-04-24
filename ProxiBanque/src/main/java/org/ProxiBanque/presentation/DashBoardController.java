@@ -32,6 +32,7 @@ public class DashBoardController implements Serializable {
 	
 	private List<String> listModel = new ArrayList<>();
 	private PieChartModel pieModelAdvisor, pieModelDirector;
+	private long id;
 
 	
 	
@@ -60,7 +61,7 @@ public class DashBoardController implements Serializable {
     public void init() {
 		   
 		listModel = serviceDashboard.getAllTransactions();
-		long id = ((Advisor) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("advisor")).getId();
+		id = ((Advisor) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("advisor")).getId();
 		
         pieModelAdvisor = new PieChartModel();
         pieModelAdvisor.setData(serviceDashboard.getPieMapAdvisor(id));
@@ -76,6 +77,8 @@ public class DashBoardController implements Serializable {
     }
 
 	public PieChartModel getPieModelAdvisor() {
+		
+		pieModelAdvisor.setData(serviceDashboard.getPieMapAdvisor(id));
 		return pieModelAdvisor;
 	}
 
@@ -84,6 +87,8 @@ public class DashBoardController implements Serializable {
 	}
 
 	public PieChartModel getPieModelDirector() {
+		
+		pieModelDirector.setData(serviceDashboard.getPieMapDirector());
 		return pieModelDirector;
 	}
 
