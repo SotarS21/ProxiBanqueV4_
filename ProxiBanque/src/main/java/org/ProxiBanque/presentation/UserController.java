@@ -107,11 +107,15 @@ public class UserController implements Serializable {
 			   sessionMap.put("advisor", currentUser.getAdvisor());
 			   
 			if (currentUser.getAdvisor() != null && currentUser.getDirector() == null) {
+				if (sessionMap.get("director") != null)
+					sessionMap.remove("director");
 				sessionMap.put("advisor", currentUser.getAdvisor());
 				LOGGER.info("user logged as Advisor");
 				notificationSuccess("successfully logged as Advisor");
 				return "listClient?sendredirect=true";
 			} else  {
+				if (sessionMap.get("advisor") != null)
+					sessionMap.remove("advisor");
 				sessionMap.put("director", currentUser.getDirector());
 				LOGGER.info("user logged as Director");
 				notificationSuccess("successfully logged as Director");

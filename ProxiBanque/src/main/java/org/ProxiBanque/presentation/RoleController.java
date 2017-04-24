@@ -1,8 +1,11 @@
 package org.ProxiBanque.presentation;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 import org.ProxiBanque.model.Advisor;
 import org.ProxiBanque.model.Director;
@@ -28,14 +31,16 @@ public class RoleController implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private static Logger LOGGER = LoggerFactory.getLogger(RoleController.class);
-
+	FacesContext ctx = FacesContext.getCurrentInstance();
+	ExternalContext extCtx = ctx.getExternalContext();
+	Map<String, Object> sessionMap = extCtx.getSessionMap();
 	@Autowired
 	private UserController userController;
-	
 
 	public String listAdvisor() {
-		Advisor advisor = userController.getCurrentUser().getAdvisor();
-		Director director = userController.getCurrentUser().getDirector();
+
+//		Advisor advisor = (Advisor) sessionMap.get("advisor");
+		Director director = (Director) sessionMap.get("director");
 		LOGGER.debug("listAdvisor");
 		if (director != null)
 			return "listAdvisor?faces-redirect=true";
@@ -44,8 +49,10 @@ public class RoleController implements Serializable {
 	}
 
 	public String listClient() {
-		Advisor advisor = userController.getCurrentUser().getAdvisor();
-		Director director = userController.getCurrentUser().getDirector();
+
+		
+		Advisor advisor = (Advisor) sessionMap.get("advisor");
+//		Director director = (Director) sessionMap.get("director");
 		LOGGER.debug("listClient");
 		if (advisor != null)
 			return "listClient?faces-redirect=true";
@@ -54,14 +61,14 @@ public class RoleController implements Serializable {
 	}
 
 	public String ajoutClient() {
-		Advisor advisor = userController.getCurrentUser().getAdvisor();
-		Director director = userController.getCurrentUser().getDirector();
+
+		Advisor advisor = (Advisor) sessionMap.get("advisor");
+//		Director director = (Director) sessionMap.get("director");
 		LOGGER.debug("ajoutClient");
 		if (advisor != null)
 			return "ajoutClient?faces-redirect=true";
 		else
 			return null;
 	}
-
 
 }
