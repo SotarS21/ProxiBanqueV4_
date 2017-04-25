@@ -14,50 +14,24 @@
 				<h2>Veuillez vous enregistrer</h2>
 			</div>
 		</div>
-		
-<!-- 		<p:commandButton value="show Dialog" onclick="PF('confirmDeleteDlg').show()"/> -->
-<!-- 	<p:dialog header="Remove" widgetVar="confirmDeleteDlg" -->
-<!-- 					resizable="false" width="400" height="60" showEffect="clip" -->
-<!-- 					hideEffect="clip" modal="true"> -->
 
-<!-- 					<p:outputPanel layout="block" style="text-align:center"> -->
-<!-- 						<p:commandButton value="Yes" -->
-<!-- 							update=":form1:messages,:form1:objects" -->
-<!-- 							actionListener="#{itemMB.delete}" -->
-<!-- 							oncomplete="PF('confirmDeleteDlg').hide()" /> -->
-<!-- 						<p:commandButton value="No" onclick="PF('confirmDeleteDlg').hide()" -->
-<!-- 							type="button" /> -->
-<!-- 					</p:outputPanel> -->
-
-<!-- 				</p:dialog> -->
 		
 	</ui:define>
 
 	<ui:define name="login">
-	
-<!-- 	<f:metadata> -->
-<!-- 			<f:event type="preRenderView" -->
-<!-- 				listener="#{userController.init()}" /> -->
-<!-- 		</f:metadata> -->
-
-
 			<div class="form-group">
 				<h:inputText styleClass="form-control" a:placeholder="login"
 					value="#{userController.currentUser.login}"></h:inputText>
-
 			</div>
 			<div class="form-group">
 				<h:inputSecret styleClass="form-control" a:placeholder="password"
 					id="pass" value="#{userController.currentUser.password}"></h:inputSecret>
 			</div>
-
 			<div class="form-group">
 				<h:commandLink action="#{userController.login()}"
 					styleClass="btn btn-success" >
 					<i class="icon-search"></i>Valider</h:commandLink>
 			</div>
-
-
 	</ui:define>
 	
 

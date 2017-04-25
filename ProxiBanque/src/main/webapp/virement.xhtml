@@ -11,8 +11,13 @@
 	</f:metadata>
 
 	<ui:define name="login">
-		<h:commandLink action="#{userController.logout()}"
-			value="Deconnection #{userController.currentUser.login}"></h:commandLink>
+	<div class="navbar-collapse collapse">
+		<ul class="nav navbar-nav ">
+			<li><h:commandLink action="#{userController.logout()}"
+					value="Déconnection utilisateur : #{userController.currentUser.login}"></h:commandLink>
+			</li>
+		</ul>
+		</div>
 
 	</ui:define>
 
@@ -134,7 +139,7 @@
 									<f:facet name="header">
 										<h:outputText value="Type"></h:outputText>
 									</f:facet>
-									<h:outputText value="#{account.type}" />
+									<h:outputText value="#{account.type.type}" />
 								</p:column>
 								<p:column colspan="1">
 									<f:facet name="header">
@@ -156,7 +161,7 @@
 
 										<p:commandButton title="Selection compte créditeur"
 											styleClass="btn btn-success"
-											action="#{clientController.doVirement(account)}" onclick="return confirm('Etes vous sur de vouloir faire le virement?');" >
+											action="#{clientController.doVirement(account)}" onclick="return confirm('Etes vous sûr de vouloir faire le virement?');" >
 										</p:commandButton>
 
 								</p:column>

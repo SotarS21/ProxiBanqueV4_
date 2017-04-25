@@ -61,19 +61,22 @@ public class DashBoardController implements Serializable {
     public void init() {
 		   
 		listModel = serviceDashboard.getAllTransactions();
-		id = ((Advisor) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("advisor")).getId();
 		
+		if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("advisor")!=null){
+		id = ((Advisor) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("advisor")).getId();
+		System.out.println("------------------------------------------------ "+ id);
         pieModelAdvisor = new PieChartModel();
         pieModelAdvisor.setData(serviceDashboard.getPieMapAdvisor(id));
         pieModelAdvisor.setTitle("Statistiques Conseiller n°" + id);
         pieModelAdvisor.setShowDataLabels(true);
         pieModelAdvisor.setLegendPosition("w");
-        
+		}else{
         pieModelDirector = new PieChartModel();
         pieModelDirector.setData(serviceDashboard.getPieMapDirector());
         pieModelDirector.setTitle("Statistiques Directeur");
         pieModelDirector.setShowDataLabels(true);
         pieModelDirector.setLegendPosition("w");
+		}
     }
 
 	public PieChartModel getPieModelAdvisor() {

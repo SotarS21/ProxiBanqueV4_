@@ -35,7 +35,7 @@ import org.springframework.stereotype.Controller;
 public class UserController implements Serializable {
 
 	/**
-	 * @author Andy
+	 * @author Kevin, Jonas, Matthieu, Andy 
 	 */
 	private static final long serialVersionUID = -9176116508320531060L;
 	private static Logger LOGGER = LoggerFactory.getLogger(UserController.class);
@@ -50,44 +50,44 @@ public class UserController implements Serializable {
 
 	@PostConstruct
 	private void init() {
-
+		
 		currentUser = new User();
 
 		// TODO : supprimer apr�s les tests
-		User user = new User("login", "mdp");
-		User user2 = new User("login2", "mdp2");
-		Agence agence = new Agence();
-		Director director = new Director("lol", "lol", new Address());
-		director.setUser(user2);
-		agence.setDirector(director);
-		CurrentAccount current = new CurrentAccount(2000, 2000);
-		SavingAccount saving = new SavingAccount(0.3, 5000);
-		CurrentAccount current2 = new CurrentAccount(1000, -1000);
-		SavingAccount saving2 = new SavingAccount(0.4, 1000000);
-		Client client = new Client("Bobinoux", "Bobinou", new Address("12 rue des Lila", "94800", "Villejuif"));
-		Client client2 = new Client("Bobinette", "Bobina", new Address("12 rue des Lila", "94800", "Villejuif"));
-		client.setCellphone("0101010101");
-		client.setEmail("a@a.a");
-		client.setType(e_ClientType.CASUAL_CLIENT);
-		client2.setCellphone("0101010101");
-		client2.setEmail("a@a.a");
-		client2.setType(e_ClientType.CASUAL_CLIENT);
-		client.setCurrentAccount(current);
-		client.setSafeAccount(saving);
-		//client2.setCurrentAccount(current2);
-		client2.setSafeAccount(saving2);
-		Advisor advisor = new Advisor("Bob", "Bob", new Address());
-		advisor.setCellphone("0101010101");
-		advisor.setEmail("a@a.a");
-		advisor.setUser(user);
-		Advisor advisor2 = new Advisor("Bib", "Bib", new Address());
-		advisor2.setUser(user2);
-		agence.addAdvisor(advisor2);
-		agence.addAdvisor(advisor);
-		advisor.addClient(client);
-		advisor2.addClient(client2);
-		serviceAdvisor.save(advisor);
-		serviceAdvisor.save(advisor2);
+//		User user = new User("login", "mdp");
+//		User user2 = new User("login2", "mdp2");
+//		Agence agence = new Agence();
+//		Director director = new Director("lol", "lol", new Address());
+//		director.setUser(user2);
+//		agence.setDirector(director);
+//		CurrentAccount current = new CurrentAccount(2000, 2000);
+//		SavingAccount saving = new SavingAccount(0.3, 5000);
+//		CurrentAccount current2 = new CurrentAccount(1000, -1000);
+//		SavingAccount saving2 = new SavingAccount(0.4, 1000000);
+//		Client client = new Client("Bobinoux", "Bobinou", new Address("12 rue des Lila", "94800", "Villejuif"));
+//		Client client2 = new Client("Bobinette", "Bobina", new Address("12 rue des Lila", "94800", "Villejuif"));
+//		client.setCellphone("0101010101");
+//		client.setEmail("a@a.a");
+//		client.setType(e_ClientType.CASUAL_CLIENT);
+//		client2.setCellphone("0101010101");
+//		client2.setEmail("a@a.a");
+//		client2.setType(e_ClientType.CASUAL_CLIENT);
+//		client.setCurrentAccount(current);
+//		client.setSafeAccount(saving);
+//		//client2.setCurrentAccount(current2);
+//		client2.setSafeAccount(saving2);
+//		Advisor advisor = new Advisor("Bob", "Bob", new Address());
+//		advisor.setCellphone("0101010101");
+//		advisor.setEmail("a@a.a");
+//		advisor.setUser(user);
+//		Advisor advisor2 = new Advisor("Bib", "Bib", new Address());
+//		advisor2.setUser(user2);
+//		agence.addAdvisor(advisor2);
+//		agence.addAdvisor(advisor);
+//		advisor.addClient(client);
+//		advisor2.addClient(client2);
+//		serviceAdvisor.save(advisor);
+//		serviceAdvisor.save(advisor2);
 	}
 
 	/**
@@ -119,6 +119,7 @@ public class UserController implements Serializable {
 				if (sessionMap.get("director") != null)
 					sessionMap.remove("director");
 				sessionMap.put("advisor", currentUser.getAdvisor());
+				sessionMap.put("director", null);
 				LOGGER.info("user logged as Advisor");
 				notificationSuccess("successfully logged as Advisor");
 				return "accueilAdvisor?sendredirect=true";
@@ -126,6 +127,7 @@ public class UserController implements Serializable {
 				if (sessionMap.get("advisor") != null)
 					sessionMap.remove("advisor");
 				sessionMap.put("director", currentUser.getDirector());
+				sessionMap.put("advisor", null); // utile pour le controller du dashboard
 				LOGGER.info("user logged as Director");
 				notificationSuccess("successfully logged as Director");
 				return "accueilDirector?faces-redirect=true";
@@ -139,7 +141,10 @@ public class UserController implements Serializable {
 	 * @return
 	 */
 	public String logout() {
-
+		FacesContext ctx = FacesContext.getCurrentInstance();
+		   ExternalContext extCtx = ctx.getExternalContext();
+		   Map<String, Object> sessionMap = extCtx.getSessionMap();
+		   sessionMap.clear();
 		currentUser = new User();
 		LOGGER.info("user logout");
 		notificationSuccess("successfully logged out");

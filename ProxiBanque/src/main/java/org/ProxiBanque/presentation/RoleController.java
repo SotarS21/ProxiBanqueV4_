@@ -40,8 +40,7 @@ public class RoleController implements Serializable {
 	public String listAdvisor() {
 
 //		Advisor advisor = (Advisor) sessionMap.get("advisor");
-		Director director = (Director) sessionMap.get("director");
-		LOGGER.debug("listAdvisor");
+		Director director = userController.getCurrentUser().getDirector();
 		if (director != null)
 			return "listAdvisor?faces-redirect=true";
 		else
@@ -53,9 +52,19 @@ public class RoleController implements Serializable {
 		
 		Advisor advisor = userController.getCurrentUser().getAdvisor();
 //		Director director = (Director) sessionMap.get("director");
-		LOGGER.debug("listClient" + advisor.getFirstName());
 		if (advisor != null)
 			return "listClient?faces-redirect=true";
+		else
+			return null;
+	}
+	public String accueil() {
+
+		Advisor advisor = userController.getCurrentUser().getAdvisor();
+		Director director = userController.getCurrentUser().getDirector();
+		if (advisor != null)
+			return "accueilAdvisor?faces-redirect=true";
+		else if(director != null)
+			return "accueilDirector?faces-redirect=true";
 		else
 			return null;
 	}
