@@ -17,7 +17,10 @@
 		</ul>
 		</div>
 	</ui:define>
-
+		<f:metadata>
+			<f:event type="preRenderView"
+				listener="#{addClientController.init}" />
+		</f:metadata>
 
 	<ui:define name="content">
 
@@ -62,12 +65,15 @@
 						styleClass="form-control" ><f:validateLength for="zipcode" minimum="5" maximum="5" /> </h:inputText>
 					<h:commandButton styleClass="btn btn-lg btn-primary btn-block"
 					type="submit" value="valider" action="#{addClientController.addClient}"></h:commandButton>
-				<h:commandButton styleClass="btn btn-lg btn-primary btn-block"
-					value="Annuler"  action="#{addClientController.annule}"></h:commandButton>
+			
 				</div>
 				<h:messages></h:messages>
 				
 			</h:form>
+			<h:form>
+				<h:commandButton styleClass="btn btn-lg btn-primary btn-block"
+					value="Annuler"  action="#{addClientController.annule}"></h:commandButton>
+					</h:form>
 			</form>
 
 		</div>
