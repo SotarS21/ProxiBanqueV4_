@@ -9,9 +9,13 @@
 	template="/template/template.xhtml">
 
 	<ui:define name="login">
-		<h:commandLink action="#{userController.logout()}"
-			value="Deconnection #{userController.currentUser.login}"></h:commandLink>
-
+			<div class="navbar-collapse collapse">
+		<ul class="nav navbar-nav ">
+			<li><h:commandLink action="#{userController.logout()}"
+					value="Déconnection utilisateur : #{userController.currentUser.login}"></h:commandLink>
+			</li>
+		</ul>
+		</div>
 	</ui:define>
 
 

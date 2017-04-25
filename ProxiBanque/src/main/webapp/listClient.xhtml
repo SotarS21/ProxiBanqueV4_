@@ -37,16 +37,17 @@
 
 			<div id="content">
 				<h:form id="form">
-					<p:growl id="msgs" showDetail="true" />
+					<p:growl id="msgs" showDetail="true" sticky="false"/>
 					<p:dataTable value="#{clientController.listClient}" editable="true"
 						var="tempClient" style="margin-bottom:20px"
 						filteredValue="#{clientController.listFilter}" scrollable="true"
 						scrollHeight="800" scrollWidth="1600"
 						rowStyleClass="#{clientController.decouvertColor(tempClient)}">
 						<f:facet name="header">Liste des clients  <br />
+							<h:outputText value="#{clientController.advisorNumber(userController.currentUser.advisor)}"></h:outputText><br/>
 							<p:commandButton title="Ajout client"
 								action="#{clientController.forwardToAddClient()}"
-								styleClass="btn btn-success" />
+								styleClass="#{clientController.styleAdvisorFull(userController.currentUser.advisor)}" />
 						</f:facet>
 						<p:ajax event="rowEdit"
 							listener="#{clientController.updateClient(tempClient)}"

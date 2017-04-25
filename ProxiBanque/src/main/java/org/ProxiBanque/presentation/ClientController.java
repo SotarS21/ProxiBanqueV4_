@@ -315,6 +315,14 @@ public class ClientController implements Serializable {
 		else
 			return "btn btn-success";
 	}
+	
+	public String styleAdvisorFull(Advisor advisor) {
+
+		if (advisor.getClients().size() < 10)
+			return "btn btn-success";
+		else
+			return "btn accountFull";
+	}
 
 	public String styleSavingAccountFull(Client client) {
 
@@ -324,6 +332,16 @@ public class ClientController implements Serializable {
 			return "btn btn-success";
 	}
 
+	public String advisorNumber(Advisor advisor){
+		if(advisor.getClients().size()<10){
+			int size = advisor.getClients().size();
+			return "Nombre de client : "+Integer.toString(size);
+		}else
+			return "Le conseiller a déjà 10 client";
+			 
+		
+	}
+	
 	public String decouvertColor(Advisor advisor) {
 		double solds = 0;
 		double sold = 0;
@@ -345,11 +363,11 @@ public class ClientController implements Serializable {
 		return "";
 	}
 
-	public void notificationFullClient() {
 
+	
+	public void notificationFullClient() {
 		LOGGER.info("Operation ajout client echec");
-		FacesMessage msg = null;
-		msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Notification", "Le conseiller a plus de 10 clients");
+		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Notification", "Le conseiller a plus de 10 clients");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
