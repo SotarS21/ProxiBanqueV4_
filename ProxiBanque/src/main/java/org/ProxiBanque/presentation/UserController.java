@@ -35,7 +35,7 @@ import org.springframework.stereotype.Controller;
 public class UserController implements Serializable {
 
 	/**
-	 * @author Andy
+	 * @author Kevin, Jonas, Matthieu, Andy 
 	 */
 	private static final long serialVersionUID = -9176116508320531060L;
 	private static Logger LOGGER = LoggerFactory.getLogger(UserController.class);
@@ -126,6 +126,7 @@ public class UserController implements Serializable {
 				if (sessionMap.get("advisor") != null)
 					sessionMap.remove("advisor");
 				sessionMap.put("director", currentUser.getDirector());
+				sessionMap.put("advisor", new Advisor()); // utile pour le controller du dashboard
 				LOGGER.info("user logged as Director");
 				notificationSuccess("successfully logged as Director");
 				return "accueilDirector?faces-redirect=true";
