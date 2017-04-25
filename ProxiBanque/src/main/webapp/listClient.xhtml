@@ -44,7 +44,7 @@
 						scrollHeight="800" scrollWidth="1600"
 						rowStyleClass="#{clientController.decouvertColor(tempClient)}">
 						<f:facet name="header">Liste des clients  <br />
-							<h:outputText value="#{clientController.advisorNumber(userController.currentUser.advisor)}"></h:outputText><br/>
+							<h:outputText value="#{clientController.advisorNumber()}"></h:outputText><br/>
 							<p:commandButton title="Ajout client"
 								action="#{clientController.forwardToAddClient()}"
 								styleClass="#{clientController.styleAdvisorFull(userController.currentUser.advisor)}" />
@@ -152,20 +152,20 @@
 							<p:commandButton title="Ajout"
 								styleClass="#{clientController.styleCurrentAccountFull(tempClient)}"
 								actionListener="#{clientController.addCurrentAccount(tempClient)}"
-								ajax="false" onclick="return confirm('Etes vous sur de vouloir ajouter un compte courant?');"/>
+								ajax="false" onclick="return confirm('Etes vous sûr de vouloir ajouter un compte courant?');"/>
 						</p:column>
 						<p:column headerText="Compte épargne"
 							style="width:90px; text-align:center" priority="9">
 							<p:commandButton title="Ajout"
 								styleClass="#{clientController.styleSavingAccountFull(tempClient)}"
 								actionListener="#{clientController.addSavingAccount(tempClient)}"
-								ajax="false" onclick="return confirm('Etes vous sur de vouloir ajouter un compte épargne?');"/>
+								ajax="false" onclick="return confirm('Etes vous sûr de vouloir ajouter un compte épargne?');"/>
 						</p:column>
 						<p:column headerText="Supprimer" style="width:90px" priority="10">
 							<p:commandButton icon="ui-icon-trash"
 								styleClass="btn btn-success" title="Delete this client"
 								actionListener="#{clientController.deleteClient(tempClient.id)}"
-								ajax="false" onclick="return confirm('Etes vous sur de vouloir supprimer le client?');"/>
+								ajax="false" onclick="return confirm('Etes vous sûr de vouloir supprimer le client?');"/>
 						</p:column>
 						<p:column headerText="Modifier" style="width:80px" priority="11">
 							<p:rowEditor />

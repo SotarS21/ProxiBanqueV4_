@@ -63,8 +63,6 @@ public class ClientController implements Serializable {
 		this.clientContr = clientContr;
 	}
 
-
-
 	public Virement getVirement() {
 		return virement;
 	}
@@ -98,7 +96,7 @@ public class ClientController implements Serializable {
 
 		serviceClient.init();
 		// serviceAccount.init();
-		virement = new Virement(0, this.bankAccount );
+		virement = new Virement(0, this.bankAccount);
 	}
 
 	public void loadClients() {
@@ -109,7 +107,7 @@ public class ClientController implements Serializable {
 			ExternalContext extCtx = ctx.getExternalContext();
 			Map<String, Object> sessionMap = extCtx.getSessionMap();
 			Advisor advisor = (Advisor) sessionMap.get("advisor");
-			listClient = serviceClient.findByConseiller_Id(advisor.getId());// findByConseiller_Id(3L);
+			listClient = serviceClient.findByConseiller_Id(advisor.getId());
 			listFilter = serviceClient.findByConseiller_Id(advisor.getId());
 			LOGGER.info("Loading success");
 		} catch (Exception e) {
@@ -250,12 +248,12 @@ public class ClientController implements Serializable {
 	}
 
 	public String doVirement(BankAccount account) {
-		
+
 		try {
 			virement.setAccount(account);
-			
-			
-			serviceAccount.doVirement(bankAccount, account, virement.getValue());
+
+			if (virement.getValue() > 0)
+				serviceAccount.doVirement(bankAccount, account, virement.getValue());
 
 			notificationSuccess("virement");
 		} catch (VirementException e) {
@@ -315,7 +313,7 @@ public class ClientController implements Serializable {
 		else
 			return "btn btn-success";
 	}
-	
+
 	public String styleAdvisorFull(Advisor advisor) {
 
 		if (advisor.getClients().size() < 10)
@@ -326,48 +324,57 @@ public class ClientController implements Serializable {
 
 	public String styleSavingAccountFull(Client client) {
 
-		if (client.getSafeAccount()!= null)
+		if (client.getSafeAccount() != null)
 			return "btn accountFull";
 		else
 			return "btn btn-success";
 	}
 
-	public String advisorNumber(Advisor advisor){
-		if(advisor.getClients().size()<10){
+	public String advisorNumber() {
+		FacesContext ctx = FacesContext.getCurrentInstance();
+		ExternalContext extCtx = ctx.getExternalContext();
+		Map<String, Object> sessionMap = extCtx.getSessionMap();
+		Advisor advisor = (Advisor) sessionMap.get("advisor");
+		if (advisor.getClients().size() <= 10) {
 			int size = advisor.getClients().size();
-			return "Nombre de client : "+Integer.toString(size);
-		}else
+			LOGGER.debug("-------------------------"+ size);
+			return "Nombre de client : " + Integer.toString(size);
+		} else
 			return "Le conseiller a déjà 10 client";
-			 
-		
+
 	}
-	
+
 	public String decouvertColor(Advisor advisor) {
 		double solds = 0;
 		double sold = 0;
-
+		int flag = 0;
 		List<Client> clients = advisor.getClients();
 		for (Client client : clients) {
 			if (client.getCurrentAccount() != null) {
 				solds = client.getCurrentAccount().getSold();
 				sold = client.getCurrentAccount().getSold();
+				if (sold < 0)
+					flag = 1;
 			}
 
 			if (client.getSafeAccount() != null)
 				solds = solds + client.getSafeAccount().getSold();
-			if (sold < 0)
-				return "decouvert";
-			else if (solds > 500000)
-				return "isRich";
+			if (solds > 500000)
+				flag = 2;
+
 		}
-		return "";
+		if (flag == 1)
+			return "decouvert";
+		else if (flag == 2)
+			return "isRich";
+		else
+			return "";
 	}
 
-
-	
 	public void notificationFullClient() {
 		LOGGER.info("Operation ajout client echec");
-		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Notification", "Le conseiller a plus de 10 clients");
+		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Notification",
+				"Le conseiller a plus de 10 clients");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
